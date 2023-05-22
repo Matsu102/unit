@@ -32,6 +32,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      # 追加カラム ここから
+
       t.string  :last_name,        null: false, index: true
       t.string  :first_name,       null: false, index: true
       t.string  :handle_name,      null: false, index: true
@@ -39,8 +41,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string  :url                                           # アーティストのみ
       t.text    :introduction
       t.string  :user_type,        null: false
-      t.boolean :is_locked,        null: false, default: false # 公開ステータス　false:公開　true:非公開
-      t.boolean :is_deleted,       null: false, default: false # 退会ステータス　false:有効　true:退会
+      t.boolean :is_locked,        null: false, default: false # 公開ステータス false:公開 true:非公開
+      t.boolean :is_deleted,       null: false, default: false # 退会ステータス false:有効 true:退会
+
+      # 追加カラム ここまで
 
       t.timestamps null: false
     end
