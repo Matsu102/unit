@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2023_05_21_233626) do
     t.integer "member_id", null: false
     t.string "email", null: false
     t.text "inquiry_detail", null: false
+    t.boolean "is_response", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
