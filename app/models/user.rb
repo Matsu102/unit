@@ -20,6 +20,9 @@ class User < ApplicationRecord
   has_many :followings, through: :followers, source: :followed # ユーザのフォローリストで表示   中間テーブル経由でcurrent_userがフォローしたユーザ情報を参照
   has_many :followers, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 中間テーブル経由でcurrent_userをフォローしたユーザの情報を参照
 
+  # Notice アソシエーション
+  has_many :notices, dependent: :destroy
+
 end
 
 # 退会後の処理
