@@ -5,6 +5,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # サムネイル
+  has_one_attached :thumbnail
+
   # Post アソシエーション
   has_many :posts, dependent: :destroy # ユーザが退会した時に関連する投稿を全て削除する
 

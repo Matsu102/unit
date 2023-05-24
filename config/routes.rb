@@ -19,7 +19,7 @@ devise_for :users,skip: [:passwords], controllers: {
   sessions: "public/sessions"
 }
 
-  namespace :public do
+  scope module: :public do
 
     root to: "homes#top"
     get      "/about"                   => "homes#about",  as: "about"
@@ -29,11 +29,11 @@ devise_for :users,skip: [:passwords], controllers: {
       resources :likes,           only: [:cteate, :destroy]
       resources :engagements,     only: [:show, :create, :destroy]
     end
-    get       "arts/my_album"       => "arts#my_album"
+    get       "/my_album"       => "arts#my_album"
 
     resources :users,           only: [:update]
-    get       "/users/my_page"      => "users#show"
-    get       "/users/my_page/edit" => "users#edit"
+    get       "/my_page"      => "users#show"
+    get       "/my_page/edit" => "users#edit"
     get       "users/confirm"       => "users#confirm"
     patch     "users/withdraw"      => "users#withdraw"
 
