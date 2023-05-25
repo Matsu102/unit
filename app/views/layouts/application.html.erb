@@ -16,33 +16,35 @@
       <%= image_tag('logo.png') %>
       <span>Admin Page 管理者ページ</span>
       <%= link_to admin_root_path do %>
-        <p>Inquiries</br>問い合わせ一覧</p>
+        <p>Inquiries<br>問い合わせ一覧</p>
       <% end %>
       <%= link_to admin_users_path do %>
-        <p>Users</br>ユーザ一覧</p>
+        <p>Users<br>ユーザ一覧</p>
       <% end %>
-      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete do %>
+      <%= link_to destroy_admin_session_path, method: :delete do %>
+        <p>Log out<br>ログアウト</p>
       <% end %>
     <% elsif user_signed_in? %>
       <%= link_to root_path do %>
         <%= image_tag('logo.png') %>
       <% end %>
       <%= link_to my_page_path do %>
-        <p>My Page</br>マイページ</p>
+        <p>My Page<br>マイページ</p>
       <% end %>
       <%= link_to follows_notices_path do %>
-        <p>Follows & Notices</br>フォローとお知らせ</p>
+        <p>Follows & Notices<br>フォローとお知らせ</p>
       <% end %>
       <%= link_to arts_path do %>
-        <p>My Album</br>マイアルバム</p>
+        <p>My Album<br>マイアルバム</p>
       <% end %>
       <%= link_to artists_path do %>
-        <p>Arts</br>作品一覧</p>
+        <p>Arts<br>作品一覧</p>
       <% end %>
       <%= link_to artists_path do %>
-        <p>Artists</br>アーティスト一覧</p>
+        <p>Artists<br>アーティスト一覧</p>
       <% end %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete do %>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <p>Log out<br>ログアウト</p>
       <% end %>
       <%= image_tag current_user.thumbnail %>
     <% else %>
@@ -50,19 +52,19 @@
         <%= image_tag('logo.png') %>
       <% end %>
       <%= link_to about_path do %>
-        <p>About</br>サービス概要</p>
+        <p>About<br>サービス概要</p>
       <% end %>
       <%= link_to arts_path do %>
-        <p>Arts</br>作品一覧</p>
+        <p>Arts<br>作品一覧</p>
       <% end %>
       <%= link_to artists_path do %>
-        <p>Artists</br>アーティスト一覧</p>
+        <p>Artists<br>アーティスト一覧</p>
       <% end %>
       <%= link_to new_user_session_path do %>
-        <p>Log in</br>ログイン</p>
+        <p>Log in<br>ログイン</p>
       <% end %>
       <%= link_to new_user_registration_path do %>
-        <p>Sing up</br>新規登録</p>
+        <p>Sing up<br>新規登録</p>
       <% end %>
     <% end %>
     </header>

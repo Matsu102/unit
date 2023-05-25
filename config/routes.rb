@@ -14,7 +14,7 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
 #--------------------------------------------------------------------------------
 
 # 利用者用 /users 20ページ
-devise_for :users,skip: [:passwords], controllers: {
+devise_for :users, skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: "public/sessions"
 }
@@ -32,10 +32,10 @@ devise_for :users,skip: [:passwords], controllers: {
     get       "/my_album"       => "arts#my_album"
 
     resources :users,           only: [:update]
-    get       "/my_page"      => "users#show"
-    get       "/my_page/edit" => "users#edit"
-    get       "users/confirm"       => "users#confirm"
-    patch     "users/withdraw"      => "users#withdraw"
+    get       "/my_page"        => "users#show"
+    get       "/my_page/edit"   => "users#edit"
+    get       "/users/confirm"  => "users#confirm"
+    patch     "/users/withdraw" => "users#withdraw"
 
     resources :artists,         only: [:index, :show] do
       resources :follows,         only: [:create, :destroy]
@@ -43,8 +43,9 @@ devise_for :users,skip: [:passwords], controllers: {
 
     resources :follows_notices, only: [:index]
 
-    resources :helps,           only: [:index, :edit, :create]
-    get       "helps/confirm"       => "helps#confirm"
+    resources :helps,           only: [:index, :create]
+    get       "/helps/inquiry"  => "helps#new"
+    get       "/helps/confirm"  => "helps#confirm"
 
   end
 
