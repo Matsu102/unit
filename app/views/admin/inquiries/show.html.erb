@@ -1,2 +1,36 @@
-<h1>Admin::Inquiries#show</h1>
-<p>Find me in app/views/admin/inquiries/show.html.erb</p>
+<table>
+  <tr>
+    <th>問い合わせ日時</th>
+    <td><%= l @inquiry.created_at %></td> <!--#lヘルパー config/locales/ja.ymlにて設定-->
+  </tr>
+  <tr>
+    <th>会員ID</th>
+    <td><%= @inquiry.member_id %></td>
+  </tr>
+  <tr>
+    <th>名前</th>
+    <td><%= @inquiry.last_name %> <%= @inquiry.first_name %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @inquiry.email %></td>
+  </tr>
+  <tr>
+    <th>ステータス</th>
+    <td>
+      <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
+        <%= f.radio_button :is_response, false %><%= f.label(:is_response, "未対応", value: false) %>
+        <%= f.radio_button :is_response, true %><%= f.label(:is_response, "対応済", value: true) %>
+        <%= f.submit "変更" %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>件名</th>
+    <td><%= @inquiry.inquiry_name %></td>
+  </tr>
+  <tr>
+    <th>内容</th>
+    <td><%= @inquiry.inquiry_detail %></td>
+  </tr>
+</table>

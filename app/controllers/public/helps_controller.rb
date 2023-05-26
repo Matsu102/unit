@@ -4,12 +4,22 @@ class Public::HelpsController < ApplicationController
   end
 
   def new
-    @inquiry = Inquiry.new(inquiry_params)
-    @inquiry.save
-    redirect_to root_path
+    @inquiry = Inquiry.new
   end
 
   def confirm
+    @inquiry = Inquiry.new(inquiry_params)
+    if @inquiry.invalid? # データが空でないかチェックする
+      render :new
+    end
+  end
+
+  def create
+    @inquiry = Inquiry.new(inquiry_params)
+    if params[:back] || !@inquiry.save # 戻るボタン 又は データが保存されなかった場合
+      render :new and return
+    end
+    redirect_to root_path
   end
 
   private

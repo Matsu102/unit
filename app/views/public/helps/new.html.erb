@@ -2,7 +2,7 @@
 
 <h3>お問い合わせ</h3>
 
-<%= form_with model: @inquiry, url: helps_path do |f| %>
+<%= form_with model: @inquiry, url: helps_confirm_path do |f| %>
   <div class="field">
     <%= f.label :last_name, "姓" %>
     <%= f.text_field :last_name, :placeholder => "苗字" %>
@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :inquiry_name, "件名" %>
-    <%= f.text_field :inquiry_name, :placeholder => "30文字以内で入力してください。" %>
+    <%= f.text_field :inquiry_name, :placeholder => "100文字以内で入力してください。" %>
   </div>
   <div class="field">
     <%= f.label :inquiry_detail, "内容" %>
@@ -30,5 +30,4 @@
   <div class="field">
     <%= f.submit "内容確認" %>
   </div>
-
 <% end %>

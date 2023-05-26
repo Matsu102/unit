@@ -1,2 +1,45 @@
-<h1>Public::Helps#confirm</h1>
-<p>Find me in app/views/public/helps/confirm.html.erb</p>
+<h2>Help ヘルプ</h2>
+
+<h3>お問い合わせ内容確認</h3>
+
+<table>
+  <tr>
+    <th>お名前</th>
+    <td><%= @inquiry.last_name %></td>
+    <td><%= @inquiry.first_name %></td>
+  </tr>
+  <tr>
+    <th>会員ID</th>
+    <td colspan="2"><%= @inquiry.member_id %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td colspan="2"><%= @inquiry.email %></td>
+  </tr>
+  <tr>
+    <th>件名</th>
+    <td colspan="2"><%= @inquiry.inquiry_name %></td>
+  </tr>
+  <tr>
+    <th>内容</th>
+    <td colspan="2"><%= @inquiry.inquiry_detail %></td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <%= form_with model: @inquiry, url: helps_path do |f| %>
+        <%= f.hidden_field :last_name %>
+        <%= f.hidden_field :first_name %>
+        <%= f.hidden_field :member_id %>
+        <%= f.hidden_field :email %>
+        <%= f.hidden_field :inquiry_name %>
+        <%= f.hidden_field :inquiry_detail %>
+        <%= f.submit "送信" %>
+        <%= f.submit "修正", name: :back %>
+      <% end %>
+    </td>
+  </tr>
+
+
+    </td>
+  </tr>
+</table>

@@ -46,6 +46,7 @@ devise_for :users, skip: [:passwords], controllers: {
     resources :helps,           only: [:index, :create]
     get       "/helps/inquiry"  => "helps#new"
     get       "/helps/confirm"  => "helps#confirm"
+    post      "/helps/confirm"  => "helps#confirm"
 
   end
 
