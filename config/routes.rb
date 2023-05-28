@@ -14,16 +14,20 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
 #--------------------------------------------------------------------------------
 
 # 利用者用 /users 20ページ
-devise_for :users, skip: [:passwords], controllers: {
-  registrations: "public/registrations",
+devise_for :users, skip: [:registrations, :passwords], controllers: {
   sessions: "public/sessions"
 }
+
+devise_scope :user do
+  get  "users/sign_up/:user_type", to: "public/registrations#new",    as: :new_user_registration
+  post "users",                    to: "public/registrations#create", as: :user
+end
 
   scope module: :public do
 
     root to: "homes#top"
     get      "/about"                   => "homes#about",  as: "about"
-    get      "/users/select/:user_type" => "homes#select", as: "select" # deviseのフォーム画面2種は条件分岐
+    get      "/users/branch" => "homes#branch", as: "branch" # deviseのフォーム画面2種は条件分岐
 
     resources :arts,            only: [:index, :new, :create, :show, :edit, :update, :destroy] do
       resources :likes,           only: [:cteate, :destroy]

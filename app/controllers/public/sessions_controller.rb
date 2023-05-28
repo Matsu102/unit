@@ -10,6 +10,7 @@ class Public::SessionsController < Devise::SessionsController
     root_path
   end
 
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

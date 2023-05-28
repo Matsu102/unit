@@ -1,0 +1,15 @@
+<h2>Sing up</h2>
+
+<%= link_to new_user_registration_path(user_type: :artist) do %>
+  <div>
+    <p>Artist アーティスト<br>写真家・写真家を目指している方</p>
+    <p>通常機能に加え<br>写真作品の投稿ができます</p>
+  </div>
+<% end %>
+
+<%= link_to new_user_registration_path(user_type: :fan) do %>
+  <div>
+    <p>Fan ファン<br>写真作品の閲覧をご希望の方</p>
+    <p>My Album 機能やフォロー機能<br>コメント投稿などができる<br>通常機能を備えたアカウントです</p>
+  </div>
+<% end %>

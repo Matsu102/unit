@@ -5,6 +5,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :last_name,        presence: true
+  validates :first_name,       presence: true
+  validates :handle_name,      presence: true
+  validates :email,            presence: true, uniqueness: true
+  validates :telephone_number, presence: true, uniqueness: true
+  validates :user_type,        presence: true
+
   # サムネイル
   has_one_attached :thumbnail
 

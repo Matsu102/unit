@@ -3,31 +3,38 @@
 <h3>お問い合わせ</h3>
 
 <%= form_with model: @inquiry, url: helps_confirm_path do |f| %>
-  <div class="field">
-    <%= f.label :last_name, "姓" %>
-    <%= f.text_field :last_name, :placeholder => "苗字" %>
-  </div>
-  <div class="field">
-    <%= f.label :first_name, "名" %>
-    <%= f.text_field :first_name, :placeholder => "名前" %>
-  </div>
-  <div class="field">
-    <%= f.label :member_id, "会員ID ※会員の方のみ" %>
-    <%= f.text_field :member_id, :placeholder => "数字を入力" %>
-  </div>
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %>
-    <%= f.text_field :email, :placeholder => "xxx@gmail.com" %>
-  </div>
-  <div class="field">
-    <%= f.label :inquiry_name, "件名" %>
-    <%= f.text_field :inquiry_name, :placeholder => "100文字以内で入力してください。" %>
-  </div>
-  <div class="field">
-    <%= f.label :inquiry_detail, "内容" %>
-    <%= f.text_area :inquiry_detail, :placeholder => "1000文字以内で入力してください。" %>
-  </div>
-  <div class="field">
-    <%= f.submit "内容確認" %>
-  </div>
+<table>
+  <tr>
+    <th>お名前</th>
+    <td>
+      <%= f.label :last_name, "姓" %>
+      <%= f.text_field :last_name, :placeholder => "苗字" %>
+    </td>
+    <td>
+      <%= f.label :first_name, "名" %>
+      <%= f.text_field :first_name, :placeholder => "名前" %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= f.label :member_id, "会員ID ※会員の方のみ" %></th>
+    <td colspan="2">
+      <%= f.text_field :member_id, :placeholder => "数字を入力" %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= f.label :email, "メールアドレス" %></th>
+    <td colspan="2"><%= f.email_field :email, :placeholder => "xxx@gmail.com" %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :inquiry_name, "件名" %></th>
+    <td colspan="2"><%= f.text_field :inquiry_name, :placeholder => "100文字以内で入力してください。" %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :inquiry_detail, "内容" %></th>
+    <td colspan="2"><%= f.text_area :inquiry_detail, :placeholder => "1000文字以内で入力してください。" %></td>
+  </tr>
+  <tr>
+    <td colspan="3"><%= f.submit "内容確認" %></td>
+  </tr>
+</table>
 <% end %>

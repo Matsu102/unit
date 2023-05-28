@@ -37,7 +37,7 @@
       <%= link_to arts_path do %>
         <p>My Album<br>マイアルバム</p>
       <% end %>
-      <%= link_to artists_path do %>
+      <%= link_to arts_path do %>
         <p>Arts<br>作品一覧</p>
       <% end %>
       <%= link_to artists_path do %>
@@ -46,7 +46,7 @@
       <%= link_to destroy_user_session_path, method: :delete do %>
         <p>Log out<br>ログアウト</p>
       <% end %>
-      <%= image_tag current_user.thumbnail %>
+      <%#= image_tag current_user.thumbnail %>
     <% else %>
       <%= link_to root_path do %>
         <%= image_tag('logo.png') %>
@@ -63,7 +63,7 @@
       <%= link_to new_user_session_path do %>
         <p>Log in<br>ログイン</p>
       <% end %>
-      <%= link_to new_user_registration_path do %>
+      <%= link_to branch_path do %>
         <p>Sing up<br>新規登録</p>
       <% end %>
     <% end %>
