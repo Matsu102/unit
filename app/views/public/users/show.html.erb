@@ -1,2 +1,25 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<div>
+  <%= image_tag @user.get_thumbnail(100,100) %>
+</div>
+<div>
+  <%= @user.handle_name %>
+</div>
+<div>
+  フォロー フォロワー
+</div>
+<% if @user.user_type == "artist" %>
+  <div>
+    <%= @user.url %>サンプル
+  </div>
+<% else %>
+  <!-- URLはアーティストのみの機能 -->
+<% end %>
+<div>
+  <% @user.introduction %>
+</div>
+
+<% if @user.id == current_user.id %>
+  <%= link_to "登録内容変更", my_page_edit_path %>
+<% else %>
+  フォロー
+<% end %>
