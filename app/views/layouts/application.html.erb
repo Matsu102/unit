@@ -46,7 +46,7 @@
       <%= link_to destroy_user_session_path, method: :delete do %>
         <p>Log out<br>ログアウト</p>
       <% end %>
-      <%#= image_tag current_user.thumbnail %>
+      <%= image_tag current_user.get_thumbnail(50,50) %>
     <% else %>
       <%= link_to root_path do %>
         <%= image_tag('logo.png') %>
