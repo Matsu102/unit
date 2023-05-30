@@ -18,7 +18,7 @@ class User < ApplicationRecord
   def get_thumbnail(width, height)
     unless thumbnail.attached?
       file_path = Rails.root.join("app/assets/images/no_thumbnail.jpg") # サムネイル未登録時の画像
-      thumbnail.attach(io: File.open(file_path), filename: "default-image.jpg", content_type: "image/jpeg") # jpegのみ許可
+      thumbnail.attach(io: File.open(file_path), filename: "no_thumbnail.jpg", content_type: "image/jpeg") # jpegのみ許可
     end
     thumbnail.variant(resize_to_limit: [width, height]).processed
   end
