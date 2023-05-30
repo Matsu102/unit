@@ -26,7 +26,7 @@ end
   scope module: :public do
 
     root to: "homes#top"
-    get      "/about"                   => "homes#about",  as: "about"
+    get      "/about"        => "homes#about",  as: "about"
     get      "/users/branch" => "homes#branch", as: "branch" # deviseのフォーム画面2種は条件分岐
 
     resources :arts,            only: [:index, :new, :create, :show, :edit, :update, :destroy] do
@@ -35,9 +35,9 @@ end
     end
     get       "/my_album"       => "arts#my_album"
 
-    resources :users,           only: [:update]
     get       "/my_page"        => "users#show"
     get       "/my_page/edit"   => "users#edit"
+    patch     "/my_page/edit"   => "users#update"
     get       "/users/confirm"  => "users#confirm"
     patch     "/users/withdraw" => "users#withdraw"
 

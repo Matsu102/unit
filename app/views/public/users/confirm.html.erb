@@ -1,2 +1,14 @@
-<h1>Public::Users#confirm</h1>
-<p>Find me in app/views/public/users/confirm.html.erb</p>
+<%= image_tag ('warning.png') %>
+
+<h3>退会する前にご確認ください</h3>
+<p>退会すると以下のデータが削除されます</p>
+
+<% if "artist" == @user.user_type %>
+  <p>登録情報<br>投稿<br>フォロー状況<br>コメント</p>
+<% else %>
+  <p>登録情報<br>フォロー状況<br>コメント</p>
+<% end %>
+<p>退会後のデータの復元はできません<br>退会をご希望の方は「アカウントを削除」ボタンを押してください</p>
+
+<%= link_to "マイページに戻る", my_page_path %>
+<%= link_to "アカウントを削除", users_withdraw_path, method: :patch, data: {confirm: "退会しますか？"} %>

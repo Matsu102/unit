@@ -1,2 +1,13 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<h2>Users ユーザ一覧</h2>
+
+<% @users.each do |user| %>
+  <%= link_to admin_user_path(user.id) do %>
+    <div>
+      <%= image_tag user.get_thumbnail(50,50) %>
+      </p>
+        No.<%= user.id %><br>
+        <%= user.handle_name %><br>
+        <%= user.last_name %> <%= user.first_name %>
+    </div>
+  <% end %>
+<% end %>

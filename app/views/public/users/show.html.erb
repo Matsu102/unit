@@ -9,13 +9,13 @@
 </div>
 <% if @user.user_type == "artist" %>
   <div>
-    <%= @user.url %>サンプル
+    <%= @user.url %>
   </div>
 <% else %>
   <!-- URLはアーティストのみの機能 -->
 <% end %>
 <div>
-  <% @user.introduction %>
+  <%= @user.introduction %>
 </div>
 
 <% if @user.id == current_user.id %>
