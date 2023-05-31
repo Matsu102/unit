@@ -8,12 +8,12 @@ class User < ApplicationRecord
   validates :last_name,        presence: true
   validates :first_name,       presence: true
   validates :handle_name,      presence: true
-  validates :email,            presence: true, uniqueness: true
   validates :telephone_number, presence: true, uniqueness: true
-  validates :url,              format: /\A#{URI::regexp(%w(http https))}\z/ # 入力制限
-  validates :introduction,     length: { maximum: 200 }
+  validates :url,              format: /\A#{URI::regexp(%w(http https))}\z/, allow_blank: true, on: :update # 入力制限 update時のみバリデーション
+  validates :introduction,     length: { maximum: 200 },                      on: :update # update時のみバリデーション
   validates :user_type,        presence: true
-  validates :is_locked,        inclusion: {in: [true, false]}, on: :update # update時のみバリデーション
+  validates :is_locked,        inclusion: {in: [true, false]},                on: :update # update時のみバリデーション
+  validates :thumbnail,        presence: true,                                on: :update # update時のみバリデーション
 
   # サムネイル
   has_one_attached :thumbnail

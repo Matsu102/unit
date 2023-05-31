@@ -4,10 +4,9 @@
   <%= link_to admin_user_path(user.id) do %>
     <div>
       <%= image_tag user.get_thumbnail(50,50) %>
-      </p>
-        会員ID <%= user.id %><br>
-        <%= user.handle_name %><br>
-        <%= user.last_name %> <%= user.first_name %>
+      <p>会員ID <%= user.id %><br>
+      <%= user.handle_name %><br>
+      <%= user.last_name %> <%= user.first_name %></p>
     </div>
   <% end %>
 <% end %>

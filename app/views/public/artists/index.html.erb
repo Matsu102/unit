@@ -1,2 +1,11 @@
-<h1>Public::Artists#index</h1>
-<p>Find me in app/views/public/artists/index.html.erb</p>
+<h2>Artists アーティスト一覧</h2>
+
+<% @artists.each do |artist| %>
+  <%= link_to artist_path(artist.id) do %>
+    <div>
+      <%= image_tag artist.get_thumbnail(50,50) %>
+      <p><%= artist.handle_name %><br>
+      <%= artist.introduction %></p>
+    </div>
+  <% end %>
+<% end %>
