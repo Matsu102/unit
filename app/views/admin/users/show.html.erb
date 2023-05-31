@@ -1,2 +1,63 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<table>
+  <tr>
+    <th>会員ID</th>
+    <td><%= @user.id %></td>
+    <td colspan="3" rowspan="2"><%= image_tag @user.get_thumbnail(75,75) %></td>
+  </tr>
+  <tr>
+    <th>会員種別</th>
+    <td>
+      <% if "artist" == @user.user_type %>
+        アーティスト
+      <% else %>
+        ファン
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <% if "artist" == @user.user_type %>
+      <th>ニックネーム</th>
+      <td><%= @user.handle_name %></td>
+    <% else %>
+      <th rowspan="2">ニックネーム</th>
+      <td rowspan="2"><%= @user.handle_name %></td>
+    <% end %>
+    <th>お名前</th>
+    <td>姓　<%= @user.last_name %></td>
+    <td>名　<%= @user.first_name %></td>
+  </tr>
+  <% if "artist" == @user.user_type %>
+    <tr>
+      <th>サイトURL</th>
+      <td><%= @user.url %></td>
+      <th>メールアドレス</th>
+      <td colspan="2"><%= @user.email %></td>
+    </tr>
+  <% else %>
+  <% end %>
+  <tr>
+    <th rowspan="3">自己紹介</th>
+    <td rowspan="3"><%= @user.introduction %></td>
+    <th>電話番号</th>
+    <td colspan="2"><%= @user.telephone_number %></td>
+  </tr>
+  <tr>
+    <th>会員ステータス</th>
+    <td colspan="2"><%= @user.is_deleted ? "退会" : "有効" %></td>
+
+  </tr>
+  <tr>
+    <th>公開ステータス</th>
+    <%= form_with model: @user, url: admin_user_path(@user.id) do |f| %>
+      <td>
+        <%= f.radio_button :is_locked, false %><%= f.label(:is_locked, "公開", value: false) %>
+        <%= f.radio_button :is_locked, true %><%= f.label(:is_locked, "非公開", value: true) %>
+      </td>
+      <td>
+        <%= f.submit "変更" %>
+      </td>
+    <% end %>
+  </tr>
+</table>
+
+<%= link_to "Back", :back %>

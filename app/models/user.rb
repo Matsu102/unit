@@ -14,7 +14,6 @@ class User < ApplicationRecord
   validates :introduction,     length: { maximum: 200 }
   validates :user_type,        presence: true
   validates :is_locked,        inclusion: {in: [true, false]}, on: :update # update時のみバリデーション
-  validates :is_deleted,       inclusion: {in: [true, false]}, on: :update # update時のみバリデーション
 
   # サムネイル
   has_one_attached :thumbnail
