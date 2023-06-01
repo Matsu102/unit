@@ -5,5 +5,12 @@ class Public::ArtistsController < ApplicationController
   end
 
   def show
+    @artist = User.find(params[:id])
+    if @artist.user_type == "fan" # ファンのページは表示できないようにする
+      redirect_to artists_path
+    end
   end
+
+  private
+
 end

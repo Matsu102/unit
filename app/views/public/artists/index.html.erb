@@ -5,7 +5,12 @@
     <div>
       <%= image_tag artist.get_thumbnail(50,50) %>
       <p><%= artist.handle_name %><br>
-      <%= artist.introduction %></p>
+      <% if artist.introduction.nil? %>
+        No introduction.
+      <% else %>
+        <%= artist.introduction.truncate(27) %>
+      <% end %>
+      </p>
     </div>
   <% end %>
 <% end %>
