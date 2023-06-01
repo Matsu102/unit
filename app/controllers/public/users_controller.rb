@@ -1,8 +1,22 @@
 class Public::UsersController < ApplicationController
 
-  def show
-    @user = User.find(current_user.id)
+  def index
+    @artists = User.where(user_type: "artist")
+  end
+
+  def artist
+    @user = User.find(params[:id])
+    if @user.user_type == "fan" # ファンのページは表示できないようにする
+      redirect_to artists_path
+    end
     @post = @user.posts
+  end
+
+  def fan
+    @user = User.find(params[:id])
+    if @user.user_type == "artist" # アーティストのページは表示できないようにする
+      redirect_to artists_path
+    end
   end
 
   def edit
@@ -12,7 +26,11 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(current_user.id)
     @user.update(user_params)
-    redirect_to my_page_path
+    if @user.user_type == "artist"
+      redirect_to artist_path(current_user.id)
+    else
+      redirect_to fan_path(current_user.id)
+    end
   end
 
   def confirm

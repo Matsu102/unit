@@ -28,13 +28,19 @@
       <%= link_to root_path do %>
         <%= image_tag('logo.png') %>
       <% end %>
-      <%= link_to my_page_path do %>
-        <p>My Page<br>マイページ</p>
+      <% if current_user.user_type == "artist" %>
+        <%= link_to artist_path(current_user.id) do %>
+          <p>My Page<br>マイページ</p>
+        <% end %>
+      <% else %>
+        <%= link_to fan_path(current_user.id) do %>
+          <p>My Page<br>マイページ</p>
+        <% end %>
       <% end %>
       <%= link_to follows_notices_path do %>
         <p>Follows & Notices<br>フォローとお知らせ</p>
       <% end %>
-      <%= link_to arts_path do %>
+      <%= link_to my_album_path do %>
         <p>My Album<br>マイアルバム</p>
       <% end %>
       <%= link_to arts_path do %>

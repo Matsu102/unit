@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-# 管理者用 /admin 5ページ
+# 管理者用
 devise_for :admin, skip: [:registrations, :passwords], controllers: {
   sessions: "admin/sessions"
 }
@@ -13,7 +13,7 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
 
 #--------------------------------------------------------------------------------
 
-# 利用者用 /users 20ページ
+# 利用者用
 devise_for :users, skip: [:registrations, :passwords], controllers: {
   sessions: "public/sessions"
 }
@@ -33,24 +33,25 @@ end
       resources :likes,           only: [:cteate, :destroy]
       resources :engagements,     only: [:show, :create, :destroy]
     end
-    get       "/my_album"       => "arts#my_album"
+    get       "/my_album" => "arts#my_album"
 
-    get       "/my_page"        => "users#show"
-    get       "/my_page/edit"   => "users#edit"
-    patch     "/my_page/edit"   => "users#update"
-    get       "/users/confirm"  => "users#confirm"
-    patch     "/users/withdraw" => "users#withdraw"
-
-    resources :artists,         only: [:index, :show] do
+    resources :users, only: [] do
       resources :follows,         only: [:create, :destroy]
     end
+    get       "/artists"          => "users#index"
+    get       "/users/artist/:id" => "users#artist", as: "artist"
+    get       "/users/fan/:id"    => "users#fan",    as: "fan"
+    get       "/users/edit"       => "users#edit"
+    patch     "/users/edit"       => "users#update"
+    get       "/users/confirm"    => "users#confirm"
+    patch     "/users/withdraw"   => "users#withdraw"
 
     resources :follows_notices, only: [:index]
 
     resources :helps,           only: [:index, :create]
-    get       "/helps/inquiry"  => "helps#new"
-    get       "/helps/confirm"  => "helps#confirm"
-    post      "/helps/confirm"  => "helps#confirm"
+    get       "/helps/inquiry" => "helps#new"
+    get       "/helps/confirm" => "helps#confirm"
+    post      "/helps/confirm" => "helps#confirm"
 
   end
 

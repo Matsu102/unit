@@ -3,7 +3,11 @@
 class Public::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
-    my_album_path
+    if current_user.user_type == "artist"
+      artist_path(current_user.id)
+    else
+      my_album_path
+    end
   end
 
   def after_sign_out_path_for(resource)

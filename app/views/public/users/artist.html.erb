@@ -1,0 +1,20 @@
+<div>
+  <%= image_tag @user.get_thumbnail(100,100) %>
+  <p><%= @user.handle_name %></p>
+  <p>フォロー　フォロワー</p>
+  <p><%= @user.url %></p>
+  <p><%= @user.introduction %></p>
+  <% if user_signed_in? && @user.id == current_user.id %>
+    <%= link_to "登録内容変更", users_edit_path %>
+  <% else %>
+    フォロー
+  <% end %>
+</div>
+
+<div>
+  <h2>Arts 作品一覧</h2>
+  <% if user_signed_in? && @user.id == current_user.id %>
+    +
+  <% end %>
+  もっと見る >
+</div>

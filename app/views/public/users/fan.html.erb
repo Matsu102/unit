@@ -1,0 +1,9 @@
+<div>
+  <%= image_tag @user.get_thumbnail(100,100) %>
+  <p><%= @user.handle_name %></p>
+  <p>フォロー</p>
+  <p><%= @user.introduction %></p>
+  <% if user_signed_in? && @user.id == current_user.id %>
+    <%= link_to "登録内容変更", users_edit_path %>
+  <% end %>
+</div>
