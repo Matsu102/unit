@@ -1,10 +1,10 @@
-class CreatePostTags < ActiveRecord::Migration[6.1]
+class CreateArtTags < ActiveRecord::Migration[6.1]
   def change
-    create_table :post_tags do |t|
+    create_table :art_tags do |t|
 
       # 追加カラム ここから
 
-      t.integer :post_id, null: false
+      t.integer :art_id,  null: false
       t.integer :tag_id,  null: false
 
       # 追加カラム ここまで

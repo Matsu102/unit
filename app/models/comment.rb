@@ -4,7 +4,7 @@ class Comment < ApplicationRecord
   belongs_to :user
 
   # Post アソシエーション
-  belongs_to :post
+  belongs_to :art
 
   # Notice アソシエーション
   has_many :notices

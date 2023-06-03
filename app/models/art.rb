@@ -1,4 +1,7 @@
-class Post < ApplicationRecord
+class Art < ApplicationRecord
+
+
+
 
   # 作品
   has_one_attached :image
@@ -7,8 +10,8 @@ class Post < ApplicationRecord
   belongs_to :user
 
   # PostTag アソシエーション
-  has_many :post_tags, dependent: :destroy # 投稿が削除された時に関連するタグを全て削除する
-  has_many :tags, through: :post_tags
+  has_many :art_tags, dependent: :destroy # 投稿が削除された時に関連するタグを全て削除する
+  has_many :tags, through: :art_tags
 
   # Comment アソシエーション
   has_many :comments, dependent: :destroy # 投稿が削除された時に関連するコメントを全て削除する

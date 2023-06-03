@@ -1,7 +1,7 @@
-class PostTag < ApplicationRecord
+class ArtTag < ApplicationRecord
 
   # Post アソシエーション
-  belongs_to :post
+  belongs_to :art
   # Tag アソシエーション
   belongs_to :tag
 

@@ -52,8 +52,23 @@ ActiveRecord::Schema.define(version: 2023_05_21_233626) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "art_tags", force: :cascade do |t|
+    t.integer "art_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "arts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.text "detail", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "comments", force: :cascade do |t|
-    t.integer "post_id", null: false
+    t.integer "art_id", null: false
     t.integer "user_id", null: false
     t.string "comment", null: false
     t.boolean "is_deleted", default: false, null: false
@@ -81,7 +96,7 @@ ActiveRecord::Schema.define(version: 2023_05_21_233626) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "post_id", null: false
+    t.integer "art_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -95,21 +110,6 @@ ActiveRecord::Schema.define(version: 2023_05_21_233626) do
     t.integer "comment_id", null: false
     t.string "action", null: false
     t.boolean "checked", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "post_tags", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "tag_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "title", null: false
-    t.text "detail", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

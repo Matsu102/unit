@@ -1,6 +1,6 @@
-class CreatePosts < ActiveRecord::Migration[6.1]
+class CreateArts < ActiveRecord::Migration[6.1]
   def change
-    create_table :posts do |t|
+    create_table :arts do |t|
 
       # 追加カラム ここから
 

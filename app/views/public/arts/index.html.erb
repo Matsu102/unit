@@ -1,2 +1,7 @@
-<h1>Public::Arts#index</h1>
-<p>Find me in app/views/public/arts/index.html.erb</p>
+<h2>Arts 作品一覧</h2>
+
+<% @arts.each do |art| %>
+  <%= link_to art_path(art.id) do %>
+    <%= image_tag art.image %>
+  <% end %>
+<% end %>

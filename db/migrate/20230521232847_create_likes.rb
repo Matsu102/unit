@@ -4,7 +4,7 @@ class CreateLikes < ActiveRecord::Migration[6.1]
 
       # 追加カラム ここから
 
-      t.integer :post_id, null: false
+      t.integer :art_id, null: false
       t.integer :user_id, null: false
 
       # 追加カラム ここまで
