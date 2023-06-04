@@ -1,2 +1,36 @@
-<h1>Public::Arts#edit</h1>
-<p>Find me in app/views/public/arts/edit.html.erb</p>
+<h2>Edit Art 新規登録</h2>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div id="previewImage"> <!--画像プレビュー-->
+      <%= image_tag("preview.png") %>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <%= form_with model: @art, url: arts_path do |f| %>
+      <table>
+        <tr>
+          <th><%= f.label :title, "タイトル" %></th>
+          <td><%= f.text_field :title, :placeholder => "30文字以内" %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :detail, "タイトル" %></th>
+          <td><%= f.text_area :detail, :placeholder => "200文字以内" %></td>
+        </tr>
+        <tr>
+          <th>タグ</th>
+          <td>仮</td>
+        </tr>
+        <tr>
+          <th><%= f.label :image, "作品(JPEG)" %></th>
+          <td><%= f.file_field :image, style: "max-width: 600px; max-heigh: 400px;", accept: "image/jpeg", id: "imagePreviewForm" %></td>　<!--画像プレビュー用id-->
+        </tr>
+        <tr>
+          <th></th>
+          <td><%= f.submit "投稿" %></td>
+        </tr>
+      </table>
+
+    <% end %>
+  </div>
+</div>

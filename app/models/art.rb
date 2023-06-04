@@ -1,7 +1,8 @@
 class Art < ApplicationRecord
 
-
-
+  validates :image,  presence: true
+  validates :title,  presence: true
+  validates :detail, presence: true
 
   # 作品
   has_one_attached :image

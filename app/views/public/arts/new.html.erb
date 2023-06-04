@@ -1,9 +1,9 @@
-<h2>Arts New 新規登録</h2>
+<h2>New Art 新規登録</h2>
 
 <div class="row">
   <div class="col-sm-6">
     <div id="previewImage"> <!--画像プレビュー-->
-      no-image
+      <%= image_tag("preview.png") %>
     </div>
   </div>
   <div class="col-sm-6">
@@ -23,7 +23,7 @@
         </tr>
         <tr>
           <th><%= f.label :image, "作品(JPEG)" %></th>
-          <td><%= f.file_field :image, accept: "image/jpeg", id: "imagePreviewForm" %></td>　<!--画像プレビュー用id-->
+          <td><%= f.file_field :image, style: "max-width: 600px; max-heigh: 400px;", accept: "image/jpeg", id: "imagePreviewForm" %></td>　<!--画像プレビュー用id-->
         </tr>
         <tr>
           <th></th>

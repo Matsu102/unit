@@ -14,7 +14,7 @@
 <div>
   <h2>Arts 作品一覧</h2>
   <% if user_signed_in? && @user.id == current_user.id %>
-    +
+    <%= link_to "+", new_art_path %>
   <% end %>
-  もっと見る >
+  <%= link_to "もっと見る >", artist_arts_path(@user.id) %>
 </div>

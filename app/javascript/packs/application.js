@@ -23,7 +23,7 @@ ActiveStorage.start()
 // <%= f.file_field :*, accept: "image/*", id: "imagePreviewForm" %>  file_fieldにidを指定する  "imagePreviewForm"
 // 使用箇所  /users/edit, /arts/new, /arts/:id/edit
 window.document.addEventListener('turbolinks:load', function() {
-  $('#imagePreviewForm').on("change", (obj) => {
+  $('#thumbnailPreviewForm').on("change", (obj) => {
     const files = obj.target.files
     if (files && files[0]) {
       const file = obj.target.files[0]
@@ -31,6 +31,26 @@ window.document.addEventListener('turbolinks:load', function() {
       fileReader.onload = ((e) => {
         const img = new Image()
         img.src = e.target.result
+        img.setAttribute('max-width', '50px')
+        img.setAttribute('max-height', '50px')
+        $('#previewThumbnail').html(img)
+      })
+      fileReader.readAsDataURL(file)
+    }
+  })
+})
+
+window.document.addEventListener('turbolinks:load', function() {
+    $('#imagePreviewForm').on("change", (obj) => {
+    const files = obj.target.files
+    if (files && files[0]) {
+      const file = obj.target.files[0]
+      const fileReader = new FileReader();
+      fileReader.onload = ((e) => {
+        const img = new Image()
+        img.src = e.target.result
+        img.setAttribute('max-width', '600px')
+        img.setAttribute('max-height', '400px')
         $('#previewImage').html(img)
       })
       fileReader.readAsDataURL(file)

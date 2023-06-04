@@ -3,3 +3,4 @@ ja:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
       # https://railsguides.jp/   3.4 日付・時刻フォーマットを追加する
+      # lヘルパーで使用

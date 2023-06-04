@@ -4,11 +4,11 @@
     <th>会員ID</th>
     <td><%= @user.id %></td>
     <td colspan="3" rowspan="4">
-      <div id="previewImage"> <!--画像プレビュー-->
+      <div id="previewThumbnail"> <!--画像プレビュー-->
         <%= image_tag @user.thumbnail %>
       </div>
       <%= f.label :thumbnail, "画像をアップロード" %>
-      <%= f.file_field :thumbnail, accept: "image/jpeg", id: "imagePreviewForm" %>　<!--画像プレビュー用id-->
+      <%= f.file_field :thumbnail, accept: "image/jpeg, image/png, image/gif", id: "thumbnailPreviewForm" %>　<!--画像プレビュー用id-->
     </td>
   </tr>
   <tr>

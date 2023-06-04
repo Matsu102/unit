@@ -4,6 +4,11 @@ class Public::ArtsController < ApplicationController
     @arts = Art.all
   end
 
+  def artist_arts
+    @arts = Art.where(user_id: :id)
+    @user = User.find(params[:id])
+  end
+
   def new
     @art = Art.new
   end
@@ -22,9 +27,16 @@ class Public::ArtsController < ApplicationController
   end
 
   def edit
+    @art = Art.find(params[:id])
   end
 
   def update
+    @art = Art.find(params[:id])
+    if @user.update(art_params)
+      redirect_to art_path(params[:id])
+    else
+      render :edit
+    end
   end
 
   def destroy
