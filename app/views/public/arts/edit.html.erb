@@ -1,13 +1,13 @@
-<h2>Edit Art 新規登録</h2>
+<h2>Edit Art 投稿編集</h2>
 
 <div class="row">
   <div class="col-sm-6">
-    <div id="previewImage"> <!--画像プレビュー-->
-      <%= image_tag("preview.png") %>
+    <div id="previewImage", class="image_size"> <!--画像プレビュー-->
+      <%= image_tag @art.image.variant( resize: "600x400>" ) %>
     </div>
   </div>
   <div class="col-sm-6">
-    <%= form_with model: @art, url: arts_path do |f| %>
+    <%= form_with model: @art, url: art_path(@art.id) do |f| %>
       <table>
         <tr>
           <th><%= f.label :title, "タイトル" %></th>
@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <th></th>
-          <td><%= f.submit "投稿" %></td>
+          <td><%= f.submit "変更" %>　<%= link_to "削除", art_path(@art.id), method: :delete %></td>
         </tr>
       </table>
 

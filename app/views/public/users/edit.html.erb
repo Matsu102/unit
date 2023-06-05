@@ -5,7 +5,7 @@
     <td><%= @user.id %></td>
     <td colspan="3" rowspan="4">
       <div id="previewThumbnail"> <!--画像プレビュー-->
-        <%= image_tag @user.thumbnail %>
+        <%= image_tag @user.thumbnail.variant( resize: "100x100" ) %>
       </div>
       <%= f.label :thumbnail, "画像をアップロード" %>
       <%= f.file_field :thumbnail, accept: "image/jpeg, image/png, image/gif", id: "thumbnailPreviewForm" %>　<!--画像プレビュー用id-->

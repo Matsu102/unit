@@ -29,6 +29,7 @@ end
     get      "/about"        => "homes#about",  as: "about"
     get      "/users/branch" => "homes#branch", as: "branch" # deviseのフォーム画面2種は条件分岐
 
+    get       "/arts/view/:id"      => "arts#view",        as: "view_art"
     get       "/artist/arts/:id"    => "arts#artist_arts", as: "artist_arts"
     get       "/my_album"    => "arts#my_album"
     resources :arts,            only: [:index, :new, :create, :show, :edit, :update, :destroy] do

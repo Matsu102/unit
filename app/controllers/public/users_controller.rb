@@ -9,7 +9,7 @@ class Public::UsersController < ApplicationController
     if @user.user_type == "fan" # ファンのページは表示できないようにする
       redirect_to artists_path
     end
-    @art = @user.arts
+    @arts = Art.where(user_id: @user.id)
   end
 
   def fan

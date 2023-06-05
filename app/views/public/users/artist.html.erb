@@ -1,20 +1,29 @@
-<div>
-  <%= image_tag @user.get_thumbnail(100,100) %>
-  <p><%= @user.handle_name %></p>
-  <p>フォロー　フォロワー</p>
-  <p><%= @user.url %></p>
-  <p><%= @user.introduction %></p>
-  <% if user_signed_in? && @user.id == current_user.id %>
-    <%= link_to "登録内容変更", users_edit_path %>
-  <% else %>
-    フォロー
-  <% end %>
-</div>
+<div class="row">
+  <div class="col-sm-4">
+    <%= image_tag @user.get_thumbnail(100,100) %>
+    <p><%= @user.handle_name %></p>
+    <p>フォロー　フォロワー</p>
+    <p><%= @user.url %></p>
+    <p><%= @user.introduction %></p>
+    <% if user_signed_in? && @user.id == current_user.id %>
+      <%= link_to "登録内容変更", users_edit_path %>
+    <% else %>
+      フォロー
+    <% end %>
+  </div>
 
-<div>
-  <h2>Arts 作品一覧</h2>
-  <% if user_signed_in? && @user.id == current_user.id %>
-    <%= link_to "+", new_art_path %>
-  <% end %>
-  <%= link_to "もっと見る >", artist_arts_path(@user.id) %>
+  <div class="col-sm-8">
+    <h2>Arts 作品一覧</h2>
+    <% if user_signed_in? && @user.id == current_user.id %>
+      <%= link_to "+", new_art_path %>
+    <% end %>
+    <% @arts.reverse.first(8).each do |art| %>
+      <%= link_to art_path(art.id) do %>
+        <%= image_tag art.image %>
+      <% end %>
+    <% end %>
+    <% if @arts.count > 8 %>
+      <%= link_to "もっと見る >", artist_arts_path(@user.id) %>
+    <% end %>
+  </div>
 </div>
