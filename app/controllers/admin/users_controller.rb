@@ -1,7 +1,26 @@
 class Admin::UsersController < ApplicationController
 
   def index
-    @users = User.all
+    if params[:keyword]
+      @users = User.where(:keyword)
+    else
+      @users = User.all
+    end
+  end
+
+  def search
+    if params[:keyword] == ""
+      redirect_to admin_users_path
+    else
+      split_keyword = params[:keyword].split(/[[:blank:]]+/).select(&:present?)
+      @users = []
+      split_keyword.each do |keyword|
+        next if keyword == ""
+        @users += User.where(["id like? or last_name like? or first_name like? or handle_name like?", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"])
+      end
+      @users.uniq! #重複したユーザを除外する
+      render :index
+    end
   end
 
   def show

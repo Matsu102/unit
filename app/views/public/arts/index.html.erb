@@ -1,5 +1,10 @@
 <h2>Arts 作品一覧</h2>
 
+<%= form_with url: arts_search_path, method: :get, local: true do |f| %>
+  <%= f.text_field :keyword, value: @keyword, :placeholder => "Search Arts" %>
+  <%= f.submit "検索" %>
+<% end %>
+
 <% @arts.each do |art| %>
   <%= link_to art_path(art.id) do %>
     <%= image_tag art.image %>

@@ -1,7 +1,18 @@
 class Public::UsersController < ApplicationController
 
   def index
-    @artists = User.where(user_type: "artist")
+    if params[:keyword]
+      @users = User.where(:keyword)
+      @artists = @users.where(user_type: "artist")
+    else
+      @artists = User.where(user_type: "artist") # insexにはアーティストのみ表示
+    end
+  end
+
+  def search
+    @users = User.where(["handle_name like?", "%#{params[:keyword]}%"])
+    @keyword = params[:keyword]
+    render :index
   end
 
   def artist
@@ -9,7 +20,7 @@ class Public::UsersController < ApplicationController
     if @user.user_type == "fan" # ファンのページは表示できないようにする
       redirect_to artists_path
     end
-    @arts = Art.where(user_id: @user.id)
+    @arts = Art.where(user_id: @user.id).order(id: :desc)
   end
 
   def fan

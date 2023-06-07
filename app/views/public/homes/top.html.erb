@@ -1,2 +1,7 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<% @arts.each do |art| %>
+  <%= link_to art_path(art.id) do %>
+    <%= image_tag art.image %>
+  <% end %>
+<% end %>
+
+<%= link_to "もっと見る", arts_path %>

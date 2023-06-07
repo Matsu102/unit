@@ -1,4 +1,9 @@
-<h2>Users ユーザ一覧</h2>
+<h2>Users ユーザ一覧 </h2>
+
+<%= form_with url: admin_users_search_path, method: :get, local: true do |f| %>
+  <%= f.text_field :keyword, value: @keyword, :placeholder => "Search Users" %>
+  <%= f.submit "検索" %>
+<% end %>
 
 <% @users.each do |user| %>
   <%= link_to admin_user_path(user.id) do %>

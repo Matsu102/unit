@@ -8,6 +8,7 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
   namespace :admin do
     root to: "homes#top"
     resources :inquiries, only: [:show, :update]
+    get       "/users/search"  => "users#search"
     resources :users,     only: [:index, :show, :update]
   end
 
@@ -30,6 +31,7 @@ end
     get      "/users/branch" => "homes#branch", as: "branch" # deviseのフォーム画面2種は条件分岐
 
     get       "/arts/view/:id"      => "arts#view",        as: "view_art"
+    get       "/arts/search"        => "arts#search"
     get       "/artist/arts/:id"    => "arts#artist_arts", as: "artist_arts"
     get       "/my_album"    => "arts#my_album"
     resources :arts,            only: [:index, :new, :create, :show, :edit, :update, :destroy] do
@@ -40,13 +42,14 @@ end
     resources :users, only: [] do
       resources :follows,         only: [:create, :destroy]
     end
-    get       "/artists"          => "users#index"
-    get       "/users/artist/:id" => "users#artist", as: "artist"
-    get       "/users/fan/:id"    => "users#fan",    as: "fan"
-    get       "/users/edit"       => "users#edit"
-    patch     "/users/edit"       => "users#update"
-    get       "/users/confirm"    => "users#confirm"
-    patch     "/users/withdraw"   => "users#withdraw"
+    get       "/artists"              => "users#index"
+    get       "/users/artist/:id"     => "users#artist", as: "artist"
+    get       "/users/artsit/search"  => "users#search"
+    get       "/users/fan/:id"        => "users#fan",    as: "fan"
+    get       "/users/edit"           => "users#edit"
+    patch     "/users/edit"           => "users#update"
+    get       "/users/confirm"        => "users#confirm"
+    patch     "/users/withdraw"       => "users#withdraw"
 
     resources :follows_notices, only: [:index]
 

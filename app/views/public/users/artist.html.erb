@@ -17,7 +17,7 @@
     <% if user_signed_in? && @user.id == current_user.id %>
       <%= link_to "+", new_art_path %>
     <% end %>
-    <% @arts.reverse.first(8).each do |art| %>
+    <% @arts.first(8).each do |art| %>
       <%= link_to art_path(art.id) do %>
         <%= image_tag art.image %>
       <% end %>

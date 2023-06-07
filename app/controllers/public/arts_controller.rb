@@ -1,12 +1,22 @@
 class Public::ArtsController < ApplicationController
 
   def index
-    @arts = Art.all
+    if params[:keyword]
+      @arts = Art.where(:keyword).order(id: :desc)
+    else
+      @arts = Art.all.order(id: :desc)
+    end
+  end
+
+  def search
+    @arts = Art.where(["title like?", "%#{params[:keyword]}%"]).order(id: :desc)
+    @keyword = params[:keyword]
+    render :index
   end
 
   def artist_arts
     @user = User.find(params[:id])
-    @arts = Art.where(user_id: @user.id)
+    @arts = Art.where(user_id: @user.id).order(id: :desc)
   end
 
   def new
