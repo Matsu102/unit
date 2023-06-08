@@ -1,18 +1,17 @@
 class Public::UsersController < ApplicationController
 
   def index
-    if params[:keyword]
-      @users = User.where(:keyword)
-      @artists = @users.where(user_type: "artist")
-    else
-      @artists = User.where(user_type: "artist") # insexにはアーティストのみ表示
-    end
+    @artists = User.where(user_type: "artist") # insexにはアーティストのみ表示
   end
 
   def search
-    @users = User.where(["handle_name like?", "%#{params[:keyword]}%"])
-    @keyword = params[:keyword]
-    render :index
+    if params[:keyword] == "" # 検索ワードが空欄の場合はartists_pathを再読み込み
+      redirect_to artists_path
+    else
+      @artists = User.where(["handle_name like?", "%#{params[:keyword]}%"]).where(user_type: "artist")
+      @search_word = params[:keyword]
+      render :index
+    end
   end
 
   def artist

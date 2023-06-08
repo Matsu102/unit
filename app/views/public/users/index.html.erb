@@ -1,5 +1,10 @@
 <h2>Artists アーティスト一覧</h2>
 
+<% if @search_words == "" %>
+<% else %>
+  <span>検索ワード　<%= @search_word %></span>
+<% end %>
+
 <%= form_with url: users_artsit_search_path, method: :get, local: true do |f| %>
   <%= f.text_field :keyword, value: @keyword, :placeholder => "Search Users" %>
   <%= f.submit "検索" %>

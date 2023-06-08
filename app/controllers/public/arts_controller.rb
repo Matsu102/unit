@@ -1,17 +1,23 @@
 class Public::ArtsController < ApplicationController
 
   def index
-    if params[:keyword]
-      @arts = Art.where(:keyword).order(id: :desc)
-    else
-      @arts = Art.all.order(id: :desc)
-    end
+    @arts = Art.all.order(id: :desc)
   end
 
   def search
-    @arts = Art.where(["title like?", "%#{params[:keyword]}%"]).order(id: :desc)
-    @keyword = params[:keyword]
-    render :index
+    if params[:keyword] == "" # 検索ワードが空欄の場合はarts_pathを再読み込み
+      redirect_to arts_path
+    else
+      split_keyword = params[:keyword].split(/[[:blank:]]+/) # スペースで区切られたkeywordを個別のデータとして扱う
+      @arts = []
+      split_keyword.each do |keyword| # split_keywordに格納されたワードを一つずつ取り出して検索
+        next if keyword == ""
+        @arts += Art.where(["title like?", "%#{keyword}%"])
+      end
+      @arts.uniq! #重複した作品を除外する
+      @search_word = split_keyword.join("　")
+      render :index
+    end
   end
 
   def artist_arts
@@ -47,6 +53,8 @@ class Public::ArtsController < ApplicationController
   def update
     @art = Art.find(params[:id])
     if @art.update(art_params)
+      tag_names = params[:tagsbody].split(",")
+      @art.tags_save(tag_names)
       redirect_to art_path(@art.id)
     else
       render :edit

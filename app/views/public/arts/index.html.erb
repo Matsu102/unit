@@ -1,5 +1,10 @@
 <h2>Arts 作品一覧</h2>
 
+<% if @search_words == "" %>
+<% else %>
+  <span>検索ワード　<%= @search_word %></span>
+<% end %>
+
 <%= form_with url: arts_search_path, method: :get, local: true do |f| %>
   <%= f.text_field :keyword, value: @keyword, :placeholder => "Search Arts" %>
   <%= f.submit "検索" %>

@@ -1,24 +1,22 @@
 class Admin::UsersController < ApplicationController
 
   def index
-    if params[:keyword]
-      @users = User.where(:keyword)
-    else
-      @users = User.all
-    end
+    @users = User.all
   end
 
   def search
-    if params[:keyword] == ""
+    if params[:keyword_id] == "" &&         # 検索ワードが全て空欄の場合はadmin_users_pathを再読み込み
+       params[:keyword_last_name] == "" &&
+       params[:keyword_first_name] == "" &&
+       params[:keyword_handle_name] == ""
       redirect_to admin_users_path
     else
-      split_keyword = params[:keyword].split(/[[:blank:]]+/).select(&:present?)
-      @users = []
-      split_keyword.each do |keyword|
-        next if keyword == ""
-        @users += User.where(["id like? or last_name like? or first_name like? or handle_name like?", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%"])
-      end
-      @users.uniq! #重複したユーザを除外する
+      @users = User.where(["id LIKE(?) AND last_name LIKE(?) AND first_name LIKE(?) AND handle_name LIKE(?)", "%#{params[:keyword_id]}%", "%#{params[:keyword_last_name]}%", "%#{params[:keyword_first_name]}%", "%#{params[:keyword_handle_name]}%"])
+      @search_words = params[:keyword_id] + params[:keyword_last_name] + params[:keyword_first_name] + params[:keyword_handle_name]
+      @search_word_id = params[:keyword_id]
+      @search_word_last_name = params[:keyword_last_name]
+      @search_word_first_name = params[:keyword_first_name]
+      @search_word_handle_name = params[:keyword_handle_name]
       render :index
     end
   end
