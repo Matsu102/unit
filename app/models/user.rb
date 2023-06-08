@@ -15,8 +15,6 @@ class User < ApplicationRecord
   validates :is_locked,        inclusion: {in: [true, false]},               on: :update # update時のみバリデーション
   validates :thumbnail,        presence: true,                               on: :update # update時のみバリデーション
 
-  # 管理者側 ユーザ検索機能
-
   # サムネイル
   has_one_attached :thumbnail
 

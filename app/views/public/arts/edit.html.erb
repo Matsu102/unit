@@ -14,12 +14,12 @@
           <td><%= f.text_field :title, :placeholder => "30文字以内" %></td>
         </tr>
         <tr>
-          <th><%= f.label :detail, "タイトル" %></th>
+          <th><%= f.label :detail, "説明文" %></th>
           <td><%= f.text_area :detail, :placeholder => "200文字以内" %></td>
         </tr>
         <tr>
-          <th>タグ</th>
-          <td>仮</td>
+          <th><%= f.label :tagsbody, "タグ" %></th>
+          <td><%= f.text_field :tagsbody, :placeholder => "カンマ区切り 例)タグ,タグ,タグ" %></td>
         </tr>
         <tr>
           <th><%= f.label :image, "作品(JPEG)" %></th>
