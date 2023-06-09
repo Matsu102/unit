@@ -37,7 +37,8 @@ end
     get       "/my_album"    => "arts#my_album"
     resources :arts,            only: [:index, :new, :create, :show, :edit, :update, :destroy] do
       resource  :likes,           only: [:create, :destroy] # resource 単数形にすると/:idがURLに含まれなくなる 1ユーザ、1投稿に対して、いいね1回のみのため
-      resources :engagements,     only: [:show, :create, :destroy]
+      patch     "/engagements"      => "engagements#remove", as: "engagements_comment"
+      resource  :engagements,     only: [:show, :create]
     end
 
     resources :users, only: [] do

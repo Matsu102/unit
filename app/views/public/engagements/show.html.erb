@@ -1,2 +1,49 @@
-<h1>Public::Engagements#show</h1>
-<p>Find me in app/views/public/engagements/show.html.erb</p>
+<h2>Engagements いいねとコメント</h2>
+
+<div class="row">
+
+  <div class="col-sm-6">
+
+    <p>♥ <%= @likes.count %></p>
+    <% @likes.each do |like| %>
+      <%= image_tag like.user.get_thumbnail(50,50) %>
+      <% if like.user.user_type == "artist" %>
+        ★
+      <% else %>
+        ♥
+      <% end %>
+      <% if like.user.user_type == "artist" %>
+        <%= link_to like.user.handle_name, artist_path(like.user_id) %>
+      <% else %>
+        <%= link_to like.user.handle_name, fan_path(like.user_id) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-sm-6">
+    <p><%= @comments.count %> コメント</p>
+    <!--Todo: 投稿フォーム-->
+    <% @comments.each do |comment| %>
+      <%= image_tag comment.user.get_thumbnail(50,50) %>
+
+      <% if comment.user.user_type == "artist" %>
+        ★
+      <% else %>
+        ♥
+      <% end %>
+
+      <% if comment.user.user_type == "artist" %>
+        <%= link_to comment.user.handle_name, artist_path(comment.user_id) %>
+      <% else %>
+        <%= link_to comment.user.handle_name, fan_path(comment.user_id) %>
+      <% end %>
+
+      <%= comment.comment %>
+      <%= comment.created_at %>
+
+      <p>1 Reply</p> <!--Todo: if文 コメントの返信が0の場合 何も表示しない else *Replyを表示-->
+      <!--Todo: 返信投稿フォーム-->
+    <% end %>
+  </div>
+
+</div>

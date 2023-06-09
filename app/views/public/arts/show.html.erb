@@ -30,11 +30,11 @@
           <% end %>
         <% end %>
         <%= @art.likes.count %>
-        コメント
-        詳細表示 >
-        <% if user_signed_in? && @art.user_id == current_user.id %>
-          <%= link_to "編集する >", edit_art_path(@art.id) %>
-        <% end %>
+      <% end %>
+      コメント
+      <%= link_to "詳細表示 >", art_engagements_path(@art.id) %>
+      <% if user_signed_in? && @art.user_id == current_user.id %>
+        <%= link_to "編集する >", edit_art_path(@art.id) %>
       <% end %>
     </p>
   </div>
