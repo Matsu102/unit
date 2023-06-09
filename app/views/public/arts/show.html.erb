@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-6">
-    <%= link_to view_art_path(@art.id) do %>
+    <%= link_to art_view_path(@art.id) do %>
       <%= image_tag @art.image.variant( resize: "600x400>" ) %>
     <% end %>
   </div>
@@ -12,16 +12,29 @@
     <p><%= @art.detail %></p>
     <p><%= l @art.created_at %></p>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
     <p>
-      <%# @tag.each do |tag| %>
-        <%#= tag.tag %>
-      <%# end %>
+      <% @tags.each do |tag| %>
+        <%= link_to ("#" + tag.tag), arts_hashtag_path(tag.tag) %>
+      <% end %>
     </p>
     <p>
-      Like
-      コメント
-      詳細表示 >
-      <% if user_signed_in? && @art.user_id == current_user.id %>
-        <%= link_to "編集する >", edit_art_path(@art.id) %>
+      <% if @art.user_id == current_user.id %>
+        ♥ <%= @art.likes.count %>
+      <% else %>
+        <% if @art.liked_by?(current_user) %>
+          <%= link_to art_likes_path(@art), method: :delete do %>
+            ♥
+          <% end %>
+        <% else %>
+          <%= link_to art_likes_path(@art), method: :post do %>
+            ♡
+          <% end %>
+        <% end %>
+        <%= @art.likes.count %>
+        コメント
+        詳細表示 >
+        <% if user_signed_in? && @art.user_id == current_user.id %>
+          <%= link_to "編集する >", edit_art_path(@art.id) %>
+        <% end %>
       <% end %>
     </p>
   </div>

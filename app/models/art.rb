@@ -20,6 +20,11 @@ class Art < ApplicationRecord
   # Like アソシエーション
   has_many :likes, dependent: :destroy # 投稿が削除された時に関連するいいねを全て
 
+  # Likesテーブルにuser.idが存在するか調べる true => いいね中 false => いいねなし
+  def liked_by?(user)
+    likes.exists?(user_id: user.id)
+  end
+
   # タグの保存と更新
   def tags_save(tag_names)
     tag_names.each do |tag_name|

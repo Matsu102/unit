@@ -30,12 +30,13 @@ end
     get      "/about"        => "homes#about",  as: "about"
     get      "/users/branch" => "homes#branch", as: "branch" # deviseのフォーム画面2種は条件分岐
 
-    get       "/arts/view/:id"      => "arts#view",        as: "view_art"
+    get       "/arts/hashtag/:tag"  => "arts#hashtag",     as: "arts_hashtag"
+    get       "/arts/view/:id"      => "arts#view",        as: "art_view"
     get       "/arts/search"        => "arts#search"
-    get       "/artist/arts/:id"    => "arts#artist_arts", as: "artist_arts"
+    get       "/artist/arts/:id"    => "arts#arts_artist", as: "artist_arts"
     get       "/my_album"    => "arts#my_album"
     resources :arts,            only: [:index, :new, :create, :show, :edit, :update, :destroy] do
-      resources :likes,           only: [:cteate, :destroy]
+      resource  :likes,           only: [:create, :destroy] # resource 単数形にすると/:idがURLに含まれなくなる 1ユーザ、1投稿に対して、いいね1回のみのため
       resources :engagements,     only: [:show, :create, :destroy]
     end
 

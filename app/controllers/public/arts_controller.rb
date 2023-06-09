@@ -40,6 +40,13 @@ class Public::ArtsController < ApplicationController
 
   def show
     @art = Art.find(params[:id])
+    @tags = @art.tags
+  end
+
+  def hashtag
+    @arts = Art.where(tag: params[:tag])
+    @search_word = params[:tag]
+    render :index
   end
 
   def view
