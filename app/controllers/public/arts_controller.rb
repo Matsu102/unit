@@ -30,7 +30,7 @@ class Public::ArtsController < ApplicationController
   end
 
   def create
-    @art = current_user.arts.build(art_params)
+    @art = current_user.arts.new(art_params)
     if @art.save
       redirect_to art_path(@art.id)
     else

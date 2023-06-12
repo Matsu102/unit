@@ -22,27 +22,44 @@
 
   <div class="col-sm-6">
     <p><%= @comments.count %> コメント</p>
-    <%= form_with model: @comments, url: art_engagements_path do |f| %>
-      <%= f.text_field :comment, :placeholder => "コメントを投稿" %>
-      <%= f.submit "投稿" %>
+    <% if user_signed_in? %>
+      <%= form_with model: @comments, url: art_engagements_path do |f| %>
+        <%= f.text_field :body, :placeholder => "コメントを投稿" %>
+        <%= f.submit "投稿" %>
+      <% end %>
+    <% else %>
     <% end %>
+
     <% @comments.each do |comment| %>
-      <%= image_tag comment.user.get_thumbnail(50,50) %>
-
-      <% if comment.user.user_type == "artist" %>
-        ★
+      <% if comment.is_deleted == "true" %>
+        <p>削除済みコメント</p>
       <% else %>
-        ♥
-      <% end %>
+        <%= image_tag comment.user.get_thumbnail(50,50) %>
 
-      <% if comment.user.user_type == "artist" %>
-        <%= link_to comment.user.handle_name, artist_path(comment.user_id) %>
-      <% else %>
-        <%= link_to comment.user.handle_name, fan_path(comment.user_id) %>
-      <% end %>
+        <% if comment.user.user_type == "artist" %>
+          ★
+        <% else %>
+          ♥
+        <% end %>
 
-      <%= comment.comment %>
-      <%= comment.created_at %>
+        <% if comment.user.user_type == "artist" %>
+          <%= link_to comment.user.handle_name, artist_path(comment.user_id) %>
+        <% else %>
+          <%= link_to comment.user.handle_name, fan_path(comment.user_id) %>
+        <% end %>
+
+        <%= comment.body %>
+        <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+
+        <% if user_signed_in? %>
+          <%= form_with model: @comments, url: art_engagement_path, method: :patch do |f| %>
+            <%= button_tag type: "submit" do %>
+             ■
+            <% end %>
+          <% end %>
+        <% else %>
+        <% end %>
+      <% end %>
 
       <p>1 Reply</p> <!--Todo: if文 コメントの返信が0の場合 何も表示しない else *Replyを表示-->
       <!--Todo: 返信投稿フォーム-->
