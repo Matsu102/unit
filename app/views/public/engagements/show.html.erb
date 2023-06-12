@@ -22,7 +22,10 @@
 
   <div class="col-sm-6">
     <p><%= @comments.count %> コメント</p>
-    <!--Todo: 投稿フォーム-->
+    <%= form_with model: @comments, url: art_engagements_path do |f| %>
+      <%= f.text_field :comment, :placeholder => "コメントを投稿" %>
+      <%= f.submit "投稿" %>
+    <% end %>
     <% @comments.each do |comment| %>
       <%= image_tag comment.user.get_thumbnail(50,50) %>
 

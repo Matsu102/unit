@@ -5,4 +5,18 @@ class Public::EngagementsController < ApplicationController
     @comments = Comment.where(art_id: params[:art_id])
   end
 
+  def create
+    @comment = Comment.new
+  end
+
+  def remove
+
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:comment)
+  end
+
 end

@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2023_05_21_233626) do
   create_table "comments", force: :cascade do |t|
     t.integer "art_id", null: false
     t.integer "user_id", null: false
-    t.string "comment", null: false
+    t.string "body", null: false
     t.integer "to_id"
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
