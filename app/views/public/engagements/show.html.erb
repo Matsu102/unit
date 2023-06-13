@@ -4,7 +4,7 @@
 
   <div class="col-sm-6">
 
-    <p>♥ <%= @likes.count %></p>
+    <p>♥ <%= @likes.count %> いいね</p>
     <% @likes.each do |like| %>
       <%= image_tag like.user.get_thumbnail(50,50) %>
       <% if like.user.user_type == "artist" %>
@@ -23,15 +23,14 @@
   <div class="col-sm-6">
     <p><%= @comments.count %> コメント</p>
     <% if user_signed_in? %>
-      <%= form_with model: @comments, url: art_engagements_path do |f| %>
+      <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
         <%= f.text_field :body, :placeholder => "コメントを投稿" %>
         <%= f.submit "投稿" %>
       <% end %>
-    <% else %>
     <% end %>
 
     <% @comments.each do |comment| %>
-      <% if comment.is_deleted == "true" %>
+      <% if comment.is_deleted == true %>
         <p>削除済みコメント</p>
       <% else %>
         <%= image_tag comment.user.get_thumbnail(50,50) %>
@@ -51,18 +50,19 @@
         <%= comment.body %>
         <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
 
-        <% if user_signed_in? %>
-          <%= form_with model: @comments, url: art_engagement_path, method: :patch do |f| %>
+        <% if user_signed_in? && comment.user_id == current_user.id %>
+          <%= form_with model: comment, url: art_engagement_path(@art.id, comment.id), method: :patch do |f| %>
             <%= button_tag type: "submit" do %>
              ■
             <% end %>
           <% end %>
-        <% else %>
         <% end %>
-      <% end %>
 
       <p>1 Reply</p> <!--Todo: if文 コメントの返信が0の場合 何も表示しない else *Replyを表示-->
       <!--Todo: 返信投稿フォーム-->
+
+      <% end %>
+
     <% end %>
   </div>
 

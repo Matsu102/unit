@@ -32,6 +32,8 @@ class Public::ArtsController < ApplicationController
   def create
     @art = current_user.arts.new(art_params)
     if @art.save
+      tag_names = params[:art][:tagsbody].split(",")
+      @art.tags_save(tag_names)
       redirect_to art_path(@art.id)
     else
       render :new
@@ -44,7 +46,7 @@ class Public::ArtsController < ApplicationController
   end
 
   def hashtag
-    @arts = Art.where(tag: params[:tag])
+    @arts = Art.joins(:tags).where(tags: { tag: params[:tag]} ).distinct
     @search_word = params[:tag]
     render :index
   end
@@ -55,13 +57,15 @@ class Public::ArtsController < ApplicationController
 
   def edit
     @art = Art.find(params[:id])
+    @art.tagsbody = @art.tags.pluck(:tag).join(',')
   end
 
   def update
     @art = Art.find(params[:id])
     if @art.update(art_params)
-      tag_names = params[:tagsbody].split(",")
+      tag_names = params[:art][:tagsbody].split(",")
       @art.tags_save(tag_names)
+      pp @art.tags
       redirect_to art_path(@art.id)
     else
       render :edit

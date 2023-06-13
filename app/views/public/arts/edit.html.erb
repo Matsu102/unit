@@ -19,7 +19,7 @@
         </tr>
         <tr>
           <th><%= label_tag(:tagsbody, "タグ") %></th>
-          <td><%= text_field_tag(:tagsbody, "", :placeholder => "カンマ区切り 例)タグ,タグ,タグ") %></td>
+          <td><%= f.text_field :tagsbody, :placeholder => "カンマ区切り 例)タグ,タグ,タグ" %></td>
         </tr>
         <tr>
           <th><%= f.label :image, "作品(JPEG)" %></th>

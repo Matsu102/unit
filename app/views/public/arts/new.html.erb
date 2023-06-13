@@ -18,8 +18,8 @@
           <td><%= f.text_area :detail, :placeholder => "200文字以内" %></td>
         </tr>
         <tr>
-          <th>タグ</th>
-          <td>仮</td>
+          <th><%= label_tag(:tagsbody, "タグ") %></th>
+          <td><%= f.text_field :tagsbody, :placeholder => "カンマ区切り 例)タグ,タグ,タグ" %></td>
         </tr>
         <tr>
           <th><%= f.label :image, "作品(JPEG)" %></th>
