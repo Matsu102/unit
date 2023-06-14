@@ -4,7 +4,7 @@ class CreateTags < ActiveRecord::Migration[6.1]
 
       # 追加カラム ここから
 
-      t.string :tag, null: false
+      t.string :name, null: false
 
       # 追加カラム ここまで
 

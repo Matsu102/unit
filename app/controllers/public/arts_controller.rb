@@ -46,7 +46,7 @@ class Public::ArtsController < ApplicationController
   end
 
   def hashtag
-    @arts = Art.joins(:tags).where(tags: { tag: params[:tag]} ).distinct
+    @arts = Art.joins(:tags).where(tags: { name: params[:tag]} ).distinct
     @search_word = params[:tag]
     render :index
   end
@@ -57,7 +57,7 @@ class Public::ArtsController < ApplicationController
 
   def edit
     @art = Art.find(params[:id])
-    @art.tagsbody = @art.tags.pluck(:tag).join(',')
+    @art.tagsbody = @art.tags.pluck(:name).join(',')
   end
 
   def update
@@ -65,7 +65,6 @@ class Public::ArtsController < ApplicationController
     if @art.update(art_params)
       tag_names = params[:art][:tagsbody].split(",")
       @art.tags_save(tag_names)
-      pp @art.tags
       redirect_to art_path(@art.id)
     else
       render :edit

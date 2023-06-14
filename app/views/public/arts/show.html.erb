@@ -13,7 +13,7 @@
     <p><%= l @art.created_at %></p>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
     <p>
       <% @tags.each do |tag| %>
-        <%= link_to ("#" + tag.tag), arts_hashtag_path(tag.tag) %>
+        <%= link_to ("#" + tag.name), arts_hashtag_path(tag.name) %>
       <% end %>
     </p>
     <p>

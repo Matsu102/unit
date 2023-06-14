@@ -26,36 +26,16 @@ class Art < ApplicationRecord
   end
 
   # タグの保存と更新
-  def _tags_save(tag_names)
-    tag_names.each do |tag_name|
-      # Todo: 既存のタグは保存しない
-      # Todo: 更新時にart_tagsの紐付けを外す
-      tag = Tag.new(tag: tag_name)
-      tag.save
-      art_tag = tag.art_tags.new(art_id: id)
-      art_tag.save
-    end
-  end
-  def tags_save(sent_tags)
-  # タグが存在していれば、タグの名前を配列として全て取得
-    current_tags = self.tags.pluck(:tag) unless self.tags.nil?
-    # 現在取得したタグから送られてきたタグを除いてoldtagとする
-    old_tags = current_tags - sent_tags
-    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
-    new_tags = sent_tags - current_tags
-    pp current_tags
-    pp old_tags
-    pp new_tags
-
-    # 古いタグを消す
+  def tags_save(new_tags)
+  old_tags = self.tags.pluck(:name) unless self.tags.nil? # @artに紐付けられたタグが存在する場合、タグの名前を配列として全て取得
+    # 古いタグを全て削除 (タグを登録順にソートするため)
     old_tags.each do |old|
-      self.tags.delete Tag.find_by(tag: old)
+      self.tags.delete Tag.find_by(name: old) # Tagテーブルのnameに一致するArtTagレコードを削除する
     end
-
     # 新しいタグを保存
     new_tags.each do |new|
-      new_post_tag = Tag.find_or_create_by(tag: new)
-      self.tags << new_post_tag
+      new_post_tag = Tag.find_or_create_by(name: new) # Tagテーブルに同一タグが存在する場合は何もしない 存在しない場合は新規登録する (Tagテーブルのデータ圧迫防止)
+      self.tags << new_post_tag # @artとTagの紐付けを行う
    end
   end
 
