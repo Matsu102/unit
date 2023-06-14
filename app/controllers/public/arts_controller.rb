@@ -12,10 +12,11 @@ class Public::ArtsController < ApplicationController
       @arts = []
       split_keyword.each do |keyword| # split_keywordに格納されたワードを一つずつ取り出して検索
         next if keyword == ""
-        @arts += Art.where(["title like?", "%#{keyword}%"])
+        @arts += Art.where(["title like?", "%#{keyword}%",]) # Artのtitleカラムと照合
+        @arts += Art.joins(:tags).where(["name like?", "%#{keyword}%"]) # Artに紐づいているTagのnameカラムと照合
       end
       @arts.uniq! #重複した作品を除外する
-      @search_word = split_keyword.join("　")
+      @search_word = split_keyword.join("　") # keywordを全角スペースで区切って結合
       render :index
     end
   end
@@ -47,7 +48,7 @@ class Public::ArtsController < ApplicationController
 
   def hashtag
     @arts = Art.joins(:tags).where(tags: { name: params[:tag]} ).distinct
-    @search_word = params[:tag]
+    @search_word = "#" + params[:tag]
     render :index
   end
 

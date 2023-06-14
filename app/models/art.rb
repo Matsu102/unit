@@ -6,7 +6,10 @@ class Art < ApplicationRecord
 
   # 作品
   has_one_attached :image
+
+  # artのnewページとeditページの:tagsbodyに仮想カラム
   attr_accessor :tagsbody
+
   # User アソシエーション
   belongs_to :user
 
