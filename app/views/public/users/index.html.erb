@@ -1,6 +1,6 @@
 <h2>Artists アーティスト一覧</h2>
 
-<% if @search_word == nil %>
+<% if @search_word.blank? %>
 <% else %>
   <span>検索ワード　<%= @search_word %></span>
 <% end %>

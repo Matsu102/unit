@@ -1,25 +1,25 @@
 <h2>Users ユーザ一覧 </h2>
 
-<% if @search_words == nil %>
+<% if @search_words.blank? %>
 <% else %>
   <span>検索ワード　</span>
 <% end %>
-<% if @search_word_id == "" %>
+<% if @search_word_id.blank? %>
 <% else %>
   <span>会員ID : <%= @search_word_id %>　</span>
 <% end %>
 
-<% if @search_word_last_name == "" %>
+<% if @search_word_last_name.blank? %>
 <% else %>
   <span>苗字 : <%= @search_word_last_name %>　</span>
 <% end %>
 
-<% if @search_word_first_name == "" %>
+<% if @search_word_first_name.blank? %>
 <% else %>
   <span>名前 : <%= @search_word_first_name %>　</span>
 <% end %>
 
-<% if @search_word_handle_name == "" %>
+<% if @search_word_handle_name.blank? %>
 <% else %>
   <span>ハンドルネーム : <%= @search_word_handle_name %></span>
 <% end %>
