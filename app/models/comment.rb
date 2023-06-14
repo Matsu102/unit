@@ -11,4 +11,7 @@ class Comment < ApplicationRecord
   # Notice アソシエーション
   has_many :notices
 
+  # Comment アソシエーション
+  has_many :replies, class_name: "Comment", foreign_key: "to_id", dependent: :destroy # has_many > Commentは複数の返信を持っている  class_name > モデル名
+
 end

@@ -24,7 +24,7 @@
     <p><%= @comments.count %> コメント</p>
     <% if user_signed_in? %>
       <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
-        <%= f.text_field :body, :placeholder => "コメントを投稿" %>
+        <%= f.text_field :body, :placeholder => "コメント 150字まで" %>
         <%= f.submit "投稿" %>
       <% end %>
     <% end %>
@@ -58,8 +58,51 @@
           <% end %>
         <% end %>
 
-      <p>1 Reply</p> <!--Todo: if文 コメントの返信が0の場合 何も表示しない else *Replyを表示-->
-      <!--Todo: 返信投稿フォーム-->
+      <% if comment.to_id.blank? %>
+      <% else %>
+        <p><%= comment.to_id.count %> Reply</p>
+      <% end %>
+
+      <% comment.replies.each do |reply| %>
+        <% if reply.is_deleted == true %>
+          <p>削除済みコメント</p>
+        <% else %>
+          <%= image_tag reply.user.get_thumbnail(50,50) %>
+
+          <% if reply.user.user_type == "artist" %>
+            ★
+          <% else %>
+            ♥
+          <% end %>
+
+          <% if reply.user.user_type == "artist" %>
+            <%= link_to reply.user.handle_name, artist_path(reply.user_id) %>
+          <% else %>
+            <%= link_to reply.user.handle_name, fan_path(reply.user_id) %>
+          <% end %>
+
+          <%= reply.body %>
+          <%= l reply.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+
+          <% if user_signed_in? && reply.user_id == current_user.id %>
+            <%= form_with model: reply, url: art_engagement_path(@art.id, reply.id), method: :patch do |f| %>
+            <%= f.hidden_field :to_id, value: comment.id %>
+              <%= button_tag type: "submit" do %>
+               ■
+              <% end %>
+            <% end %>
+          <% end %>
+
+        <% end %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
+          <%= f.text_field :body, :placeholder => "返信 150字まで" %>
+          <%= f.hidden_field :to_id, value: comment.id %>
+        <%= f.submit "投稿" %>
+      <% end %>
+    <% end %>
 
       <% end %>
 
