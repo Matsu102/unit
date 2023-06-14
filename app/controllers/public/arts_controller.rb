@@ -12,8 +12,8 @@ class Public::ArtsController < ApplicationController
       @arts = []
       split_keyword.each do |keyword| # split_keywordに格納されたワードを一つずつ取り出して検索
         next if keyword == ""
-        @arts += Art.where(["title like?", "%#{keyword}%",]) # Artのtitleカラムと照合
-        @arts += Art.joins(:tags).where(["name like?", "%#{keyword}%"]) # Artに紐づいているTagのnameカラムと照合
+        @arts += Art.order(id: :desc).where(["title like?", "%#{keyword}%",]) # Artのtitleカラムと照合
+        @arts += Art.joins(:tags).order(id: :desc).where(["name like?", "%#{keyword}%"]) # Artに紐づいているTagのnameカラムと照合
       end
       @arts.uniq! #重複した作品を除外する
       @search_word = split_keyword.join("　") # keywordを全角スペースで区切って結合

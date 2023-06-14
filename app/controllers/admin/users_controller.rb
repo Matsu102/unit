@@ -11,7 +11,7 @@ class Admin::UsersController < ApplicationController
        params[:keyword_handle_name] == ""
       redirect_to admin_users_path
     else
-      @users = User.where(["id LIKE(?) AND last_name LIKE(?) AND first_name LIKE(?) AND handle_name LIKE(?)", "%#{params[:keyword_id]}%", "%#{params[:keyword_last_name]}%", "%#{params[:keyword_first_name]}%", "%#{params[:keyword_handle_name]}%"])
+      @users = User.order(id: :desc).where(["id LIKE(?) AND last_name LIKE(?) AND first_name LIKE(?) AND handle_name LIKE(?)", "%#{params[:keyword_id]}%", "%#{params[:keyword_last_name]}%", "%#{params[:keyword_first_name]}%", "%#{params[:keyword_handle_name]}%"])
       @search_words = params[:keyword_id] + params[:keyword_last_name] + params[:keyword_first_name] + params[:keyword_handle_name]
       @search_word_id = params[:keyword_id]
       @search_word_last_name = params[:keyword_last_name]

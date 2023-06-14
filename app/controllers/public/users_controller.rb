@@ -8,7 +8,7 @@ class Public::UsersController < ApplicationController
     if params[:keyword] == "" # 検索ワードが空欄の場合はartists_pathを再読み込み
       redirect_to artists_path
     else
-      @artists = User.where(["handle_name like?", "%#{params[:keyword]}%"]).where(user_type: "artist")
+      @artists = User.order(id: :desc).where(["handle_name like?", "%#{params[:keyword]}%"]).where(user_type: "artist")
       @search_word = params[:keyword]
       render :index
     end
