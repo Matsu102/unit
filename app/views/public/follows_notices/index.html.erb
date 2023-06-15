@@ -3,13 +3,37 @@
 <div class="row">
 
   <div class="col-sm-3">
-  <%= @my_follow.count %> フォロー
-  
+  <p><%= @my_follow.count %> フォロー</p>
+    <% @my_follow.each do |follow| %>
+      <%= image_tag follow.get_thumbnail(50,50) %>
+      <% if follow.user_type == "artist" %>
+        ★
+      <% else %>
+        ♥
+      <% end %>
+      <% if follow.user_type == "artist" %>
+        <%= link_to follow.handle_name, artist_path(follow.id) %>
+      <% else %>
+        <%= link_to follow.handle_name, fan_path(follow.id) %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="col-sm-3">
-  <%= @my_follower.count %> フォロワー
-
+  <p><%= @my_follower.count %> フォロワー</p>
+    <% @my_follower.each do |follower| %>
+      <%= image_tag follower.get_thumbnail(50,50) %>
+      <% if follower.user_type == "artist" %>
+        ★
+      <% else %>
+        ♥
+      <% end %>
+      <% if follower.user_type == "artist" %>
+        <%= link_to follower.handle_name, artist_path(follower.id) %>
+      <% else %>
+        <%= link_to follower.handle_name, fan_path(follower.id) %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="col-sm-6">
