@@ -44,6 +44,7 @@ class Public::ArtsController < ApplicationController
   def show
     @art = Art.find(params[:id])
     @tags = @art.tags
+    @comments = Comment.where(art_id: @art.id, to_id: nil) # 親コメント
   end
 
   def hashtag

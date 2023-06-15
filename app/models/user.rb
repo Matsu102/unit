@@ -35,11 +35,28 @@ class User < ApplicationRecord
   # Like アソシエーション
   has_many :likes
 
+#------------------------------
+
   # Follow アソシエーション
-  has_many :followers, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy # followers == Followモデルのfollower_id == フォローしたユーザのid == current_userがフォローしているユーザ
-  has_many :followeds, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy # followeds == Followモデルのfollowed_id == フォローされたユーザのid == current_userをフォローしているユーザ
-  has_many :followings, through: :followers, source: :followed # ユーザのフォローリストで表示   中間テーブル経由でcurrent_userがフォローしたユーザ情報を参照
-  has_many :followers, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 中間テーブル経由でcurrent_userをフォローしたユーザの情報を参照
+  has_many :followers, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy # current_userがフォローしているユーザ
+  has_many :followeds, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy # current_userをフォローしているユーザ
+  has_many :my_followers, through: :followers, source: :followed  # ユーザのフォローリストで表示   current_userがフォローしたユーザの情報を参照
+  has_many :my_followeds, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 current_userをフォローしたユーザの情報を参照
+  
+  # フォロー 追加処理
+  def follow(user_id)
+    followers.create(followed_id: user_id)
+  end
+  # フォロー 解除処理
+  def unfollow(user_id)
+    followers.find_by(followed_id: user_id).destroy
+  end
+  # フォロー 判定処理
+  def following?(user)
+    my_followers.include?(user)
+  end
+  
+#------------------------------
 
   # Notice アソシエーション
   has_many :notices, dependent: :destroy

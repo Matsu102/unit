@@ -17,6 +17,16 @@ class Public::EngagementsController < ApplicationController
     end
   end
 
+  # 全コメント論理削除
+  # def remove
+  #   comment = Comment.find(params[:id])
+  #   if comment.update(is_deleted: true)
+  #     redirect_to art_engagements_path(art_id: params[:art_id])
+  #   else
+  #     render :show
+  #   end
+  # end
+
   def remove
     comment = Comment.find(params[:id])
     if comment.to_id.nil?

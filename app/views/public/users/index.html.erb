@@ -10,15 +10,15 @@
   <%= f.submit "検索" %>
 <% end %>
 
-<% @artists.each do |artist| %>
-  <%= link_to artist_path(artist.id) do %>
+<% @user.each do |user| %>
+  <%= link_to artist_path(user.id) do %>
     <div>
-      <%= image_tag artist.get_thumbnail(50,50) %>
-      <p><%= artist.handle_name %><br>
-      <% if artist.introduction.nil? %>
+      <%= image_tag user.get_thumbnail(50,50) %>
+      <p><%= user.handle_name %><br>
+      <% if user.introduction.nil? %>
         No introduction.
       <% else %>
-        <%= artist.introduction.truncate(27) %>
+        <%= user.introduction.truncate(27) %>
       <% end %>
       </p>
     </div>

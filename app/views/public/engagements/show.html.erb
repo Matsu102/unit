@@ -7,11 +7,7 @@
     <p>♥ <%= @likes.count %> いいね</p>
     <% @likes.each do |like| %>
       <%= image_tag like.user.get_thumbnail(50,50) %>
-      <% if like.user.user_type == "artist" %>
-        ★
-      <% else %>
-        ♥
-      <% end %>
+      <%= like.user.user_mark %>
       <% if like.user.user_type == "artist" %>
         <%= link_to like.user.handle_name, artist_path(like.user_id) %>
       <% else %>
