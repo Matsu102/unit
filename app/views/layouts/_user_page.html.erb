@@ -1,0 +1,7 @@
+<%#= render '././layouts/user_page', user_type: *, handle_name: *, user_id: * %>
+
+<% if user_type == "artist" %>
+  <%= link_to handle_name, artist_path(user_id) %>
+<% else %>
+  <%= link_to handle_name, fan_path(user_id) %>
+<% end %>

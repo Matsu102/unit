@@ -21,6 +21,15 @@ class Public::ArtsController < ApplicationController
     end
   end
 
+  def my_album
+    user  = current_user
+    users = user.my_followers
+    @arts = []
+    users.each do |user|
+      @arts += Art.where(user_id: user.followers).order(id: :desc)
+    end
+  end
+
   def artist_arts
     @user = User.find(params[:id])
     @arts = Art.where(user_id: @user.id).order(id: :desc)

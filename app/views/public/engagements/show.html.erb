@@ -7,16 +7,8 @@
     <p>♥ <%= @likes.count %> いいね</p>
     <% @likes.each do |like| %>
       <%= image_tag like.user.get_thumbnail(50,50) %>
-      <% if like.user.user_type == "artist" %>
-        ★
-      <% else %>
-        ♥
-      <% end %>
-      <% if like.user.user_type == "artist" %>
-        <%= link_to like.user.handle_name, artist_path(like.user_id) %>
-      <% else %>
-        <%= link_to like.user.handle_name, fan_path(like.user_id) %>
-      <% end %>
+      <%= render '././layouts/user_mark', user: like.user %>
+      <%= render '././layouts/user_page', user_type: like.user.user_type, handle_name: like.user.handle_name, user_id: like.user.id %>
     <% end %>
   </div>
 
@@ -34,18 +26,8 @@
         <p>削除済みコメント</p>
       <% else %>
         <%= image_tag comment.user.get_thumbnail(50,50) %>
-
-        <% if comment.user.user_type == "artist" %>
-          ★
-        <% else %>
-          ♥
-        <% end %>
-
-        <% if comment.user.user_type == "artist" %>
-          <%= link_to comment.user.handle_name, artist_path(comment.user_id) %>
-        <% else %>
-          <%= link_to comment.user.handle_name, fan_path(comment.user_id) %>
-        <% end %>
+        <%= render '././layouts/user_mark', user: comment.user %>
+        <%= render '././layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
 
         <%= comment.body %>
         <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
@@ -68,22 +50,10 @@
           <p>削除済みコメント</p>
         <% else %>
           <%= image_tag reply.user.get_thumbnail(50,50) %>
-
-          <% if reply.user.user_type == "artist" %>
-            ★
-          <% else %>
-            ♥
-          <% end %>
-
-          <% if reply.user.user_type == "artist" %>
-            <%= link_to reply.user.handle_name, artist_path(reply.user_id) %>
-          <% else %>
-            <%= link_to reply.user.handle_name, fan_path(reply.user_id) %>
-          <% end %>
-
+          <%= render '././layouts/user_mark', user: reply.user %>
+          <%= render '././layouts/user_page', user_type: reply.user.user_type, handle_name: reply.user.handle_name, user_id: reply.user.id %>
           <%= reply.body %>
           <%= l reply.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
-
           <% if user_signed_in? && reply.user_id == current_user.id %>
             <%= form_with model: reply, url: art_engagement_path(@art.id, reply.id), method: :patch do |f| %>
             <%= f.hidden_field :to_id, value: comment.id %>
