@@ -40,8 +40,8 @@ class User < ApplicationRecord
   # Follow アソシエーション
   has_many :followers, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy # current_userがフォローしているユーザ
   has_many :followeds, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy # current_userをフォローしているユーザ
-  has_many :my_followers, through: :followers, source: :followed  # ユーザのフォローリストで表示   current_userがフォローしたユーザの情報を参照
-  has_many :my_followeds, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 current_userをフォローしたユーザの情報を参照
+  has_many :my_followers, through: :followers, source: :followed  # ユーザのフォローリストで表示   current_userがフォローしているユーザの情報を参照
+  has_many :my_followeds, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 current_userをフォローしているユーザの情報を参照
   
   # フォロー 追加処理
   def follow(user_id)

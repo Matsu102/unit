@@ -22,12 +22,8 @@ class Public::ArtsController < ApplicationController
   end
 
   def my_album
-    user  = current_user
-    users = user.my_followers
-    @arts = []
-    users.each do |user|
-      @arts += Art.where(user_id: user.followers).order(id: :desc)
-    end
+    users = current_user.my_followers # users > フォローしているユーザの情報をusersに格納
+    @arts = Art.where(user_id: users.map(&:id)).order(id: :desc) # map > カラムを指定してデータを取り出す  serts.id でも取れそうな雰囲気だが、エラーが出る。 (User.all.idと書いているようなもの)
   end
 
   def artist_arts
@@ -88,9 +84,6 @@ class Public::ArtsController < ApplicationController
     @art.destroy
     flash[:notice] = "投稿を削除しました。"
     redirect_to artist_path(current_user.id)
-  end
-
-  def my_album
   end
 
   private

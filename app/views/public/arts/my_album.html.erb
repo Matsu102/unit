@@ -1,6 +1,6 @@
 <h1>My album マイアルバム</h1>
 
-<% @arts.each do |art| %>
+<% @arts&.each do |art| %>
   <%= link_to art_path(art.id) do %>
     <%= image_tag art.image %>
   <% end %>
