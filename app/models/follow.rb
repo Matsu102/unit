@@ -5,6 +5,6 @@ class Follow < ApplicationRecord
   belongs_to :followed, class_name: "User" # followed == Userモデルのid
 
   # Notice アソシエーション
-  has_many :notices
+  has_many :notices, dependent: :destroy
 
 end

@@ -60,6 +60,18 @@ class User < ApplicationRecord
 
   # Notice アソシエーション
   has_many :notices, dependent: :destroy
+  
+  # followの通知機能
+  def create_notice_follow(current_user)
+    temp = Notice.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
+    if temp.blank?
+      notice = current_user.active_notice.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notice.save if notice.valid?
+    end
+  end
 
 end
 

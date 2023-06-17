@@ -1,4 +1,5 @@
 class Public::ArtsController < ApplicationController
+before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @arts = Art.all.order(id: :desc)

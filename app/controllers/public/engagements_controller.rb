@@ -1,4 +1,5 @@
 class Public::EngagementsController < ApplicationController
+before_action :authenticate_user!, except: [:show]
 
   def show
     @likes = Like.where(art_id: params[:art_id]).order(id: :desc)
@@ -11,6 +12,10 @@ class Public::EngagementsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     @comment.art_id = params[:art_id]
     if @comment.save
+      #----- コメント機能
+      @comment.create_notice_comment(current_user, @comment.id)
+      respond_to :js
+      #----- コメント機能ここまで
       redirect_to art_engagements_path(art_id: params[:art_id])
     else
       render :show

@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+before_action :authenticate_user!
 
   def index
     @user = User.where(user_type: "artist") # insexにはアーティストのみ表示
