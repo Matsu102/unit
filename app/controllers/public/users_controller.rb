@@ -2,7 +2,7 @@ class Public::UsersController < ApplicationController
 before_action :authenticate_user!
 
   def index
-    @user = User.where(user_type: "artist") # insexにはアーティストのみ表示
+    @user = User.where(user_type: 'artist') # insexにはアーティストのみ表示
   end
 
   def search
@@ -17,7 +17,7 @@ before_action :authenticate_user!
 
   def artist
     @user = User.find(params[:id])
-    if @user.user_type == "fan" # ファンのページは表示できないようにする
+    if @user.user_type == 'fan' # ファンのページは表示できないようにする
       redirect_to artists_path
     end
     @arts = Art.where(user_id: @user.id).order(id: :desc)
@@ -25,7 +25,7 @@ before_action :authenticate_user!
 
   def fan
     @user = User.find(params[:id])
-    if @user.user_type == "artist" # アーティストのページは表示できないようにする
+    if @user.user_type == 'artist' # アーティストのページは表示できないようにする
       redirect_to artists_path
     end
   end
@@ -37,7 +37,7 @@ before_action :authenticate_user!
   def update
     @user = User.find(current_user.id)
     @user.update(user_params)
-    if @user.user_type == "artist"
+    if @user.user_type == 'artist'
       redirect_to artist_path(current_user.id)
     else
       redirect_to fan_path(current_user.id)
@@ -52,7 +52,7 @@ before_action :authenticate_user!
     @user = User.find(current_user.id)
     @user.update(is_deleted: true)
     reset_session
-    flash[:notice] = "退会が完了しました。またのご利用をお待ちしております。"
+    flash[:notice] = '退会が完了しました。またのご利用をお待ちしております。'
     redirect_to root_path
   end
 

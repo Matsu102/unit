@@ -4,23 +4,23 @@
 <table>
   <tr>
     <th>
-      <%= f.label :email, "メールアドレス" %>
+      <%= f.label :email, 'メールアドレス' %>
     </th>
     <td>
-      <%= f.email_field :email, autofocus: true, :placeholder => "xxx@gmail.com", autocomplete: "email" %>
+      <%= f.email_field :email, autofocus: true, :placeholder => 'xxx@gmail.com', autocomplete: 'email' %>
     </td>
   </tr>
   <tr>
     <th>
-      <%= f.label :password, "パスワード" %>
+      <%= f.label :password, 'パスワード' %>
     </th>
     <td>
       <%= f.password_field :password %>
     </td>
   </tr>
-  <td colspan="2" >
-    <div class="actions">
-      <%= f.submit "ログイン" %>
+  <td colspan="2">
+    <div class='actions'>
+      <%= f.submit 'ログイン' %>
     </div>
   </td>
 </table>

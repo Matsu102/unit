@@ -25,11 +25,11 @@
 <% end %>
 
 <%= form_with url: admin_users_search_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword_id, :placeholder => "会員ID 例)123" %>
-  <%= f.text_field :keyword_last_name, :placeholder => "苗字" %>
-  <%= f.text_field :keyword_first_name, :placeholder => "名前" %>
-  <%= f.text_field :keyword_handle_name, :placeholder => "ニックネーム" %>
-  <%= f.submit "検索" %>
+  <%= f.text_field :keyword_id, :placeholder => '会員ID 例)123' %>
+  <%= f.text_field :keyword_last_name, :placeholder => '苗字' %>
+  <%= f.text_field :keyword_first_name, :placeholder => '名前' %>
+  <%= f.text_field :keyword_handle_name, :placeholder => 'ニックネーム' %>
+  <%= f.submit '検索' %>
 <% end %>
 
 <% @users.each do |user| %>

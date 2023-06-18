@@ -3,13 +3,8 @@ before_action :authenticate_user!
 
   def create
     current_user.follow(params[:user_id])
-    @user.create_notices_follow(current_user)
-    #----- コメント機能
-    respond_to do |format|
-      format.html { redirect_to @user }
-      format.js
-    end
-    #-----コメント機能ここまで
+    @user = User.find(params[:user_id])
+    @user.create_notice_follow(current_user)
     redirect_to request.referer # 遷移前のurlに飛ぶ
   end
 

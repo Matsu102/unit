@@ -10,24 +10,24 @@
     <%= form_with model: @art, url: arts_path do |f| %>
       <table>
         <tr>
-          <th><%= f.label :title, "タイトル" %></th>
-          <td><%= f.text_field :title, :placeholder => "30文字以内" %></td>
+          <th><%= f.label :title, 'タイトル' %></th>
+          <td><%= f.text_field :title, :placeholder => '30文字以内' %></td>
         </tr>
         <tr>
-          <th><%= f.label :detail, "タイトル" %></th>
-          <td><%= f.text_area :detail, :placeholder => "200文字以内" %></td>
+          <th><%= f.label :detail, 'タイトル' %></th>
+          <td><%= f.text_area :detail, :placeholder => '200文字以内' %></td>
         </tr>
         <tr>
-          <th><%= label_tag(:tagsbody, "タグ") %></th>
-          <td><%= f.text_field :tagsbody, :placeholder => "カンマ区切り 例)タグ,タグ,タグ" %></td>
+          <th><%= label_tag(:tagsbody, 'タグ') %></th>
+          <td><%= f.text_field :tagsbody, :placeholder => 'カンマ区切り 例)タグ,タグ,タグ' %></td>
         </tr>
         <tr>
-          <th><%= f.label :image, "作品(JPEG)" %></th>
-          <td><%= f.file_field :image, style: "max-width: 600px; max-heigh: 400px;", accept: "image/jpeg", id: "imagePreviewForm" %></td>　<!--画像プレビュー用id-->
+          <th><%= f.label :image, '作品(JPEG)' %></th>
+          <td><%= f.file_field :image, style: 'max-width: 600px; max-heigh: 400px;', accept: 'image/jpeg', id: 'imagePreviewForm' %></td>　<!--画像プレビュー用id-->
         </tr>
         <tr>
           <th></th>
-          <td><%= f.submit "投稿" %></td>
+          <td><%= f.submit '投稿' %></td>
         </tr>
       </table>
 

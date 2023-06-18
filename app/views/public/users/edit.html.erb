@@ -5,16 +5,16 @@
     <td><%= @user.id %></td>
     <td colspan="3" rowspan="4">
       <div id="previewThumbnail"> <!--画像プレビュー-->
-        <%= image_tag @user.thumbnail.variant( resize: "100x100" ) %>
+        <%= image_tag @user.thumbnail.variant( resize: '100x100' ) %>
       </div>
-      <%= f.label :thumbnail, "画像をアップロード" %>
-      <%= f.file_field :thumbnail, accept: "image/jpeg, image/png, image/gif", id: "thumbnailPreviewForm" %>　<!--画像プレビュー用id-->
+      <%= f.label :thumbnail, '画像をアップロード' %>
+      <%= f.file_field :thumbnail, accept: 'image/jpeg, image/png, image/gif', id: 'thumbnailPreviewForm' %>　<!--画像プレビュー用id-->
     </td>
   </tr>
   <tr>
     <th>会員種別</th>
     <td>
-      <% if "artist" == @user.user_type %>
+      <% if 'artist' == @user.user_type %>
         アーティスト
       <% else %>
         ファン
@@ -22,49 +22,49 @@
     </td>
   </tr>
   <tr>
-    <% if "artist" == @user.user_type %>
-      <th><%= f.label :handle_name, "ニックネーム" %></th>
-      <td><%= f.text_field :handle_name, :placeholder => "ニックネーム" %></td>
+    <% if 'artist' == @user.user_type %>
+      <th><%= f.label :handle_name, 'ニックネーム' %></th>
+      <td><%= f.text_field :handle_name, :placeholder => 'ニックネーム' %></td>
     <% else %>
-      <th rowspan="2"><%= f.label :handle_name, "ニックネーム" %></th>
-      <td rowspan="2"><%= f.text_field :handle_name, :placeholder => "ニックネーム" %></td>
+      <th rowspan="2"><%= f.label :handle_name, 'ニックネーム' %></th>
+      <td rowspan="2"><%= f.text_field :handle_name, :placeholder => 'ニックネーム' %></td>
     <% end %>
   </tr>
-  <% if "artist" == @user.user_type %>
+  <% if 'artist' == @user.user_type %>
     <tr>
-      <th><%= f.label :url, "サイトURL" %></th>
-      <td><%= f.text_field :url, :placeholder => "http://" %></td>
+      <th><%= f.label :url, 'サイトURL' %></th>
+      <td><%= f.text_field :url, :placeholder => 'http://' %></td>
     </tr>
   <% else %>
   <% end %>
   <tr>
-    <th rowspan="3"><%= f.label :introduction, "自己紹介" %></th>
-    <td rowspan="3"><%= f.text_area :introduction, :placeholder => "200文字まで" %></td>
+    <th rowspan="3"><%= f.label :introduction, '自己紹介' %></th>
+    <td rowspan="3"><%= f.text_area :introduction, :placeholder => '200文字まで' %></td>
     <th>お名前</th>
     <td>
-      <%= f.label :last_name, "姓" %>
-      <%= f.text_field :last_name, :placeholder => "苗字" %>
+      <%= f.label :last_name, '姓' %>
+      <%= f.text_field :last_name, :placeholder => '苗字' %>
       </td>
     <td>
-      <%= f.label :first_name, "名" %>
-      <%= f.text_field :first_name, :placeholder => "名前" %>
+      <%= f.label :first_name, '名' %>
+      <%= f.text_field :first_name, :placeholder => '名前' %>
     </td>
   </tr>
   <tr>
-    <th><%= f.label :email, "メールアドレス" %></th>
-    <td colspan="2"><%= f.email_field :email, :placeholder => "xxx@gmail.com" %></td>
+    <th><%= f.label :email, 'メールアドレス' %></th>
+    <td colspan="2"><%= f.email_field :email, :placeholder => 'xxx@gmail.com' %></td>
   </tr>
   <tr>
-    <th><%= f.label :telephone_number, "電話番号" %></th>
-    <td colspan="2"><%= f.text_field :telephone_number, :placeholder => "XXX-XXXX-XXXX" %></td>
+    <th><%= f.label :telephone_number, '電話番号' %></th>
+    <td colspan="2"><%= f.text_field :telephone_number, :placeholder => 'XXX-XXXX-XXXX' %></td>
   </tr>
   <tr>
     <td colspan="5">
-      <%= f.submit "変更" %>
-      <%= link_to "退会", users_confirm_path %>
+      <%= f.submit '変更' %>
+      <%= link_to '退会', users_confirm_path %>
     </td>
   </tr>
 </table>
 <% end %>
 
-<%= link_to "Back", :back %>
+<%= link_to 'Back', :back %>

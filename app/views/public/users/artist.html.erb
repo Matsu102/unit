@@ -6,12 +6,12 @@
     <p><%= @user.url %></p>
     <p><%= @user.introduction %></p>
     <% if user_signed_in? && @user.id == current_user.id %>
-      <%= link_to "登録内容変更", users_edit_path %>
+      <%= link_to '登録内容変更', users_edit_path %>
     <% else %>
       <% if current_user.following?(@user) %>
-        <%= link_to "フォロー解除", user_follow_path(@user.id), method: :delete %>
+        <%= link_to 'フォロー解除', user_follow_path(@user.id), method: :delete %>
       <% else %>
-        <%= link_to "フォロー", user_follows_path(@user.id), method: :post %>
+        <%= link_to 'フォロー', user_follows_path(@user.id), method: :post %>
       <% end %>
     <% end %>
   </div>
@@ -19,7 +19,7 @@
   <div class="col-sm-8">
     <h2>Arts 作品一覧</h2>
     <% if user_signed_in? && @user.id == current_user.id %>
-      <%= link_to "+", new_art_path %>
+      <%= link_to '+', new_art_path %>
     <% end %>
     <% @arts.first(8).each do |art| %>
       <%= link_to art_path(art.id) do %>
@@ -27,7 +27,7 @@
       <% end %>
     <% end %>
     <% if @arts.count > 8 %>
-      <%= link_to "もっと見る >", artist_arts_path(@user.id) %>
+      <%= link_to 'もっと見る >', artist_arts_path(@user.id) %>
     <% end %>
   </div>
 </div>

@@ -7,7 +7,7 @@
   <tr>
     <th>会員種別</th>
     <td>
-      <% if "artist" == @user.user_type %>
+      <% if 'artist' == @user.user_type %>
         アーティスト
       <% else %>
         ファン
@@ -15,7 +15,7 @@
     </td>
   </tr>
   <tr>
-    <% if "artist" == @user.user_type %>
+    <% if 'artist' == @user.user_type %>
       <th>ニックネーム</th>
       <td><%= @user.handle_name %></td>
     <% else %>
@@ -26,7 +26,7 @@
     <td>姓　<%= @user.last_name %></td>
     <td>名　<%= @user.first_name %></td>
   </tr>
-  <% if "artist" == @user.user_type %>
+  <% if 'artist' == @user.user_type %>
     <tr>
       <th>サイトURL</th>
       <td><%= @user.url %></td>
@@ -43,21 +43,21 @@
   </tr>
   <tr>
     <th>会員ステータス</th>
-    <td colspan="2"><%= @user.is_deleted ? "退会" : "有効" %></td>
+    <td colspan="2"><%= @user.is_deleted ? '退会' : '有効' %></td>
 
   </tr>
   <tr>
     <th>公開ステータス</th>
     <%= form_with model: @user, url: admin_user_path(@user.id) do |f| %>
       <td>
-        <%= f.radio_button :is_locked, false %><%= f.label(:is_locked, "公開", value: false) %>
-        <%= f.radio_button :is_locked, true %><%= f.label(:is_locked, "非公開", value: true) %>
+        <%= f.radio_button :is_locked, false %><%= f.label(:is_locked, '公開', value: false) %>
+        <%= f.radio_button :is_locked, true %><%= f.label(:is_locked, '非公開', value: true) %>
       </td>
       <td>
-        <%= f.submit "変更" %>
+        <%= f.submit '変更' %>
       </td>
     <% end %>
   </tr>
 </table>
 
-<%= link_to "Back", :back %>
+<%= link_to 'Back', :back %>

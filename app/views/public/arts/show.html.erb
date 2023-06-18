@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-6">
     <%= link_to art_view_path(@art.id) do %>
-      <%= image_tag @art.image.variant( resize: "600x400>" ) %>
+      <%= image_tag @art.image.variant( resize: '600x400>' ) %>
     <% end %>
   </div>
   <div class="col-sm-6">
@@ -13,7 +13,7 @@
     <p><%= l @art.created_at %></p>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
     <p>
       <% @tags.each do |tag| %>
-        <%= link_to ("#" + tag.name), arts_hashtag_path(tag.name) %>
+        <%= link_to ('#' + tag.name), arts_hashtag_path(tag.name) %>
       <% end %>
     </p>
     <p>
@@ -36,12 +36,12 @@
         ♥ <%= @art.likes.count %>
       <% end %>
       <%= @comments.count %> コメント
-      <%= link_to "詳細表示 >", art_engagements_path(@art.id) %>
+      <%= link_to '詳細表示 >', art_engagements_path(@art.id) %>
       <% if user_signed_in? && @art.user_id == current_user.id %>
-        <%= link_to "編集する >", edit_art_path(@art.id) %>
+        <%= link_to '編集する >', edit_art_path(@art.id) %>
       <% end %>
     </p>
   </div>
 </div>
 
-<%= link_to "Back", :back %>
+<%= link_to 'Back', :back %>

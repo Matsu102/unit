@@ -39,7 +39,7 @@ before_action :authenticate_user!, except: [:index, :show]
   def create
     @art = current_user.arts.new(art_params)
     if @art.save
-      tag_names = params[:art][:tagsbody].split(",")
+      tag_names = params[:art][:tagsbody].split(',')
       @art.tags_save(tag_names)
       redirect_to art_path(@art.id)
     else
@@ -55,7 +55,7 @@ before_action :authenticate_user!, except: [:index, :show]
 
   def hashtag
     @arts = Art.joins(:tags).where(tags: { name: params[:tag]} ).distinct
-    @search_word = "#" + params[:tag]
+    @search_word = '#' + params[:tag]
     render :index
   end
 
@@ -71,7 +71,7 @@ before_action :authenticate_user!, except: [:index, :show]
   def update
     @art = Art.find(params[:id])
     if @art.update(art_params)
-      tag_names = params[:art][:tagsbody].split(",")
+      tag_names = params[:art][:tagsbody].split(',')
       @art.tags_save(tag_names)
       redirect_to art_path(@art.id)
     else
@@ -83,7 +83,7 @@ before_action :authenticate_user!, except: [:index, :show]
     @art = Art.find(params[:id])
     @art.user_id = current_user.id
     @art.destroy
-    flash[:notice] = "投稿を削除しました。"
+    flash[:notice] = '投稿を削除しました。'
     redirect_to artist_path(current_user.id)
   end
 

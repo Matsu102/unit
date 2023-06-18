@@ -7,8 +7,8 @@
     <p>♥ <%= @likes.count %> いいね</p>
     <% @likes.each do |like| %>
       <%= image_tag like.user.get_thumbnail(50,50) %>
-      <%= render '././layouts/user_mark', user: like.user %>
-      <%= render '././layouts/user_page', user_type: like.user.user_type, handle_name: like.user.handle_name, user_id: like.user.id %>
+      <%= render 'layouts/user_mark', user: like.user %>
+      <%= render 'layouts/user_page', user_type: like.user.user_type, handle_name: like.user.handle_name, user_id: like.user.id %>
     <% end %>
   </div>
 
@@ -16,8 +16,8 @@
     <p><%= @comments.count %> コメント</p>
     <% if user_signed_in? %>
       <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
-        <%= f.text_field :body, :placeholder => "コメント 150字まで" %>
-        <%= f.submit "投稿" %>
+        <%= f.text_field :body, :placeholder => 'コメント 150字まで' %>
+        <%= f.submit '投稿' %>
       <% end %>
     <% end %>
 
@@ -26,15 +26,15 @@
         <p>削除済みコメント</p>
       <% else %>
         <%= image_tag comment.user.get_thumbnail(50,50) %>
-        <%= render '././layouts/user_mark', user: comment.user %>
-        <%= render '././layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
+        <%= render 'layouts/user_mark', user: comment.user %>
+        <%= render 'layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
 
         <%= comment.body %>
         <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
 
         <% if user_signed_in? && comment.user_id == current_user.id %>
           <%= form_with model: comment, url: art_engagement_path(@art.id, comment.id), method: :patch do |f| %>
-            <%= button_tag type: "submit" do %>
+            <%= button_tag type: 'submit' do %>
              ■
             <% end %>
           <% end %>
@@ -50,14 +50,14 @@
           <p>削除済みコメント</p>
         <% else %>
           <%= image_tag reply.user.get_thumbnail(50,50) %>
-          <%= render '././layouts/user_mark', user: reply.user %>
-          <%= render '././layouts/user_page', user_type: reply.user.user_type, handle_name: reply.user.handle_name, user_id: reply.user.id %>
+          <%= render 'layouts/user_mark', user: reply.user %>
+          <%= render 'layouts/user_page', user_type: reply.user.user_type, handle_name: reply.user.handle_name, user_id: reply.user.id %>
           <%= reply.body %>
           <%= l reply.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
           <% if user_signed_in? && reply.user_id == current_user.id %>
             <%= form_with model: reply, url: art_engagement_path(@art.id, reply.id), method: :patch do |f| %>
             <%= f.hidden_field :to_id, value: comment.id %>
-              <%= button_tag type: "submit" do %>
+              <%= button_tag type: 'submit' do %>
                ■
               <% end %>
             <% end %>
@@ -68,9 +68,9 @@
 
       <% if user_signed_in? %>
         <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
-          <%= f.text_field :body, :placeholder => "返信 150字まで" %>
+          <%= f.text_field :body, :placeholder => '返信 150字まで' %>
           <%= f.hidden_field :to_id, value: comment.id %>
-        <%= f.submit "投稿" %>
+        <%= f.submit '投稿' %>
       <% end %>
     <% end %>
 

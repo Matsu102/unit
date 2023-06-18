@@ -5,10 +5,7 @@ before_action :authenticate_user!
     art = Art.find(params[:art_id])
     like = current_user.likes.new(art_id: art.id)
     like.save
-    #----- コメント機能
-    like.create_notification_like(current_user)
-    respond_to :js
-    #----- コメント機能ここまで
+    art.create_notice_like(current_user)
     redirect_to art_path(art)
   end
 

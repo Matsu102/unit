@@ -12,10 +12,7 @@ before_action :authenticate_user!, except: [:show]
     @comment = current_user.comments.new(comment_params)
     @comment.art_id = params[:art_id]
     if @comment.save
-      #----- コメント機能
-      @comment.create_notice_comment(current_user, @comment.id)
-      respond_to :js
-      #----- コメント機能ここまで
+      @comment.art.create_notice_comment(current_user, @comment.id)
       redirect_to art_engagements_path(art_id: params[:art_id])
     else
       render :show

@@ -3,31 +3,31 @@
 <div class="row">
   <div class="col-sm-6">
     <div id="previewImage", class="image_size"> <!--画像プレビュー-->
-      <%= image_tag @art.image.variant( resize: "600x400>" ) %>
+      <%= image_tag @art.image.variant( resize: '600x400>' ) %>
     </div>
   </div>
   <div class="col-sm-6">
     <%= form_with model: @art, url: art_path(@art.id) do |f| %>
       <table>
         <tr>
-          <th><%= f.label :title, "タイトル" %></th>
-          <td><%= f.text_field :title, :placeholder => "30文字以内" %></td>
+          <th><%= f.label :title, 'タイトル' %></th>
+          <td><%= f.text_field :title, :placeholder => '30文字以内' %></td>
         </tr>
         <tr>
-          <th><%= f.label :detail, "説明文" %></th>
-          <td><%= f.text_area :detail, :placeholder => "200文字以内" %></td>
+          <th><%= f.label :detail, '説明文' %></th>
+          <td><%= f.text_area :detail, :placeholder => '200文字以内' %></td>
         </tr>
         <tr>
-          <th><%= label_tag(:tagsbody, "タグ") %></th>
-          <td><%= f.text_field :tagsbody, :placeholder => "カンマ区切り 例)タグ,タグ,タグ" %></td>
+          <th><%= label_tag(:tagsbody, 'タグ') %></th>
+          <td><%= f.text_field :tagsbody, :placeholder => 'カンマ区切り 例)タグ,タグ,タグ' %></td>
         </tr>
         <tr>
-          <th><%= f.label :image, "作品(JPEG)" %></th>
-          <td><%= f.file_field :image, style: "max-width: 600px; max-heigh: 400px;", accept: "image/jpeg", id: "imagePreviewForm" %></td>　<!--画像プレビュー用id-->
+          <th><%= f.label :image, '作品(JPEG)' %></th>
+          <td><%= f.file_field :image, style: 'max-width: 600px; max-heigh: 400px;', accept: 'image/jpeg', id: 'imagePreviewForm' %></td>　<!--画像プレビュー用id-->
         </tr>
         <tr>
           <th></th>
-          <td><%= f.submit "変更" %>　<%= link_to "削除", art_path(@art.id), method: :delete %></td>
+          <td><%= f.submit '変更' %>　<%= link_to '削除', art_path(@art.id), method: :delete %></td>
         </tr>
       </table>
 

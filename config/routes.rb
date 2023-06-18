@@ -34,7 +34,7 @@ end
     get       "/arts/view/:id"      => "arts#view",        as: "art_view"
     get       "/arts/search"        => "arts#search"
     get       "/artist/arts/:id"    => "arts#arts_artist", as: "artist_arts"
-    get       "/arts/my_album"       => "arts#my_album",    as: "my_album"
+    get       "/arts/my_album"      => "arts#my_album",    as: "my_album"
     resources :arts,            only: [:index, :new, :create, :show, :edit, :update, :destroy] do
       resource  :likes,           only: [:create, :destroy] # resource 単数形にすると/:idがURLに含まれなくなる 1ユーザ、1投稿に対して、いいね1回のみのため
       patch     "/engagements/:id"  => "engagements#remove", as: "engagement"

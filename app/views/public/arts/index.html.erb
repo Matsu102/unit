@@ -6,8 +6,8 @@
 <% end %>
 
 <%= form_with url: arts_search_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword, value: @keyword, :placeholder => "Search Arts" %>
-  <%= f.submit "検索" %>
+  <%= f.text_field :keyword, value: @keyword, :placeholder => 'Search Art' %>
+  <%= f.submit '検索' %>
 <% end %>
 
 <% @arts.each do |art| %>

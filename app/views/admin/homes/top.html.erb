@@ -8,7 +8,7 @@
   </tr>
   <% @inquiries.each do |inquiry| %>
   <tr>
-    <td><%= inquiry.is_response ? "対応済" : "未対応" %></td> <!--true:対応済 false:未対応-->
+    <td><%= inquiry.is_response ? '対応済' : '未対応' %></td> <!--true:対応済 false:未対応-->
     <td><%= l inquiry.created_at %></td> <!--#lヘルパー config/locales/ja.ymlにて設定-->
     <td><%= inquiry.member_id %></td>
     <td><%= inquiry.last_name %> <%= inquiry.first_name %></td>

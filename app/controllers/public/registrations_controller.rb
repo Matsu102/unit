@@ -3,7 +3,7 @@
 class Public::RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
-    if current_user.user_type == "artist"
+    if current_user.user_type == 'artist'
       artist_path(current_user.id)
     else
       fan_path(current_user.id)

@@ -6,8 +6,8 @@
   <p><%= @my_follow.count %> フォロー</p>
     <% @my_follow.each do |follow| %>
       <%= image_tag follow.get_thumbnail(50,50) %>
-      <%= render '././layouts/user_mark', user: follow %>
-      <%= render '././layouts/user_page', user_type: follow.user_type, handle_name: follow.handle_name, user_id: follow.id %>
+      <%= render 'layouts/user_mark', user: follow %>
+      <%= render 'layouts/user_page', user_type: follow.user_type, handle_name: follow.handle_name, user_id: follow.id %>
     <% end %>
   </div>
 
@@ -15,13 +15,55 @@
   <p><%= @my_follower.count %> フォロワー</p>
     <% @my_follower.each do |follower| %>
       <%= image_tag follower.get_thumbnail(50,50) %>
-      <%= render '././layouts/user_mark', user: follower %>
-      <%= render '././layouts/user_page', user_type: follower.user_type, handle_name: follower.handle_name, user_id: follower.id %>
+      <%= render 'layouts/user_mark', user: follower %>
+      <%= render 'layouts/user_page', user_type: follower.user_type, handle_name: follower.handle_name, user_id: follower.id %>
     <% end %>
   </div>
 
   <div class="col-sm-6">
-    <if 
+    <% notice = notice.where.not(visitor_id: current_user.id) %>
+    <% if notice.exists? %>
+      <%= render partial: 'notice', collection: notice %>
+    <% else %>
+      <p>通知はありません</p>
+    <% end %>
   </div>
 
+</div>
+
+
+<span>
+  <%= link_to user_path(notice.visitor) do %>
+    <%= image_tag notice.visitor.get_thumbnail(50,50) %>
+    <%= notice.visitor.name %>
+  <% end %>
+  さんが
+  <% case notice.action %>
+  <% when "follow" %>
+    フォローしました
+  <% when "like" %>
+    <%= link_to "投稿", notice.art
+    %>
+    にいいねしました
+  <% when "comment" %>
+    <% if notice.art.user_id == notice.visited.id %>
+      <%= link_to "投稿", notice.art %>
+    <% else %>
+      <span>
+        <%= link_to art_path(notice.art) do %>
+          <%= image_tag avatar_url(notice.art.user).to_s %>
+          <strong>
+            <%= notice.art.user.name + "さんの" %>
+          </strong>
+        <% end %>
+      </span>
+    <% end %>
+    にコメントしました
+    <p>
+      <%= Comment.find_by(id: notice.comment_id)&.comment %>
+    </p>
+</span>
+
+<div>
+  <%= time_ago_in_words(notice.created_at).upcase %>
 </div>

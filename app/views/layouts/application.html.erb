@@ -29,7 +29,7 @@
       <%= link_to root_path do %>
         <%= image_tag('logo.png') %>
       <% end %>
-      <% if current_user.user_type == "artist" %>
+      <% if current_user.user_type == 'artist' %>
         <%= link_to artist_path(current_user.id) do %>
           <p>My Page<br>マイページ</p>
         <% end %>
@@ -82,7 +82,7 @@
       <% if admin_signed_in? %>
         <small>Copyright © 2023 unit All Rights Reserved.</small>
       <% else %>
-        <%= link_to "ヘルプ", helps_path %>
+        <%= link_to 'ヘルプ', helps_path %>
         <small>Copyright © 2023 unit All Rights Reserved.</small>
       <% end %>
     </footer>

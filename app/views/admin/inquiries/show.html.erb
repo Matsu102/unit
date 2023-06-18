@@ -19,9 +19,9 @@
     <th>ステータス</th>
     <td>
       <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
-        <%= f.radio_button :is_response, false %><%= f.label(:is_response, "未対応", value: false) %>
-        <%= f.radio_button :is_response, true %><%= f.label(:is_response, "対応済", value: true) %>
-        <%= f.submit "変更" %>
+        <%= f.radio_button :is_response, false %><%= f.label(:is_response, '未対応', value: false) %>
+        <%= f.radio_button :is_response, true %><%= f.label(:is_response, '対応済', value: true) %>
+        <%= f.submit '変更' %>
       <% end %>
     </td>
   </tr>
@@ -35,4 +35,4 @@
   </tr>
 </table>
 
-<%= link_to "Back", :back %>
+<%= link_to 'Back', :back %>

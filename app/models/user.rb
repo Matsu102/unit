@@ -20,8 +20,8 @@ class User < ApplicationRecord
 
   def get_thumbnail(width, height)
     unless thumbnail.attached?
-      file_path = Rails.root.join("app/assets/images/no_thumbnail.jpg") # サムネイル未登録時の画像
-      thumbnail.attach(io: File.open(file_path), filename: "no_thumbnail.jpg", content_type: "image/jpeg") # jpegのみ許可
+      file_path = Rails.root.join('app/assets/images/no_thumbnail.jpg') # サムネイル未登録時の画像
+      thumbnail.attach(io: File.open(file_path), filename: 'no_thumbnail.jpg', content_type: 'image/jpeg') # jpegのみ許可
     end
     thumbnail.variant(resize_to_limit: [width, height]).processed
   end
@@ -38,11 +38,11 @@ class User < ApplicationRecord
 #------------------------------
 
   # Follow アソシエーション
-  has_many :followers, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy # current_userがフォローしているユーザ
-  has_many :followeds, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy # current_userをフォローしているユーザ
+  has_many :followers, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy # current_userがフォローしているユーザ
+  has_many :followeds, class_name: 'Follow', foreign_key: 'followed_id', dependent: :destroy # current_userをフォローしているユーザ
   has_many :my_followers, through: :followers, source: :followed  # ユーザのフォローリストで表示   current_userがフォローしているユーザの情報を参照
   has_many :my_followeds, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 current_userをフォローしているユーザの情報を参照
-  
+
   # フォロー 追加処理
   def follow(user_id)
     followers.create(followed_id: user_id)
@@ -55,17 +55,18 @@ class User < ApplicationRecord
   def following?(user)
     my_followers.include?(user)
   end
-  
+
 #------------------------------
 
   # Notice アソシエーション
-  has_many :notices, dependent: :destroy
-  
-  # followの通知機能
+  has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
+
+  # フォローの通知機能
   def create_notice_follow(current_user)
     temp = Notice.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
     if temp.blank?
-      notice = current_user.active_notice.new(
+      notice = current_user.active_notices.new(
         visited_id: id,
         action: 'follow'
       )
