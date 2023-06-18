@@ -5,6 +5,7 @@ class Notice < ApplicationRecord
   # Comment アソシエーション
   belongs_to :comment, optional: true
 
+  # Art アソシエーション
   belongs_to :art, optional: true
 
   # User アソシエーション

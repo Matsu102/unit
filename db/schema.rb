@@ -107,8 +107,6 @@ ActiveRecord::Schema.define(version: 2023_05_21_233626) do
     t.integer "visitor_id", null: false
     t.integer "visited_id", null: false
     t.integer "art_id"
-    t.integer "follow_id"
-    t.integer "like_id"
     t.integer "comment_id"
     t.string "action", null: false
     t.boolean "checked", default: false, null: false
