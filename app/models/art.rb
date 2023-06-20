@@ -44,7 +44,12 @@ class Art < ApplicationRecord
 
   # コメントの通知機能
   def create_notice_comment(current_user, comment_id)
-    temp_ids = Comment.select(:user_id).where(art_id: id).where.not(user_id: current_user.id).distinct
+    target_comment = Comment.find(comment_id)
+    if target_comment.to_id == nil # コメントが親の場合
+      temp_ids = []
+    else
+      temp_ids = Comment.select(:user_id).where(to_id: target_comment.to_id).where.not(user_id: current_user.id).or(Comment.where(id: target_comment.to_id)).distinct # 親コメントのidと一致するコメントを検索 & 自分のコメントは検索しない
+    end
     temp_ids.each do |temp_id|
       save_notice_comment(current_user, comment_id, temp_id['user_id'])
     end
@@ -61,7 +66,6 @@ class Art < ApplicationRecord
     if notice.visitor_id == notice.visited_id
       notice.checked = true
     end
-    pp  notice
     notice.save! if notice.valid?
   end
 

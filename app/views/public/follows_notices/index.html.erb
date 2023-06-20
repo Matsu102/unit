@@ -21,49 +21,12 @@
   </div>
 
   <div class="col-sm-6">
-    <% notice = notice.where.not(visitor_id: current_user.id) %>
+    <% notice = Notice.where.not(visitor_id: current_user.id) %>
     <% if notice.exists? %>
-      <%= render partial: 'notice', collection: notice %>
+      <%= render partial: 'layouts/notice', collection: notice %>
     <% else %>
       <p>通知はありません</p>
     <% end %>
   </div>
 
-</div>
-
-
-<span>
-  <%= link_to user_path(notice.visitor) do %>
-    <%= image_tag notice.visitor.get_thumbnail(50,50) %>
-    <%= notice.visitor.name %>
-  <% end %>
-  さんが
-  <% case notice.action %>
-  <% when "follow" %>
-    フォローしました
-  <% when "like" %>
-    <%= link_to "投稿", notice.art
-    %>
-    にいいねしました
-  <% when "comment" %>
-    <% if notice.art.user_id == notice.visited.id %>
-      <%= link_to "投稿", notice.art %>
-    <% else %>
-      <span>
-        <%= link_to art_path(notice.art) do %>
-          <%= image_tag avatar_url(notice.art.user).to_s %>
-          <strong>
-            <%= notice.art.user.name + "さんの" %>
-          </strong>
-        <% end %>
-      </span>
-    <% end %>
-    にコメントしました
-    <p>
-      <%= Comment.find_by(id: notice.comment_id)&.comment %>
-    </p>
-</span>
-
-<div>
-  <%= time_ago_in_words(notice.created_at).upcase %>
 </div>

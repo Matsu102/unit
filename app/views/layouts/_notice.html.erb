@@ -1,0 +1,21 @@
+<div>
+  <%= image_tag notice.visitor.get_thumbnail(50,50) %>
+  <%= render 'layouts/user_page', user_type: notice.visitor.user_type, handle_name: notice.visitor.handle_name, user_id: notice.visitor_id %>
+  さん
+  <% case notice.action %>
+  <% when "follow" %>
+    フォローしました
+  <% when "like" %>
+    <%= link_to "投稿", art_engagements_path(notice.art_id) %>
+    にいいねしました
+  <% when "comment" %>
+    <% if notice.comment.to_id == nil %>
+      <%= link_to "投稿", art_engagements_path(notice.art_id) %>
+      にコメントしました
+    <% else %>
+      <%= link_to "コメント", art_engagements_path(notice.art_id) %>
+      に返信しました
+    <% end %>
+  <% end %>
+  <%= l notice.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+</div>
