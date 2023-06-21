@@ -22,23 +22,20 @@
     <% end %>
 
     <% @comments.each do |comment| %>
-      <% if comment.is_deleted == true %>
-        <p>削除済みコメント</p>
-      <% else %>
-        <%= image_tag comment.user.get_thumbnail(50,50) %>
-        <%= render 'layouts/user_mark', user: comment.user %>
-        <%= render 'layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
+      <%= image_tag comment.user.get_thumbnail(50,50) %>
+      <%= render 'layouts/user_mark', user: comment.user %>
+      <%= render 'layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
 
-        <%= comment.body %>
-        <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+      <%= comment.body %>
+      <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
 
-        <% if user_signed_in? && comment.user_id == current_user.id %>
-          <%= form_with model: comment, url: art_engagement_path(@art.id, comment.id), method: :patch do |f| %>
-            <%= button_tag type: 'submit' do %>
-             ■
-            <% end %>
+      <% if user_signed_in? && comment.user_id == current_user.id %>
+        <%= form_with model: comment, url: art_engagement_path(@art.id, comment.id), method: :patch do |f| %>
+          <%= button_tag type: 'submit' do %>
+           ■
           <% end %>
         <% end %>
+      <% end %>
 
       <% if comment.to_id.blank? %>
       <% else %>
@@ -62,19 +59,16 @@
               <% end %>
             <% end %>
           <% end %>
-
         <% end %>
       <% end %>
-
-      <% if user_signed_in? %>
-        <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
-          <%= f.text_field :body, :placeholder => '返信 150字まで' %>
-          <%= f.hidden_field :to_id, value: comment.id %>
-        <%= f.submit '投稿' %>
-      <% end %>
+    <% if user_signed_in? %>
+          <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
+            <%= f.text_field :body, :placeholder => '返信 150字まで' %>
+            <%= f.hidden_field :to_id, value: comment.id %>
+          <%= f.submit '投稿' %>
+        <% end %>
     <% end %>
 
-      <% end %>
 
     <% end %>
   </div>

@@ -53,7 +53,7 @@ end
     get       "/users/confirm"        => "users#confirm"
     patch     "/users/withdraw"       => "users#withdraw"
 
-    resources :follows_notices, only: [:index]
+    resources :follows_notices, only: [:index, :update]
 
     resources :helps,           only: [:index, :create]
     get       "/helps/inquiry" => "helps#new"

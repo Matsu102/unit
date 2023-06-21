@@ -21,9 +21,15 @@
   </div>
 
   <div class="col-sm-6">
-    <% notice = Notice.where.not(visitor_id: current_user.id) %>
-    <% if notice.exists? %>
-      <%= render partial: 'layouts/notice', collection: notice %>
+    <p>
+      お知らせ
+      <%#= form_with model: @notice, url: follows_notice_path(@notice.id), method: :patch do |f| %>
+      <%#= f.hidden_field :checked, value: ture %>
+        <%#= f.submit '一括既読' %>
+      <%# end %>
+    </p>
+    <% if @notice.exists? %>
+      <%= render partial: 'layouts/notice', collection: @notice %>
     <% else %>
       <p>通知はありません</p>
     <% end %>

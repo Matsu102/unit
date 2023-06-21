@@ -43,17 +43,8 @@ class Art < ApplicationRecord
   end
 
   # コメントの通知機能
-  def create_notice_comment(current_user, comment_id)
-    target_comment = Comment.find(comment_id)
-    if target_comment.to_id == nil # コメントが親の場合
-      temp_ids = []
-    else
-      temp_ids = Comment.select(:user_id).where(to_id: target_comment.to_id).where.not(user_id: current_user.id).or(Comment.where(id: target_comment.to_id)).distinct # 親コメントのidと一致するコメントを検索 & 自分のコメントは検索しない
-    end
-    temp_ids.each do |temp_id|
-      save_notice_comment(current_user, comment_id, temp_id['user_id'])
-    end
-    save_notice_comment(current_user, comment_id, user_id) #if temp_ids.blank?
+  def create_notice_comment(current_user, comment) # 第三引数 メンション
+    save_notice_comment(current_user, comment, user_id) # メンション機能追加予定 (カラム1つ必要) ifで
   end
 
   def save_notice_comment(current_user, comment_id, visited_id)
