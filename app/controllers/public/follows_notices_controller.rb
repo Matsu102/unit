@@ -7,15 +7,15 @@ before_action :authenticate_user!
     @my_follow = user.my_followers   # フォロー 一覧
     @my_follower = user.my_followeds # フォロワー 一覧
     #-----通知機能
-    @notice = Notice.where.not(visitor_id: current_user.id)
-    @notices = current_user.passive_notices
-    @notices.where(checked: false).each do |notice|
+    notices = current_user.passive_notices
+    notices.where(checked: false).each do |notice|
       notice.update_attribute(:checked, true)
     end
+    @notice = notices.where.not(visitor_id: current_user.id)
   end
 
   def update
-    @notice = Notice.where.not(visitor_id: current_user.id)
+    @notice = Notice.find(params[:id])
     @notice.update(notice_params)
     redirect_to follows_notices_path
   end
