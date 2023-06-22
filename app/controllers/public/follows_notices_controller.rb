@@ -8,7 +8,7 @@ before_action :authenticate_user!
     @my_followeds = user.my_followeds # フォロワー 一覧
     #-----通知機能
     notices = current_user.passive_notices
-    @notice = notices.where.not(visitor_id: current_user.id)
+    @notice = notices.where(checked: false)
   end
 
   def update

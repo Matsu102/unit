@@ -32,6 +32,10 @@ class User < ApplicationRecord
   # Comment アソシエーション
   has_many :comments
 
+  # Mention アソシエーション
+  has_many :mentions, dependent: :destroy
+  has_many :mention_comments, through: :mentions, source: :comment # 自分がメンションされたコメント一覧 (メンションしたのはComment.user)
+
   # Like アソシエーション
   has_many :likes
 

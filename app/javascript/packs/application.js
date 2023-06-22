@@ -12,11 +12,11 @@ import "jquery";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application";
+global.toastr = require("toastr")
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
 
 // 画像のプレビュー
 // <div id="previewImage">画像</div>                                  切り替えたい画像を囲む
