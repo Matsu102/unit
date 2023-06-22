@@ -16,8 +16,10 @@
       <%= link_to "コメント", art_engagements_path(notice.art_id) %>
       に返信しました
     <% end %>
+    <%= notice.comment.body %>
   <% end %>
   <%= l notice.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+  <%= notice.checked %>
   <%= form_with model: notice, url: follows_notice_path(notice.id), method: :patch do |f| %>
   <%= f.hidden_field :checked, value: true %>
     <%= f.submit '既読' %>

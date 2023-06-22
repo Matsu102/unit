@@ -2,7 +2,7 @@
   <div class="col-sm-4">
     <%= image_tag @user.get_thumbnail(100,100) %>
     <p><%= @user.handle_name %></p>
-    <p>フォロー　フォロワー</p>
+    <p><%= @user.my_followers.count %>フォロー　<%= @user.my_followeds.count %>フォロワー</p>
     <p><%= @user.url %></p>
     <p><%= @user.introduction %></p>
     <% if user_signed_in? && @user.id == current_user.id %>

@@ -3,8 +3,8 @@
 <div class="row">
 
   <div class="col-sm-3">
-  <p><%= @my_follow.count %> フォロー</p>
-    <% @my_follow.each do |follow| %>
+  <p><%= @my_followers.count %> フォロー</p>
+    <% @my_followers.each do |follow| %>
       <%= image_tag follow.get_thumbnail(50,50) %>
       <%= render 'layouts/user_mark', user: follow %>
       <%= render 'layouts/user_page', user_type: follow.user_type, handle_name: follow.handle_name, user_id: follow.id %>
@@ -12,8 +12,8 @@
   </div>
 
   <div class="col-sm-3">
-  <p><%= @my_follower.count %> フォロワー</p>
-    <% @my_follower.each do |follower| %>
+  <p><%= @my_followeds.count %> フォロワー</p>
+    <% @my_followeds.each do |follower| %>
       <%= image_tag follower.get_thumbnail(50,50) %>
       <%= render 'layouts/user_mark', user: follower %>
       <%= render 'layouts/user_page', user_type: follower.user_type, handle_name: follower.handle_name, user_id: follower.id %>
@@ -23,10 +23,10 @@
   <div class="col-sm-6">
     <p>
       お知らせ
-      <%#= form_with model: @notice, url: follows_notice_path(@notice.id), method: :patch do |f| %>
-      <%#= f.hidden_field :checked, value: ture %>
-        <%#= f.submit '一括既読' %>
-      <%# end %>
+      <%= form_with model: @notice, url: follows_notices_update_all_path, method: :patch do |f| %>
+        <%= f.hidden_field :checked, value: true %>
+        <%= f.submit '一括既読' %>
+      <% end %>
     </p>
     <% if @notice.exists? %>
       <%= render partial: 'layouts/notice', collection: @notice %>
