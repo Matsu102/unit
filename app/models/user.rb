@@ -5,6 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+#--------------------------------------------------
+
   validates :last_name,        presence: true
   validates :first_name,       presence: true
   validates :handle_name,      presence: true
@@ -13,18 +15,13 @@ class User < ApplicationRecord
   validates :introduction,     length: { maximum: 200 },                     on: :update # update時のみバリデーション
   validates :user_type,        presence: true
   validates :is_locked,        inclusion: {in: [true, false]},               on: :update # update時のみバリデーション
+  validates :is_deleted,       inclusion: {in: [true, false]},               on: :update # update時のみバリデーション
   validates :thumbnail,        presence: true,                               on: :update # update時のみバリデーション
+
+#--------------------------------------------------
 
   # サムネイル
   has_one_attached :thumbnail
-
-  def get_thumbnail(width, height)
-    unless thumbnail.attached?
-      file_path = Rails.root.join('app/assets/images/no_thumbnail.jpg') # サムネイル未登録時の画像
-      thumbnail.attach(io: File.open(file_path), filename: 'no_thumbnail.jpg', content_type: 'image/jpeg') # jpegのみ許可
-    end
-    thumbnail.variant(resize_to_limit: [width, height]).processed
-  end
 
   # Post アソシエーション
   has_many :arts, dependent: :destroy # ユーザが退会した時に関連する投稿を全て削除する
@@ -39,13 +36,28 @@ class User < ApplicationRecord
   # Like アソシエーション
   has_many :likes
 
-#------------------------------
-
   # Follow アソシエーション
   has_many :followers, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy # current_userがフォローしているユーザ
   has_many :followeds, class_name: 'Follow', foreign_key: 'followed_id', dependent: :destroy # current_userをフォローしているユーザ
   has_many :my_followers, through: :followers, source: :followed  # ユーザのフォローリストで表示   current_userがフォローしているユーザの情報を参照
   has_many :my_followeds, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 current_userをフォローしているユーザの情報を参照
+
+  # Notice アソシエーション
+  has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
+
+#--------------------------------------------------
+
+  #サムネイルサイズ
+  def get_thumbnail(width, height)
+    unless thumbnail.attached?
+      file_path = Rails.root.join('app/assets/images/no_thumbnail.jpg') # サムネイル未登録時の画像
+      thumbnail.attach(io: File.open(file_path), filename: 'no_thumbnail.jpg', content_type: 'image/jpeg') # jpegのみ許可
+    end
+    thumbnail.variant(resize_to_limit: [width, height]).processed
+  end
+
+#------------------------------
 
   # フォロー 追加処理
   def follow(user_id)
@@ -61,10 +73,6 @@ class User < ApplicationRecord
   end
 
 #------------------------------
-
-  # Notice アソシエーション
-  has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
-  has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
 
   # フォローの通知機能
   def create_notice_follow(current_user)

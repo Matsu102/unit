@@ -6,9 +6,9 @@ class Inquiry < ApplicationRecord
   #user
   validates :last_name,      presence: true
   validates :first_name,     presence: true
-  #         :member_id       非会員からの問い合わせができなくなる為バリデーションなし
+  #         :member_id       非会員からの問い合わせができなくなるためバリデーションなし
   validates :email,          presence: true
-  validates :inquiry_name,   presence: true, length: { maximum: 30 }
-  validates :inquiry_detail, presence: true, length: { maximum: 1000 }
+  validates :inquiry_name,   presence: true, length: { in: 1..30 }
+  validates :inquiry_detail, presence: true, length: { in: 1..500 }
 
 end

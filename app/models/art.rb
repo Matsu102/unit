@@ -1,8 +1,12 @@
 class Art < ApplicationRecord
 
+#--------------------------------------------------
+
   validates :image,  presence: true
-  validates :title,  presence: true
-  validates :detail, presence: true
+  validates :title,  presence: true, length: { in: 1..30 }
+  validates :detail, presence: true, length: { in: 1..200 }
+
+#--------------------------------------------------
 
   # 作品
   has_one_attached :image
@@ -22,6 +26,8 @@ class Art < ApplicationRecord
 
   # Like アソシエーション
   has_many :likes, dependent: :destroy # 投稿が削除された時に関連するいいねを全て
+
+#--------------------------------------------------
 
   # Likesテーブルにuser.idが存在するか調べる true => いいね中 false => いいねなし
   def liked_by?(user)
