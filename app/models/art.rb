@@ -45,7 +45,7 @@ class Art < ApplicationRecord
     new_tags.each do |new|
       new_post_tag = Tag.find_or_create_by(name: new) # Tagテーブルに同一タグが存在する場合は何もしない 存在しない場合は新規登録する (Tagテーブルのデータ圧迫防止)
       self.tags << new_post_tag # @artとTagの紐付けを行う
-   end
+    end
   end
 
   # コメントの通知機能

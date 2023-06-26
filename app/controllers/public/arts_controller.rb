@@ -2,7 +2,7 @@ class Public::ArtsController < ApplicationController
 before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @arts = Art.all.order(id: :desc)
+    @arts = Art.includes(:user).where(users: {is_deleted: false}).order(id: :desc)
   end
 
   def search
@@ -40,8 +40,12 @@ before_action :authenticate_user!, except: [:index, :show]
     @art = current_user.arts.new(art_params)
     if @art.save
       tag_names = params[:art][:tagsbody].split(',')
-      @art.tags_save(tag_names)
-      redirect_to art_path(@art.id)
+      if !tag_names.any? { |name| name.length > 15 }
+        @art.tags_save(tag_names)
+        redirect_to art_path(@art.id)
+      else
+        render :new
+      end
     else
       render :new
     end
@@ -72,8 +76,12 @@ before_action :authenticate_user!, except: [:index, :show]
     @art = Art.find(params[:id])
     if @art.update(art_params)
       tag_names = params[:art][:tagsbody].split(',')
-      @art.tags_save(tag_names)
-      redirect_to art_path(@art.id)
+      if !tag_names.any? { |name| name.length > 15 }
+        @art.tags_save(tag_names)
+        redirect_to art_path(@art.id)
+      else
+        render :edit
+      end
     else
       render :edit
     end
