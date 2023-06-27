@@ -1,46 +1,59 @@
 <h2>Sign up</h2>
 
-<%= form_with model: @user, url: user_path, id: 'new_user', class: 'new_user' do |f| %>
-<%= render "public/shared/error_messages", resource: resource %>
-<table>
-  <tr>
-    <th>お名前</th>
-    <td>
-      <%= f.label :last_name, "姓" %>
-      <%= f.text_field :last_name, :placeholder => "苗字" %>
+<% if "artist" == @user_type %>
+  <h3>New Artist 新しいアーティストの情報入力</h3>
+<% elsif "fan" == @user_type %>
+  <h3>New Fan 新しいファンの情報入力</h3>
+<% else %>
+  <h3>不正なエラー</h3>
+<% end %>
+
+
+<% if ("artist" == @user_type) || ("fan" == @user_type) %>
+  <%= form_with model: @user, url: user_path, id: 'new_user', class: 'new_user' do |f| %>
+  <%= render "public/shared/error_messages", resource: resource %>
+  <table>
+    <tr>
+      <th>お名前</th>
+      <td>
+        <%= f.label :last_name, "姓" %>
+        <%= f.text_field :last_name, :placeholder => "苗字" %>
+      </td>
+      <td>
+        <%= f.label :first_name, "名" %>
+        <%= f.text_field :first_name, :placeholder => "名前" %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= f.label :handle_name, "ニックネーム" %></th>
+      <td colspan="2"><%= f.text_field :handle_name, :placeholder => "ニックネーム" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :email, "メールアドレス" %></th>
+      <td colspan="2"><%= f.email_field :email, :placeholder => "xxx@gmail.com" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :telephone_number, "電話番号" %></th>
+      <td colspan="2"><%= f.text_field :telephone_number, :placeholder => "XXX-XXXX-XXXX" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :password, "パスワード" %></th>
+      <td colspan="2"><%= f.password_field :password, :placeholder => "6文字以上" %>    </td>
+    </tr>
+    <tr>
+      <th><%= f.label :password_confirmation, "パスワード（確認用）" %></th>
+      <td colspan="2"><%= f.password_field :password_confirmation, :placeholder => "パスワードを再入力" %></td>
+    </tr>
+    <tr>
+    <td colspan="3">
+      <%= f.hidden_field :user_type, value: @user_type %>
+      <div class="actions">
+        <%= f.submit "新規登録" %>
+      </div>
     </td>
-    <td>
-      <%= f.label :first_name, "名" %>
-      <%= f.text_field :first_name, :placeholder => "名前" %>
-    </td>
-  </tr>
-  <tr>
-    <th><%= f.label :handle_name, "ニックネーム" %></th>
-    <td colspan="2"><%= f.text_field :handle_name, :placeholder => "ニックネーム" %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :email, "メールアドレス" %></th>
-    <td colspan="2"><%= f.email_field :email, :placeholder => "xxx@gmail.com" %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :telephone_number, "電話番号" %></th>
-    <td colspan="2"><%= f.text_field :telephone_number, :placeholder => "XXX-XXXX-XXXX" %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :password, "パスワード" %></th>
-    <td colspan="2"><%= f.password_field :password, :placeholder => "6文字以上" %>    </td>
-  </tr>
-  <tr>
-    <th><%= f.label :password_confirmation, "パスワード（確認用）" %></th>
-    <td colspan="2"><%= f.password_field :password_confirmation, :placeholder => "パスワードを再入力" %></td>
-  </tr>
-  <tr>
-  <td colspan="3">
-    <%= f.hidden_field :user_type, value: @user_type %>
-    <div class="actions">
-      <%= f.submit "新規登録" %>
-    </div>
-  </td>
-  </tr>
-</table>
+    </tr>
+  </table>
+  <% end %>
+<% else %>
+  <p><%= link_to "こちら", branch_path %>から会員種別をお選びください。</p>
 <% end %>

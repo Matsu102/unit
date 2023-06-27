@@ -21,7 +21,7 @@ devise_for :users, skip: [:registrations, :passwords], controllers: {
 
 devise_scope :user do
   get  "users/sign_up/:user_type", to: "public/registrations#new",    as: :new_user_registration
-  post "users",                    to: "public/registrations#create", as: :user
+  post "users/sign_up/:user_type", to: "public/registrations#create", as: :user
 end
 
   scope module: :public do

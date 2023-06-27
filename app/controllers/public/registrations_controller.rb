@@ -20,9 +20,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @user_type = params[:user_type]
+    super
+  end
 
   # GET /resource/edit
   # def edit
