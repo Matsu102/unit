@@ -24,14 +24,10 @@ class User < ApplicationRecord
   has_one_attached :thumbnail
 
   # Post アソシエーション
-  has_many :arts, dependent: :destroy # ユーザが退会した時に関連する投稿を全て削除する
+  has_many :arts
 
   # Comment アソシエーション
   has_many :comments
-
-  # Mention アソシエーション
-  has_many :mentions, dependent: :destroy
-  has_many :mention_comments, through: :mentions, source: :comment # 自分がメンションされたコメント一覧 (メンションしたのはComment.user)
 
   # Like アソシエーション
   has_many :likes
@@ -43,8 +39,8 @@ class User < ApplicationRecord
   has_many :my_followeds, through: :followeds, source: :follower  # ユーザのフォロワーリストで表示 current_userをフォローしているユーザの情報を参照
 
   # Notice アソシエーション
-  has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id', dependent: :destroy
-  has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id', dependent: :destroy
+  has_many :active_notices, class_name: 'Notice', foreign_key: 'visitor_id'
+  has_many :passive_notices, class_name: 'Notice', foreign_key: 'visited_id'
 
 #--------------------------------------------------
 
@@ -91,15 +87,27 @@ end
 # 退会後の処理
 #--------------------------------------------------------------------------------------------------------------------------------------------
 
-    # Art                    この投稿は存在しません
-    # Artに関連するComment   〃
-    # Artに関連するLike      〃
-    # ArtTag                 〃
-    # Comment                〃
+    # User                   is_deleted true  artist リストから削除  退会済みユーザー
+    # Art                    論理削除       この投稿は存在しません
+    # Like                   データ据え置き 退会済みユーザー
+    # ArtTag                 データ据え置き
+    # Comment                論理削除       ※コメント非表示
+    # replies                論理削除        コメントは削除されました
     # Follow                 物理削除
-    # Notice                 checked true
-    # User     退会したユーザの情報        悪戯防止と以下の情報を残すため
-    # replies  他者のコメントに対する返信  コメントの返信の文脈が合わなくなるため          内容を「コメントは削除されました」に変更
-    # Like     他者の投稿にたいするいいね  退会する度に投稿のいいねが減少する事を防ぐため  いいねしたユーザを「退会済みユーザ」に変更
+    # Notice                 データ据え置き
+
+#--------------------------------------------------------------------------------------------------------------------------------------------
+
+# 凍結後の処理
+#--------------------------------------------------------------------------------------------------------------------------------------------
+
+    # User                   非公開         このユーザーのアカウントは凍結されています
+    # Art                    非公開         アカウントが凍結されています
+    # Like                   データ据え置き アカウント凍結中
+    # ArtTag                 データ据え置き ※検索には引っかからない
+    # Comment                非公開         アカウント凍結中
+    # replies                非公開         アカウント凍結中
+    # Follow                 データ据え置き
+    # Notice                 データ据え置き
 
 #--------------------------------------------------------------------------------------------------------------------------------------------

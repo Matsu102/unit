@@ -18,14 +18,14 @@ class Art < ApplicationRecord
   belongs_to :user
 
   # ArtTag アソシエーション
-  has_many :art_tags, dependent: :destroy # 投稿が削除された時に関連するタグを全て削除する
+  has_many :art_tags
   has_many :tags,     through:   :art_tags
 
   # Comment アソシエーション
-  has_many :comments, dependent: :destroy # 投稿が削除された時に関連するコメントを全て削除する
+  has_many :comments
 
   # Like アソシエーション
-  has_many :likes, dependent: :destroy # 投稿が削除された時に関連するいいねを全て
+  has_many :likes
 
 #--------------------------------------------------
 
