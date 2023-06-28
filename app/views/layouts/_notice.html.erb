@@ -1,7 +1,18 @@
 <div>
-  <%= image_tag notice.visitor.get_thumbnail(50,50) %>
-  <%= render 'layouts/user_page', user_type: notice.visitor.user_type, handle_name: notice.visitor.handle_name, user_id: notice.visitor_id %>
-  さん
+  <% if notice.visitor.is_deleted == true %>
+    <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
+    <%= render 'layouts/user_mark', user: notice.visitor %>
+    <span>退会済みユーザー</span>
+  <% elsif notice.visitor.is_locked == true %>
+    <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
+    <%= render 'layouts/user_mark', user: notice.visitor %>
+    <span>アカウント凍結中</span>
+  <% else %>
+    <%= image_tag notice.visitor.get_thumbnail(50,50) %>
+    <%= render 'layouts/user_mark', user: like.user %>
+    <%= render 'layouts/user_page', user_type: notice.visitor.user_type, handle_name: notice.visitor.handle_name, user_id: notice.visitor_id %>
+    さん
+  <% end %>
   <% case notice.action %>
   <% when "follow" %>
     フォローしました
@@ -16,10 +27,12 @@
       <%= link_to "コメント", art_engagements_path(notice.art_id) %>
       に返信しました
     <% end %>
-    <%= notice.comment.body %>
+    <% if notice.visitor.is_locked == true %>
+    <% else %>
+      <%= notice.comment.body.truncate(18) %>
+    <% end %>
   <% end %>
   <%= l notice.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
-  <%= notice.checked %>
   <%= form_with model: notice, url: follows_notice_path(notice.id), method: :patch do |f| %>
   <%= f.hidden_field :checked, value: true %>
     <%= f.submit '既読' %>

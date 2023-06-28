@@ -2,9 +2,13 @@
 
 class Public::SessionsController < Devise::SessionsController
 
+  before_action :user_state, only: [:create]
+
   def after_sign_in_path_for(resource)
     if current_user.user_type == 'artist'
       artist_path(current_user.id)
+    elsif (current_user.user_type == 'fan') && (current_user.is_locked == true)
+      fan_path(current_user.id)
     else
       my_album_path
     end
@@ -38,5 +42,16 @@ class Public::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   #
+
+  protected
+
+  def user_state
+    @user = User.find_by(email: params[:user][:email])
+    return if !@user
+    if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
+      flash[:notice] = "退会済みです。再度ご登録ください。"
+      redirect_to branch_path
+    end
+  end
 
 end

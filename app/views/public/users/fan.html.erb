@@ -1,9 +1,13 @@
 <div>
+  <% if user_signed_in? && (@user.id == current_user.id) && (@user.is_locked == true) %>
+  <p>アカウントは凍結されています</p>
+  <p>心当たりが無い場合は<%= link_to 'お問い合わせフォーム', helps_inquiry_path %>よりご連絡ください</p>
+  <% else %>
   <%= image_tag @user.get_thumbnail(100,100) %>
   <p><%= @user.handle_name %></p>
   <p><%= @user.my_followers.count %>フォロー</p>
   <p><%= @user.introduction %></p>
-  <% if user_signed_in? && @user.id == current_user.id %>
+  <% if user_signed_in? && (@user.id == current_user.id) %>
     <%= link_to '登録内容変更', users_edit_path %>
   <% end %>
 </div>

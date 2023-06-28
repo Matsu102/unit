@@ -1,8 +1,9 @@
 class Public::ArtsController < ApplicationController
 before_action :authenticate_user!, except: [:index, :show]
+before_action :is_locked_protect
 
   def index
-    @arts = Art.includes(:user).where(users: {is_deleted: false}).order(id: :desc)
+    @arts = Art.includes(:user).where(users: {is_deleted: false, is_locked: false}).order(id: :desc)
   end
 
   def search
@@ -13,7 +14,7 @@ before_action :authenticate_user!, except: [:index, :show]
       @arts = []
       split_keyword.each do |keyword| # split_keywordに格納されたワードを一つずつ取り出して検索
         next if keyword == ""
-        @arts += Art.order(id: :desc).where(["title like?", "%#{keyword}%",]) # Artのtitleカラムと照合
+        @arts += Art.order(id: :desc).includes(:user).where(users: {is_deleted: false, is_locked: false}).where(["title like?", "%#{keyword}%",]) # Artのtitleカラムと照合
         @arts += Art.joins(:tags).order(id: :desc).where(["name like?", "%#{keyword}%"]) # Artに紐づいているTagのnameカラムと照合
       end
       @arts.uniq! #重複した作品を除外する
@@ -24,16 +25,22 @@ before_action :authenticate_user!, except: [:index, :show]
 
   def my_album
     users = current_user.my_followers # users > フォローしているユーザの情報をusersに格納
-    @arts = Art.where(user_id: users.map(&:id)).order(id: :desc) # map > カラムを指定してデータを取り出す  serts.id でも取れそうな雰囲気だが、エラーが出る。 (User.all.idと書いているようなもの)
+    @arts = Art.includes(:user).where(users: {is_deleted: false, is_locked: false}).where(user_id: users.map(&:id)).order(id: :desc) # map > カラムを指定してデータを取り出す  serts.id でも取れそうな雰囲気だが、エラーが出る。 (User.all.idと書いているようなもの)
   end
 
   def artist_arts
     @user = User.find(params[:id])
     @arts = Art.where(user_id: @user.id).order(id: :desc)
+    if (@user.is_deleted == true) or (@user.is_locked == true)
+      redirect_to arts_path
+    end
   end
 
   def new
     @art = Art.new
+    if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      redirect_to artist_path
+    end
   end
 
   def create
@@ -53,23 +60,35 @@ before_action :authenticate_user!, except: [:index, :show]
 
   def show
     @art = Art.find(params[:id])
+    if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      redirect_to arts_path
+    end
     @tags = @art.tags
     @comments = Comment.where(art_id: @art.id, to_id: nil) # 親コメント
   end
 
   def hashtag
-    @arts = Art.joins(:tags).where(tags: { name: params[:tag]} ).distinct
+    @arts = Art.joins(:tags).includes(:user).where(users: {is_deleted: false, is_locked: false}).where(tags: { name: params[:tag]} ).distinct
     @search_word = '#' + params[:tag]
     render :index
   end
 
   def view
     @art = Art.find(params[:id])
+    if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      redirect_to arts_path
+    end
   end
 
   def edit
     @art = Art.find(params[:id])
     @art.tagsbody = @art.tags.pluck(:name).join(',')
+    if @art.user.id =! current_user.id
+      redirect_to arts_path
+    end
+    if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      redirect_to artist_path
+    end
   end
 
   def update

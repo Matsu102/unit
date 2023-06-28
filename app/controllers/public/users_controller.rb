@@ -1,15 +1,16 @@
 class Public::UsersController < ApplicationController
 before_action :authenticate_user!
+before_action :is_locked_protect, only: [:index, :edit]
 
   def index
-    @user = User.where(user_type: 'artist') # insexにはアーティストのみ表示
+    @user = User.where(user_type: 'artist', is_deleted: false, is_locked: false) # insexにはアーティストのみ表示
   end
 
   def search
     if params[:keyword] == "" # 検索ワードが空欄の場合はartists_pathを再読み込み
       redirect_to artists_path
     else
-      @user = User.where(["handle_name like?", "%#{params[:keyword]}%"]).where(user_type: "artist")
+      @user = User.where(["handle_name like?", "%#{params[:keyword]}%"]).where(user_type: 'artist', is_deleted: false, is_locked: false)
       @search_word = params[:keyword]
       render :index
     end
@@ -17,7 +18,8 @@ before_action :authenticate_user!
 
   def artist
     @user = User.find(params[:id])
-    if @user.user_type == 'fan' # ファンのページは表示できないようにする
+    if (@user.id == current_user.id) and (@user.is_locked == true)
+    elsif (@user.user_type == 'fan') or (@user.is_deleted == true) or (@user.is_locked == true) # ファン、退会済み、凍結中ユーザのページは表示できないようにする
       redirect_to artists_path
     end
     @arts = Art.where(user_id: @user.id).order(id: :desc)
@@ -25,13 +27,17 @@ before_action :authenticate_user!
 
   def fan
     @user = User.find(params[:id])
-    if @user.user_type == 'artist' # アーティストのページは表示できないようにする
+    if (@user.id == current_user.id) and (@user.is_locked == true)
+    elsif (@user.user_type == 'artist') or (@user.is_deleted == true) or (@user.is_locked == true) # アーティスト、退会済み、凍結中ユーザのページは表示できないようにする
       redirect_to artists_path
     end
   end
 
   def edit
     @user = User.find(current_user.id)
+    if @user.is_locked == true
+      redirect_to artists_path
+    end
   end
 
   def update
@@ -46,6 +52,9 @@ before_action :authenticate_user!
 
   def confirm
     @user = User.find(current_user.id)
+    if @user.is_locked == true
+      redirect_to artists_path
+    end
   end
 
   def withdraw

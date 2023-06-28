@@ -5,6 +5,7 @@ class Public::HelpsController < ApplicationController
 
   def new
     @inquiry = Inquiry.new
+    @user = current_user
   end
 
   def confirm

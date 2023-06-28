@@ -8,17 +8,32 @@
     <th>お名前</th>
     <td>
       <%= f.label :last_name, '姓' %>
-      <%= f.text_field :last_name, :placeholder => '苗字' %>
+      <% if user_signed_in? && (@user.is_locked == true) %>
+        <%= @user.last_name %>
+        <%= f.hidden_field :last_name, :value => @user.last_name %>
+      <% else %>
+        <%= f.text_field :last_name, :placeholder => '苗字' %>
+      <% end %>
     </td>
     <td>
       <%= f.label :first_name, '名' %>
-      <%= f.text_field :first_name, :placeholder => '名前' %>
+      <% if user_signed_in? && (@user.is_locked == true) %>
+        <%= @user.first_name %>
+        <%= f.hidden_field :first_name, :value => @user.first_name %>
+      <% else %>
+        <%= f.text_field :first_name, :placeholder => '名前' %>
+      <% end %>
     </td>
   </tr>
   <tr>
     <th><%= f.label :member_id, '会員ID ※会員の方のみ' %></th>
     <td colspan="2">
-      <%= f.text_field :member_id, :placeholder => '数字を入力' %>
+      <% if user_signed_in? && (@user.is_locked == true) %>
+        <%= @user.id %>
+        <%= f.hidden_field :member_id, :value => @user.id %>
+      <% else %>
+        <%= f.text_field :member_id, :placeholder => '数字を入力' %>
+      <% end %>
     </td>
   </tr>
   <tr>
@@ -27,7 +42,14 @@
   </tr>
   <tr>
     <th><%= f.label :inquiry_name, '件名' %></th>
-    <td colspan="2"><%= f.text_field :inquiry_name, :placeholder => '30文字以内で入力してください。' %></td>
+    <td colspan="2">
+      <% if user_signed_in? && (@user.is_locked == true) %>
+        アカウントの凍結についてのお問い合わせ
+        <%= f.hidden_field :inquiry_name, :value => 'アカウントの凍結についてのお問い合わせ' %>
+      <% else %>
+        <%= f.text_field :inquiry_name, :placeholder => '30文字以内で入力してください。' %>
+      <% end %>
+      </td>
   </tr>
   <tr>
     <th><%= f.label :inquiry_detail, '内容' %></th>

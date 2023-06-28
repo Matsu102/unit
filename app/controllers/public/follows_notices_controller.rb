@@ -1,5 +1,6 @@
 class Public::FollowsNoticesController < ApplicationController
 before_action :authenticate_user!
+before_action :is_locked_protect
 
   def index
     user = current_user

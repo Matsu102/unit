@@ -6,9 +6,19 @@
 
     <p>♥ <%= @likes.count %> いいね</p>
     <% @likes.each do |like| %>
-      <%= image_tag like.user.get_thumbnail(50,50) %>
-      <%= render 'layouts/user_mark', user: like.user %>
-      <%= render 'layouts/user_page', user_type: like.user.user_type, handle_name: like.user.handle_name, user_id: like.user.id %>
+      <% if like.user.is_deleted == true %>
+        <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
+        <%= render 'layouts/user_mark', user: like.user %>
+        <span>退会済みユーザー</span>
+      <% elsif like.user.is_locked == true %>
+        <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
+        <%= render 'layouts/user_mark', user: like.user %>
+        <span>アカウント凍結中</span>
+      <% else %>
+        <%= image_tag like.user.get_thumbnail(50,50) %>
+        <%= render 'layouts/user_mark', user: like.user %>
+        <%= render 'layouts/user_page', user_type: like.user.user_type, handle_name: like.user.handle_name, user_id: like.user.id %>
+      <% end %>
     <% end %>
   </div>
 
@@ -22,28 +32,43 @@
     <% end %>
 
     <% @comments.each do |comment| %>
-      <%= image_tag comment.user.get_thumbnail(50,50) %>
-      <%= render 'layouts/user_mark', user: comment.user %>
-      <%= render 'layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
+      <% if comment.user.is_locked == true %>
+        <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
+        <%= render 'layouts/user_mark', user: comment.user %>
+      <span>アカウント凍結中</span>
+      <% elsif comment.is_deleted == true %>
+      <% else %>
+        <%= image_tag comment.user.get_thumbnail(50,50) %>
+        <%= render 'layouts/user_mark', user: comment.user %>
+        <%= render 'layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
 
-      <%= comment.body %>
-      <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+        <%= comment.body %>
+        <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
 
-      <% if user_signed_in? && comment.user_id == current_user.id %>
-        <%= form_with model: comment, url: art_engagement_path(@art.id, comment.id), method: :patch do |f| %>
-          <%= button_tag type: 'submit' do %>
-           ■
+        <% if user_signed_in? && comment.user_id == current_user.id %>
+          <%= form_with model: comment, url: art_engagement_path(@art.id, comment.id), method: :patch do |f| %>
+            <%= button_tag type: 'submit' do %>
+             ■
+            <% end %>
           <% end %>
+        <% end %>
+
+        <% if comment.to_id.blank? %>
+        <% else %>
+          <p><%= comment.to_id.count %> Reply</p>
         <% end %>
       <% end %>
 
-      <% if comment.to_id.blank? %>
-      <% else %>
-        <p><%= comment.to_id.count %> Reply</p>
-      <% end %>
-
       <% comment.replies.each do |reply| %>
-        <% if reply.is_deleted == true %>
+        <% if reply.user.is_deleted == true %>
+          <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
+          <%= render 'layouts/user_mark', user: reply.user %>
+          <span>退会済みユーザー</span>
+        <% elsif reply.user.is_locked == true %>
+          <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
+          <%= render 'layouts/user_mark', user: reply.user %>
+          <span>アカウント凍結中</span>
+        <% elsif reply.is_deleted == true %>
           <p>削除済みコメント</p>
         <% else %>
           <%= image_tag reply.user.get_thumbnail(50,50) %>
@@ -62,11 +87,14 @@
         <% end %>
       <% end %>
     <% if user_signed_in? %>
-          <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
-            <%= f.text_field :body, :placeholder => '返信 150字まで' %>
-            <%= f.hidden_field :to_id, value: comment.id %>
+      <% if comment.is_deleted == true %>
+      <% else %>
+        <%= form_with model: [@art, @comment], url: art_engagements_path do |f| %>
+          <%= f.text_field :body, :placeholder => '返信 150字まで' %>
+          <%= f.hidden_field :to_id, value: comment.id %>
           <%= f.submit '投稿' %>
         <% end %>
+      <% end %>
     <% end %>
 
 

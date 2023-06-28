@@ -5,18 +5,38 @@
   <div class="col-sm-3">
   <p><%= @my_followers.count %> フォロー</p>
     <% @my_followers.each do |follow| %>
-      <%= image_tag follow.get_thumbnail(50,50) %>
-      <%= render 'layouts/user_mark', user: follow %>
-      <%= render 'layouts/user_page', user_type: follow.user_type, handle_name: follow.handle_name, user_id: follow.id %>
+      <% if follow.is_deleted == true %>
+        <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
+        <%= render 'layouts/user_mark', user: follow %>
+        <span>退会済みユーザー</span>
+      <% elsif follow.is_locked == true %>
+        <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
+        <%= render 'layouts/user_mark', user: follow %>
+        <span>アカウント凍結中</span>
+      <% else %>
+        <%= image_tag follow.get_thumbnail(50,50) %>
+        <%= render 'layouts/user_mark', user: follow %>
+        <%= render 'layouts/user_page', user_type: follow.user_type, handle_name: follow.handle_name, user_id: follow.id %>
+      <% end %>
     <% end %>
   </div>
 
   <div class="col-sm-3">
   <p><%= @my_followeds.count %> フォロワー</p>
     <% @my_followeds.each do |follower| %>
-      <%= image_tag follower.get_thumbnail(50,50) %>
-      <%= render 'layouts/user_mark', user: follower %>
-      <%= render 'layouts/user_page', user_type: follower.user_type, handle_name: follower.handle_name, user_id: follower.id %>
+      <% if follower.is_deleted == true %>
+        <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
+        <%= render 'layouts/user_mark', user: follower %>
+        <span>退会済みユーザー</span>
+      <% elsif follower.is_locked == true %>
+        <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
+        <%= render 'layouts/user_mark', user: follower %>
+        <span>アカウント凍結中</span>
+      <% else %>
+        <%= image_tag follower.get_thumbnail(50,50) %>
+        <%= render 'layouts/user_mark', user: follower %>
+        <%= render 'layouts/user_page', user_type: follower.user_type, handle_name: follower.handle_name, user_id: follower.id %>
+      <% end %>
     <% end %>
   </div>
 
