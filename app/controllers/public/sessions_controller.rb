@@ -49,7 +49,7 @@ class Public::SessionsController < Devise::SessionsController
     @user = User.find_by(email: params[:user][:email])
     return if !@user
     if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
-      flash[:notice] = "退会済みです。再度ご登録ください。"
+      flash[:notice] = '退会済みです。再度ご登録ください。'
       redirect_to branch_path
     end
   end
