@@ -32,6 +32,7 @@ before_action :is_locked_protect
     @user = User.find(params[:id])
     @arts = Art.where(user_id: @user.id).order(id: :desc)
     if (@user.is_deleted == true) or (@user.is_locked == true)
+      flash[:alert] = '不正なエラー'
       redirect_to arts_path
     end
   end
@@ -39,6 +40,7 @@ before_action :is_locked_protect
   def new
     @art = Art.new
     if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      flash[:alert] = '不正なエラー'
       redirect_to artist_path
     end
   end
@@ -49,8 +51,10 @@ before_action :is_locked_protect
       tag_names = params[:art][:tagsbody].split(',')
       if !tag_names.any? { |name| name.length > 15 }
         @art.tags_save(tag_names)
+        flash[:notice] = '投稿しました。'
         redirect_to art_path(@art.id)
       else
+        flash[:alert] = 'タグは1つ15文字以内で記入してください。'
         render :new
       end
     else
@@ -61,6 +65,7 @@ before_action :is_locked_protect
   def show
     @art = Art.find(params[:id])
     if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      flash[:alert] = '不正なエラー'
       redirect_to arts_path
     end
     @tags = @art.tags
@@ -76,6 +81,7 @@ before_action :is_locked_protect
   def view
     @art = Art.find(params[:id])
     if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      flash[:alert] = '不正なエラー'
       redirect_to arts_path
     end
   end
@@ -83,25 +89,29 @@ before_action :is_locked_protect
   def edit
     @art = Art.find(params[:id])
     @art.tagsbody = @art.tags.pluck(:name).join(',')
-    if @art.user.id =! current_user.id
+    if @art.user.id != current_user.id
+      flash[:alert] = '不正なエラー'
       redirect_to arts_path
     end
     if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+      flash[:alert] = '不正なエラー'
       redirect_to artist_path
     end
   end
 
   def update
     @art = Art.find(params[:id])
-    if @art.user_id =! current_user.id
+    if @art.user_id != current_user.id
+      flash[:alert] = '不正なエラー'
       redirect_to arts_path
     elsif @art.update(art_params)
       tag_names = params[:art][:tagsbody].split(',')
       if !tag_names.any? { |name| name.length > 15 }
         @art.tags_save(tag_names)
+        flash[:notice] = '投稿を更新しました。'
         redirect_to art_path(@art.id)
       else
-        flash[:notice] = 'タグは1つ15文字以内で記入してください。'
+        flash[:alert] = 'タグは1つ15文字以内で記入してください。'
         render :edit
       end
     else
@@ -111,7 +121,8 @@ before_action :is_locked_protect
 
   def destroy
     @art = Art.find(params[:id])
-    if @art.user_id =! current_user.id
+    if @art.user_id != current_user.id
+      flash[:alert] = '不正なエラー'
       redirect_to arts_path
     else
       @art.destroy
