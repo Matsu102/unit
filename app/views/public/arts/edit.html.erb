@@ -27,7 +27,7 @@
         </tr>
         <tr>
           <th></th>
-          <td><%= f.submit '変更' %>　<%= link_to '削除', art_path(@art.id), method: :delete %></td>
+          <td><%= f.submit '変更' %>　<%= link_to '削除', art_path(@art.id), method: :delete, data: {confirm: '削除後の復元はできません。削除しますか？'} %></td>
         </tr>
       </table>
 

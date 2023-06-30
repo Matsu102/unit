@@ -9,7 +9,7 @@
     <span>アカウント凍結中</span>
   <% else %>
     <%= image_tag notice.visitor.get_thumbnail(50,50) %>
-    <%= render 'layouts/user_mark', user: like.user %>
+    <%= render 'layouts/user_mark', user: notice.visitor %>
     <%= render 'layouts/user_page', user_type: notice.visitor.user_type, handle_name: notice.visitor.handle_name, user_id: notice.visitor_id %>
     さん
   <% end %>

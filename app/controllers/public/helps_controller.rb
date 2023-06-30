@@ -10,6 +10,7 @@ class Public::HelpsController < ApplicationController
 
   def confirm
     @inquiry = Inquiry.new(inquiry_params)
+    @user = current_user
     if @inquiry.invalid? # データが空でないかチェックする
       render :new
     end
@@ -20,6 +21,7 @@ class Public::HelpsController < ApplicationController
     if params[:back] || !@inquiry.save # 戻るボタン 又は データが保存されなかった場合
       render :new and return
     end
+    flash[:notice] = '送信しました。ご回答をお待ちください。'
     redirect_to root_path
   end
 

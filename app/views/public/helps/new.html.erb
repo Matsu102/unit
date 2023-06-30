@@ -3,6 +3,7 @@
 <h3>お問い合わせ</h3>
 
 <%= form_with model: @inquiry, url: helps_confirm_path do |f| %>
+  <%= render 'layouts/error_message', resource: f.object %>
 <table>
   <tr>
     <th>お名前</th>

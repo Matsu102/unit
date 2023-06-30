@@ -58,6 +58,8 @@ before_action :is_locked_protect
         render :new
       end
     else
+      flash[:alert] = '投稿できません。入力内容をお確かめください。'
+      
       render :new
     end
   end
@@ -115,6 +117,7 @@ before_action :is_locked_protect
         render :edit
       end
     else
+      flash[:alert] = '更新できません。入力内容をお確かめください。'
       render :edit
     end
   end
