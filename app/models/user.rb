@@ -10,16 +10,23 @@ class User < ApplicationRecord
   validates :last_name,        presence: { message: 'を入力してください。' }
   validates :first_name,       presence: { message: 'を入力してください。' }
   validates :handle_name,      presence: { message: 'を入力してください。' }
+  validates :email,            presence: { message: 'を入力してください。' }
+  VALID_email = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email,            format: { with: VALID_email, message: 'が不正です。'}, if: -> { email.present? }
+  validates :email,            uniqueness: { message: 'は既に使用されています。' }, if: -> { email.present? }
   validates :telephone_number, presence: { message: 'を入力してください。' }
-  validates :telephone_number, format: /\A0[-\d]{11,12}\z/, presence: { message:'は半角数字とハイフンで入力してください。'}, if: -> { telephone_number.present? }
+  VALID_telephone_number = /\A0[-\d]{11,12}\z/
+  validates :telephone_number, format: { with: VALID_telephone_number, message: 'は半角数字とハイフンで入力してください。'}, if: -> { telephone_number.present? }
   validates :telephone_number, uniqueness: { message: 'は既に使用されています。' }, if: -> { telephone_number.present? }
-  validates :url,              format: /\A#{URI::regexp(%w(http https))}\z/, allow_blank: true, on: :update # 入力制限 update時のみバリデーション
-  validates :introduction,     length: { maximum: 200 },                     on: :update # update時のみバリデーション
-  validates :user_type,        presence: true, inclusion: {in: ['artist', 'fan']}
-  validates :is_locked,        inclusion: {in: [true, false]},               on: :update # update時のみバリデーション
-  validates :is_deleted,       inclusion: {in: [true, false]},               on: :update # update時のみバリデーション
-  validates :thumbnail,        presence: true,                               on: :update # update時のみバリデーション
-
+  VALID_url = /\A#{URI::regexp(%w(http https))}\z/
+  validates :url,              format: { with: VALID_url, message: 'は「http://」もしくは「https://」で始まる半角英数記号で入力してください。'}, allow_blank: true, on: :update # 入力制限 update時のみバリデーション
+  validates :introduction,     length: { maximum: 200, message: 'は200文字以内で入力してください。' }, on: :update # update時のみバリデーション
+  validates :user_type,        presence: true, inclusion: {in: ['artist', 'fan'], message: '会員種別が不正です。'}
+  validates :is_locked,        inclusion: { in: [true, false], message: '公開ステータスが不正です。'}, on: :update # update時のみバリデーション
+  validates :is_deleted,       inclusion: { in: [true, false], message: '退会ステータスが不正です。'}, on: :update # update時のみバリデーション
+  validates :thumbnail,        presence: true, on: :update # update時のみバリデーション
+  VALID_password = /(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!?-_.]){6,15}/
+  validates :password,         format: { with: VALID_password, message: 'は6～15文字の半角英数字と記号(!?-_.)を組み合わせて入力してください。'}, if: -> { password.present? }
 #--------------------------------------------------
 
   # サムネイル
