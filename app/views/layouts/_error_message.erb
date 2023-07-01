@@ -3,7 +3,7 @@
 <% unless resource.errors.empty? %>
   <script type= "text/javascript">
     <% resource.errors.full_messages.each do |msg| %>
-      <script>toastr.error('<%= msg %>', '', { closeButton: true, progressBar: true, positionClass: 'toast-top-center' });</script>
+      toastr.error('<%= msg %>', '', { closeButton: true, progressBar: true, positionClass: 'toast-top-center' });
     <% end %>
   </script>
 <% end %>

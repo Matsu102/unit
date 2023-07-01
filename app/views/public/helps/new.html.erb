@@ -8,7 +8,6 @@
   <tr>
     <th>お名前</th>
     <td>
-      <%= f.label :last_name, '姓' %>
       <% if user_signed_in? && (@user.is_locked == true) %>
         <%= @user.last_name %>
         <%= f.hidden_field :last_name, :value => @user.last_name %>
@@ -17,7 +16,6 @@
       <% end %>
     </td>
     <td>
-      <%= f.label :first_name, '名' %>
       <% if user_signed_in? && (@user.is_locked == true) %>
         <%= @user.first_name %>
         <%= f.hidden_field :first_name, :value => @user.first_name %>
