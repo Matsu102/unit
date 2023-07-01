@@ -6,7 +6,7 @@ class CreateInquiries < ActiveRecord::Migration[6.1]
 
       t.string  :last_name,      null: false
       t.string  :first_name,     null: false
-      t.integer :member_id
+      t.integer :user_id
       t.string  :email,          null: false
       t.text    :inquiry_name, null: false
       t.text    :inquiry_detail, null: false

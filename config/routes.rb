@@ -19,9 +19,12 @@ devise_for :users, skip: [:registrations, :passwords], controllers: {
   sessions: "public/sessions"
 }
 
+devise_scope :user do
+  get  "users/sign_up/:user_type", to: "public/registrations#new",    as: :new_user_registration
+  post "users/sign_up/:user_type", to: "public/registrations#create", as: :create_user_registration
+end
+
   scope module: :public do
-    get   "users/sign_up/:user_type", to: "public/registrations#new",    as: :new_user_registration
-    post  "users/sign_up/:user_type", to: "public/registrations#create", as: :create_user_registration
 
     root to: "homes#top"
     get      "/about"        => "homes#about",  as: "about"

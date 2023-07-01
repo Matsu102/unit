@@ -7,10 +7,12 @@ class User < ApplicationRecord
 
 #--------------------------------------------------
 
-  validates :last_name,        presence: true
-  validates :first_name,       presence: true
-  validates :handle_name,      presence: true
-  validates :telephone_number, presence: true, uniqueness: true
+  validates :last_name,        presence: { message: 'を入力してください。' }
+  validates :first_name,       presence: { message: 'を入力してください。' }
+  validates :handle_name,      presence: { message: 'を入力してください。' }
+  validates :telephone_number, presence: { message: 'を入力してください。' }
+  validates :telephone_number, format: /\A0[-\d]{11,12}\z/, presence: { message:'は半角数字とハイフンで入力してください。'}, if: -> { telephone_number.present? }
+  validates :telephone_number, uniqueness: { message: 'は既に使用されています。' }, if: -> { telephone_number.present? }
   validates :url,              format: /\A#{URI::regexp(%w(http https))}\z/, allow_blank: true, on: :update # 入力制限 update時のみバリデーション
   validates :introduction,     length: { maximum: 200 },                     on: :update # update時のみバリデーション
   validates :user_type,        presence: true, inclusion: {in: ['artist', 'fan']}

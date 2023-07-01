@@ -11,15 +11,14 @@
 
 <% if ("artist" == @user_type) || ("fan" == @user_type) %>
   <%= form_with model: @user, url: create_user_registration_path, id: 'new_user', class: 'new_user' do |f| %>
+  <%= render 'layouts/error_message', resource: f.object %>
   <table>
     <tr>
       <th>お名前</th>
       <td>
-        <%= f.label :last_name, "姓" %>
         <%= f.text_field :last_name, :placeholder => "苗字" %>
       </td>
       <td>
-        <%= f.label :first_name, "名" %>
         <%= f.text_field :first_name, :placeholder => "名前" %>
       </td>
     </tr>

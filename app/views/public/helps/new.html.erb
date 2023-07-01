@@ -25,13 +25,13 @@
     </td>
   </tr>
   <tr>
-    <th><%= f.label :member_id, '会員ID ※会員の方のみ' %></th>
+    <th><%= f.label :user_id, '会員ID ※会員の方のみ' %></th>
     <td colspan="2">
       <% if user_signed_in? && (@user.is_locked == true) %>
         <%= @user.id %>
-        <%= f.hidden_field :member_id, :value => @user.id %>
+        <%= f.hidden_field :user_id, :value => @user.id %>
       <% else %>
-        <%= f.text_field :member_id, :placeholder => '数字を入力' %>
+        <%= f.text_field :user_id, :placeholder => '数字を入力' %>
       <% end %>
     </td>
   </tr>

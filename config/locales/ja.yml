@@ -12,6 +12,14 @@ ja:
       user:
         last_name: 苗字
         first_name: 名前
+        handle_name: ニックネーム
+        email: メールアドレス
+        telephone_number: 電話番号
+        url: URL
+        introduction: 自己紹介
+        user_type: 会員種別
+        is_locked: 公開ステータス
+        encrypted_password: パスワード
       inquiry:
         last_name: 苗字
         first_name: 名前
@@ -19,3 +27,12 @@ ja:
         email: メールアドレス
         inquiry_name: 件名
         inquiry_detail: 内容
+      art: user_id
+      
+      comment:
+      
+      like:
+      
+      follows:
+      
+      

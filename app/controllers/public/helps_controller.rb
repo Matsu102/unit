@@ -28,7 +28,7 @@ class Public::HelpsController < ApplicationController
   private
 
   def inquiry_params
-    params.require(:inquiry).permit(:last_name, :first_name, :member_id, :email, :inquiry_name, :inquiry_detail)
+    params.require(:inquiry).permit(:last_name, :first_name, :user_id, :email, :inquiry_name, :inquiry_detail)
   end
 
 end

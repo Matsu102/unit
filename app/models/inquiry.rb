@@ -6,7 +6,7 @@ class Inquiry < ApplicationRecord
   #user
   validates :last_name,      presence: { message: 'を入力してください。' }
   validates :first_name,     presence: { message: 'を入力してください。' }
-  validates :member_id,      numericality: { message: 'は数字で入力してください。' }, if: -> { member_id.present? }
+  validates :user_id,      numericality: { message: 'は数字で入力してください。' }, if: -> { member_id.present? }
   validates :email,          presence: { message: 'を入力してください。' }
   validates :inquiry_name,   presence: { message: 'を30文字入力してください。' }
   validates :inquiry_name,   length: { in: 1..30, message: 'に入力できるのは30文字までです。' }, if: -> { inquiry_name.present? }
