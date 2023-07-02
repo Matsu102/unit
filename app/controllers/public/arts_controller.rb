@@ -73,7 +73,7 @@ before_action :is_locked_protect
       redirect_to arts_path
     end
     @tags = @art.tags
-    @comments = Comment.where(art_id: @art.id, to_id: nil) # 親コメント
+    @comments = Comment.where(art_id: @art.id, to_id: nil, is_deleted: false) # 親コメント
   end
 
   def hashtag
