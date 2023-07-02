@@ -13,17 +13,27 @@ before_action :is_locked_protect
     @comment = current_user.comments.new(comment_params)
     @comment.art_id = params[:art_id]
     if @comment.body.length == 0
-      flash[:alert] = 'コメントが入力されていません。'
-      redirect_to art_engagements_path(art_id: params[:art_id])
+      if @comment.to_id == nil
+        flash[:alert] = 'コメントが入力されていません。'
+      else
+        flash[:alert] = '返信が入力されていません。'
+      end
     elsif @comment.body.length > 150
-      flash[:alert] = 'コメントは150字までです。'
-      redirect_to art_engagements_path(art_id: params[:art_id])
+      if @comment.to_id == nil
+        flash[:alert] = 'コメントは150字までです。'
+      else
+        flash[:alert] = '返信は150字までです。'
+      end
     else
       @comment.save
       @comment.art.create_notice_comment(current_user, @comment.id)
-      flash[:notice] = 'コメントしました。'
-      redirect_to art_engagements_path(art_id: params[:art_id])
+      if @comment.to_id == nil
+        flash[:notice] = 'コメントしました。'
+      else
+        flash[:notice] = '返信しました。'
+      end
     end
+    redirect_to art_engagements_path(art_id: params[:art_id])
   end
 
   def remove
@@ -32,8 +42,12 @@ before_action :is_locked_protect
       flash[:alert] = '不正なエラー'
       render :show
     else
-      flash[:notice] = 'コメントを削除しました。'
       comment.update(is_deleted: true)
+      if comment.to_id == nil
+        flash[:notice] = 'コメントを削除しました。'
+      else
+        flash[:notice] = '返信を削除しました。'
+      end
       redirect_to art_engagements_path(art_id: params[:art_id])
     end
   end

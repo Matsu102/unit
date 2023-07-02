@@ -28,10 +28,22 @@ class User < ApplicationRecord
   validates :password,         presence: { message: 'を入力してください。' }
   validates :password,         format: { with: VALID_password, message: 'は6～15文字の半角英数字と記号(!?-_.)を組み合わせて入力してください。'}, if: -> { password.present? }
   validates :password,         confirmation: true
+  validate  :thumbnail_type, if: :was_attached?
+
 #--------------------------------------------------
 
   # サムネイル
   has_one_attached :thumbnail
+  def thumbnail_type
+    extension = ['image/jpeg', 'image/png', 'image/gif']
+    errors.add(:thumbnail, 'に使用できる拡張子は「JPEG」「PNG」「GIF」のみです。') unless thumbnail.content_type.in?(extension)
+  end
+
+  def was_attached?
+    self.thumbnail.attached?
+  end
+
+#--------------------------------------------------
 
   # Post アソシエーション
   has_many :arts

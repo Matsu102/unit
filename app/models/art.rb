@@ -2,14 +2,27 @@ class Art < ApplicationRecord
 
 #--------------------------------------------------
 
-  validates :image,  presence: true
-  validates :title,  presence: true, length: { in: 1..30 }
-  validates :detail, presence: true, length: { in: 1..200 }
+  validates :image,  presence: { message: 'をアップロードしてください。' }
+  validate  :image_type, if: :was_attached?
+  validates :title,  presence: { message: 'を30文字以内で入力してください。' }
+  validates :title,  length: { in: 1..30, message: 'に入力できるのは30文字までです。' }, if: -> { title.present? }
+  validates :detail, presence: { message: 'を200文字以内で入力してください。' }
+  validates :detail, length: { in: 1..200, message: 'に入力できるのは200文字までです。' }, if: -> { detail.present? }
 
 #--------------------------------------------------
 
   # 作品
   has_one_attached :image
+  def image_type
+    extension = ['image/jpeg']
+    errors.add(:image, "に使用できる拡張子は「JPEG」のみです。") unless image.content_type.in?(extension)
+  end
+
+  def was_attached?
+    self.image.attached?
+  end
+
+#--------------------------------------------------
 
   # artのnewページとeditページの:tagsbodyに仮想カラム
   attr_accessor :tagsbody

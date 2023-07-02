@@ -8,13 +8,14 @@
   </div>
   <div class="col-sm-6">
     <%= form_with model: @art, url: art_path(@art.id) do |f| %>
+    <%= render 'layouts/error_message', resource: f.object %>
       <table>
         <tr>
           <th><%= f.label :title, 'タイトル' %></th>
           <td><%= f.text_field :title, :placeholder => '30文字以内' %></td>
         </tr>
         <tr>
-          <th><%= f.label :detail, '説明文' %></th>
+          <th><%= f.label :detail, '説明' %></th>
           <td><%= f.text_area :detail, :placeholder => '200文字以内' %></td>
         </tr>
         <tr>

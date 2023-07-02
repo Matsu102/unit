@@ -58,8 +58,10 @@ before_action :is_locked_protect
         render :new
       end
     else
-      flash[:alert] = '投稿できません。入力内容をお確かめください。'
-
+      tag_names = params[:art][:tagsbody].split(',')
+      unless !tag_names.any? { |name| name.length > 15 }
+        flash[:alert] = 'タグは1つ15文字以内で記入してください。'
+      end
       render :new
     end
   end
@@ -117,7 +119,10 @@ before_action :is_locked_protect
         render :edit
       end
     else
-      flash[:alert] = '更新できません。入力内容をお確かめください。'
+      tag_names = params[:art][:tagsbody].split(',')
+      unless !tag_names.any? { |name| name.length > 15 }
+        flash[:alert] = 'タグは1つ15文字以内で記入してください。'
+      end
       render :edit
     end
   end

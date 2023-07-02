@@ -42,11 +42,14 @@ before_action :is_locked_protect, only: [:index, :edit]
 
   def update
     @user = User.find(current_user.id)
-    @user.update(user_params)
-    if @user.user_type == 'artist'
-      redirect_to artist_path(current_user.id)
+    if @user.update(user_params)
+      if @user.user_type == 'artist'
+        redirect_to artist_path(current_user.id)
+      else
+        redirect_to fan_path(current_user.id)
+      end
     else
-      redirect_to fan_path(current_user.id)
+      render :edit
     end
   end
 

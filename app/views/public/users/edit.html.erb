@@ -1,4 +1,5 @@
 <%= form_with model: @user, url: users_edit_path(@user.id) do |f| %>
+<%= render 'layouts/error_message', resource: f.object %>
 <table>
   <tr>
     <th>会員ID</th>

@@ -21,6 +21,7 @@ ja:
         is_locked: 公開ステータス
         password: パスワード
         password_confirmation: パスワード(確認用)
+        thumbnail: サムネイル
       inquiry:
         last_name: 苗字
         first_name: 名前
@@ -28,9 +29,12 @@ ja:
         email: メールアドレス
         inquiry_name: 件名
         inquiry_detail: 内容
-      art: user_id
-
+      art:
+        title: タイトル
+        detail: 説明
+        image: 作品
       comment:
+        body: コメント
 
       like:
 
