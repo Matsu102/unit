@@ -39,7 +39,7 @@ before_action :is_locked_protect
 
   def new
     @art = Art.new
-    if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
+    if (current_user.is_deleted == true) or (current_user.is_locked == true)
       flash[:alert] = '不正なエラー'
       redirect_to artist_path
     end
@@ -59,7 +59,7 @@ before_action :is_locked_protect
       end
     else
       flash[:alert] = '投稿できません。入力内容をお確かめください。'
-      
+
       render :new
     end
   end

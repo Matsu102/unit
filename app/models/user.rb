@@ -3,14 +3,13 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable
 
 #--------------------------------------------------
 
   validates :last_name,        presence: { message: 'を入力してください。' }
   validates :first_name,       presence: { message: 'を入力してください。' }
   validates :handle_name,      presence: { message: 'を入力してください。' }
-  validates :email,            presence: { message: 'を入力してください。' }
   VALID_email = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email,            format: { with: VALID_email, message: 'が不正です。'}, if: -> { email.present? }
   validates :email,            uniqueness: { message: 'は既に使用されています。' }, if: -> { email.present? }
@@ -26,7 +25,9 @@ class User < ApplicationRecord
   validates :is_deleted,       inclusion: { in: [true, false], message: '退会ステータスが不正です。'}, on: :update # update時のみバリデーション
   validates :thumbnail,        presence: true, on: :update # update時のみバリデーション
   VALID_password = /(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!?-_.]){6,15}/
+  validates :password,         presence: { message: 'を入力してください。' }
   validates :password,         format: { with: VALID_password, message: 'は6～15文字の半角英数字と記号(!?-_.)を組み合わせて入力してください。'}, if: -> { password.present? }
+  validates :password,         confirmation: true
 #--------------------------------------------------
 
   # サムネイル
