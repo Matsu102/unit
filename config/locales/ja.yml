@@ -35,10 +35,6 @@ ja:
         image: 作品
       comment:
         body: コメント
-
-      like:
-
-      follows:
   errors:
     format: "%{attribute}%{message}"
     messages:
