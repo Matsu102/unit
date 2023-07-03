@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Unit</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,8 +11,8 @@
     <script src="https://kit.fontawesome.com/93d7beccaa.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
-    <header>
+  <body class="d-flex flex-column vh-100">
+    <header class="border-bottom border-2 border-secondary">
     <% if admin_signed_in? %>
       <%= image_tag('logo.png') %>
       <span>Admin Page 管理者ページ</span>
@@ -80,6 +80,7 @@
       <%= yield %>
     </main>
     <footer>
+      <div class="border-bottom border-2 border-secondary"></div>
       <% if admin_signed_in? %>
         <small>Copyright © 2023 unit All Rights Reserved.</small>
       <% else %>

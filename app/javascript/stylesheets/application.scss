@@ -1,3 +1,69 @@
 @use '~bootstrap/scss/bootstrap';
 
 @import '~toastr/toastr';
+
+// scss-docs-start gray-color-variables
+// $white:    #fff !default;
+// $gray-100: #f8f9fa !default; light
+// $gray-200: #e9ecef !default;
+// $gray-300: #dee2e6 !default;
+// $gray-400: #ced4da !default;
+// $gray-500: #adb5bd !default;
+// $gray-600: #6c757d !default; secondary
+// $gray-700: #495057 !default;
+// $gray-800: #343a40 !default;
+// $gray-900: #212529 !default; dark
+// $black:    #000 !default
+
+body {
+  color: #343a40;
+  background-color: #f8f9fa;
+}
+
+a {
+  color: #343a40;
+}
+
+.white {
+  color: #fff
+}
+
+.gray-100{
+  color: #f8f9fa;
+}
+
+.gray-200{
+  color: #e9ecef;
+}
+
+.gray-300{
+  color: #dee2e6;
+}
+
+.gray-400{
+  color: #ced4da;
+}
+
+.gray-500{
+  color: #adb5bd;
+}
+
+.gray-600{
+  color: #6c757d;
+}
+
+.gray-700{
+  color: #495057;
+}
+
+.gray-800{
+  color: #343a40;
+}
+
+.gray-900{
+  color: #212529;
+}
+
+.black {
+  color: #fff
+}
