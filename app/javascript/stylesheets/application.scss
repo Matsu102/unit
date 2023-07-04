@@ -2,6 +2,49 @@
 
 @import '~toastr/toastr';
 
+// ------------------------------
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #343a40;
+  background-color: #f8f9fa;
+}
+
+// header ------------------------------
+
+.line-top{
+  border-top: 1px solid;
+  border-top-color: #6c757d;
+}
+
+.line-bottom{
+  border-bottom: 1px solid;
+  border-bottom-color: #6c757d;
+}
+
+.very-small {
+  font-size: 10px;
+}
+
+.nav-line-height {
+  line-height: 18px;
+}
+
+// aタグ ------------------------------
+
+a {
+  color: #343a40;
+  text-decoration: underline;
+}
+
+a:hover{
+  color: #6c757d;
+}
+
+
+
+// カラー ------------------------------
+
 // scss-docs-start gray-color-variables
 // $white:    #fff !default;
 // $gray-100: #f8f9fa !default; light
@@ -14,15 +57,6 @@
 // $gray-800: #343a40 !default;
 // $gray-900: #212529 !default; dark
 // $black:    #000 !default
-
-body {
-  color: #343a40;
-  background-color: #f8f9fa;
-}
-
-a {
-  color: #343a40;
-}
 
 .white {
   color: #fff

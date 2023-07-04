@@ -8,85 +8,133 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="http://fonts.googleapis.com/earlyaccess/notosansjp.css">
     <script src="https://kit.fontawesome.com/93d7beccaa.js" crossorigin="anonymous"></script>
   </head>
 
-  <body class="d-flex flex-column vh-100">
-    <header class="border-bottom border-2 border-secondary">
-    <% if admin_signed_in? %>
-      <%= image_tag('logo.png') %>
-      <span>Admin Page 管理者ページ</span>
-      <%= link_to admin_root_path do %>
-        <p>Inquiries<br>問い合わせ一覧</p>
-      <% end %>
-      <%= link_to admin_users_path do %>
-        <p>Users<br>ユーザ一覧</p>
-      <% end %>
-      <%= link_to destroy_admin_session_path, method: :delete do %>
-        <p>Log out<br>ログアウト</p>
-      <% end %>
-    <% elsif user_signed_in? %>
-      <%= link_to root_path do %>
-        <%= image_tag('logo.png') %>
-      <% end %>
-      <% if current_user.user_type == 'artist' %>
-        <%= link_to artist_path(current_user.id) do %>
-          <p>My Page<br>マイページ</p>
+  <body>
+    <header class="container-fluid line-bottom mt-2 mb-4 px-3">
+      <nav class="navbar navbar-expand-lg d-flex align-items-end text-center">
+
+        <% if admin_signed_in? %>
+          <div>
+            <%= image_tag 'logo.png', class: 'navbar-brand' %>
+            <span class="align-bottom">Admin Page 管理者ページ</span>
+          </div>
+          <ul class="navbar-nav ml-auto nav-line-height">
+            <li class="nav-item ml-5">
+              <%= link_to admin_root_path, class: 'text-decoration-none' do %>
+                <span class="lead">Inquiries</span><br><span class="very-small">問い合わせ一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item ml-5">
+              <%= link_to admin_users_path, class: 'text-decoration-none' do %>
+                <span class="lead">Users</span><br><span class="very-small">ユーザ一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item ml-5">
+              <%= link_to destroy_admin_session_path, class: 'text-decoration-none', method: :delete do %>
+                <span class="lead">Log out</span><br><span class="very-small">ログアウト</span>
+              <% end %>
+            </li>
+          </ul>
+
+        <% elsif user_signed_in? %>
+          <%= link_to root_path do %>
+            <%= image_tag'logo.png', class: 'navbar-brand' %>
+          <% end %>
+            <ul class="navbar-nav ml-auto nav-line-height">
+              <li class="nav-item ml-5">
+                <% if current_user.user_type == 'artist' %>
+                  <%= link_to artist_path(current_user.id), class: 'text-decoration-none' do %>
+                    <span class="lead">My Page</span><br><span class="very-small">マイページ</span>
+                  <% end %>
+                <% else %>
+                  <%= link_to fan_path(current_user.id), class: 'text-decoration-none' do %>
+                    <span class="lead">My Page</span><br><span class="very-small">マイページ</span>
+                  <% end %>
+                <% end %>
+              </li>
+              <li class="nav-item ml-5">
+                <%= link_to follows_notices_path, class: 'text-decoration-none' do %>
+                  <span class="lead">Follows & Notices</span><br><span class="very-small">フォローとお知らせ</span>
+                <% end %>
+              </li>
+              <li class="nav-item ml-5">
+                <%= link_to my_album_path, class: 'text-decoration-none' do %>
+                  <span class="lead">My Album</span><br><span class="very-small">マイアルバム</span>
+                <% end %>
+              </li>
+              <li class="nav-item ml-5">
+                <%= link_to arts_path, class: 'text-decoration-none' do %>
+                  <span class="lead">Arts</span><br><span class="very-small">作品一覧</span>
+                <% end %>
+              </li>
+              <li class="nav-item ml-5">
+                <%= link_to artists_path, class: 'text-decoration-none' do %>
+                  <span class="lead">Artists</span><br><span class="very-small">アーティスト一覧</span>
+                <% end %>
+              </li>
+              <li class="nav-item ml-5">
+                <%= link_to destroy_user_session_path, class: 'text-decoration-none', method: :delete do %>
+                  <span class="lead">Log out</span><br><span class="very-small">ログアウト</span>
+                <% end %>
+              </li>
+              <li class="nav-item ml-5">
+                <%= image_tag current_user.get_thumbnail(50,50) %>
+              </li>
+            </ul>
+
+        <% else %>
+          <%= link_to root_path do %>
+            <%= image_tag'logo.png', class: 'navbar-brand' %>
+          <% end %>
+          <ul class="navbar-nav ml-auto nav-line-height">
+            <li class="nav-item ml-5">
+              <%= link_to about_path, class: 'text-decoration-none' do %>
+                <span class="lead">About</span><br><span class="very-small">サービス概要</span>
+              <% end %>
+            </li>
+            <li class="nav-item ml-5">
+              <%= link_to arts_path, class: 'text-decoration-none' do %>
+                <span class="lead">Arts</span><br><span class="very-small">作品一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item ml-5">
+              <%= link_to artists_path, class: 'text-decoration-none' do %>
+                <span class="lead">Artists</span><br><span class="very-small">アーティスト一覧</span>
+              <% end %>
+            </li>
+            <li class="nav-item ml-5">
+              <%= link_to new_user_session_path, class: 'text-decoration-none' do %>
+                <span class="lead">Log in</span><br><span class="very-small">ログイン</span>
+              <% end %>
+            </li>
+            <li class="nav-item ml-5">
+              <%= link_to branch_path, class: 'text-decoration-none' do %>
+                <span class="lead">Sing up</span><br><span class="very-small">新規登録</span>
+              <% end %>
+            </li>
+          </ul>
         <% end %>
-      <% else %>
-        <%= link_to fan_path(current_user.id) do %>
-          <p>My Page<br>マイページ</p>
-        <% end %>
-      <% end %>
-      <%= link_to follows_notices_path do %>
-        <p>Follows & Notices<br>フォローとお知らせ</p>
-      <% end %>
-      <%= link_to my_album_path do %>
-        <p>My Album<br>マイアルバム</p>
-      <% end %>
-      <%= link_to arts_path do %>
-        <p>Arts<br>作品一覧</p>
-      <% end %>
-      <%= link_to artists_path do %>
-        <p>Artists<br>アーティスト一覧</p>
-      <% end %>
-      <%= link_to destroy_user_session_path, method: :delete do %>
-        <p>Log out<br>ログアウト</p>
-      <% end %>
-      <%= image_tag current_user.get_thumbnail(50,50) %>
-    <% else %>
-      <%= link_to root_path do %>
-        <%= image_tag('logo.png') %>
-      <% end %>
-      <%= link_to about_path do %>
-        <p>About<br>サービス概要</p>
-      <% end %>
-      <%= link_to arts_path do %>
-        <p>Arts<br>作品一覧</p>
-      <% end %>
-      <%= link_to artists_path do %>
-        <p>Artists<br>アーティスト一覧</p>
-      <% end %>
-      <%= link_to new_user_session_path do %>
-        <p>Log in<br>ログイン</p>
-      <% end %>
-      <%= link_to branch_path do %>
-        <p>Sing up<br>新規登録</p>
-      <% end %>
-    <% end %>
+      </nav>
     </header>
-    <main class="container">
+
+    <main class="container-fluid mx-3">
       <%= toastr_flash %>
       <%= yield %>
     </main>
-    <footer>
-      <div class="border-bottom border-2 border-secondary"></div>
-      <% if admin_signed_in? %>
-        <small>Copyright © 2023 unit All Rights Reserved.</small>
-      <% else %>
-        <%= link_to 'ヘルプ', helps_path %>
-        <small>Copyright © 2023 unit All Rights Reserved.</small>
-      <% end %>
+
+    <footer class="container-fluid line-top text-center mt-5">
+      <div class="mt-4">
+        <% if admin_signed_in? %>
+          <small>Copyright © 2023 unit All Rights Reserved.</small>
+        <% else %>
+          <%= link_to 'ヘルプ', helps_path %><br>
+          <small>Copyright © 2023 unit All Rights Reserved.</small>
+        <% end %>
+      </div>
     </footer>
+
   </body>
 </html>
