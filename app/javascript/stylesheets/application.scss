@@ -37,12 +37,25 @@ a {
   text-decoration: underline;
 }
 
-a:hover{
+a:hover {
   color: #6c757d;
 }
 
+// index ------------------------------
 
+.user-list {
+  background-color: #ced4da;
+  width: 150px;
+  height: 200px;
+}
+.user-list:hover {
+  color: #ced4da;
+  background-color: #6c757d;
+}
 
+.back-40-20 {
+  padding: 40px 20px;
+}
 // カラー ------------------------------
 
 // scss-docs-start gray-color-variables
@@ -76,6 +89,10 @@ a:hover{
 
 .gray-400{
   color: #ced4da;
+}
+
+.gray-400-back{
+  background-color: #ced4da;
 }
 
 .gray-500{

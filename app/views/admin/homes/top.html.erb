@@ -1,25 +1,37 @@
 <p>Inquiries 問い合わせ一覧</p>
 
-<div></div>
-<table>
-  <tr>
-    <th>ステータス</th>
-    <th>問い合わせ日時</th>
-    <th>会員ID</th>
-    <th>名前</th>
-    <th>件名</th>
-  </tr>
-  <% @inquiries.each do |inquiry| %>
-  <tr>
-    <td><%= inquiry.is_response ? '対応済' : '未対応' %></td> <!--true:対応済 false:未対応-->
-    <td><%= l inquiry.created_at %></td> <!--#lヘルパー config/locales/ja.ymlにて設定-->
-    <td><%= inquiry.user_id %></td>
-    <td><%= inquiry.last_name %> <%= inquiry.first_name %></td>
-    <td>
-      <%= link_to admin_inquiry_path(inquiry.id) do %>
-        <%= inquiry.inquiry_name %>
+<div class="row justify-content-md-center">
+  <div class="col-9 mt-2">
+
+    <table class="table text-center">
+
+      <tr class="bg-secondary">
+        <th class="col-1">対応状況</th>
+        <th class="col-2">問い合わせ日時</th>
+        <th class="col-1">ID</th>
+        <th class="col-2">名前</th>
+        <th class="col-6">件名</th>
+      </tr>
+
+      <% @inquiries.each do |inquiry| %>
+        <tr class="table gray-400-back">
+          <td><%= inquiry.is_response ? '対応済' : '未対応' %></td> <!--true:対応済 false:未対応-->
+          <td><%= l inquiry.created_at %></td> <!--#lヘルパー config/locales/ja.ymlにて設定-->
+          <td><%= inquiry.user_id %></td>
+          <td><%= inquiry.last_name %> <%= inquiry.first_name %></td>
+          <td class="text-left">
+            <%= link_to admin_inquiry_path(inquiry.id) do %>
+              <%= inquiry.inquiry_name %>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-    </td>
-  </tr>
-  <% end %>
-</table>
+
+    </table>
+
+    <div class="d-flex justify-content-center pt-2">
+      <%= paginate @inquiries %>
+    </div>
+
+  </div>
+</div>

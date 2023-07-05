@@ -1,38 +1,62 @@
-<table>
-  <tr>
-    <th>問い合わせ日時</th>
-    <td><%= l @inquiry.created_at %></td> <!--#lヘルパー config/locales/ja.ymlにて設定-->
-  </tr>
-  <tr>
-    <th>会員ID</th>
-    <td><%= @inquiry.user_id %></td>
-  </tr>
-  <tr>
-    <th>名前</th>
-    <td><%= @inquiry.last_name %> <%= @inquiry.first_name %></td>
-  </tr>
-  <tr>
-    <th>メールアドレス</th>
-    <td><%= @inquiry.email %></td>
-  </tr>
-  <tr>
-    <th>ステータス</th>
-    <td>
-      <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
-        <%= f.radio_button :is_response, false %><%= f.label(:is_response, '未対応', value: false) %>
-        <%= f.radio_button :is_response, true %><%= f.label(:is_response, '対応済', value: true) %>
-        <%= f.submit '変更' %>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th>件名</th>
-    <td><%= @inquiry.inquiry_name %></td>
-  </tr>
-  <tr>
-    <th>内容</th>
-    <td><%= @inquiry.inquiry_detail %></td>
-  </tr>
-</table>
+<div class="row justify-content-md-center">
+  <div class="col-9 mt-5">
 
-<%= link_to 'Back', :back %>
+    <div class="row row-cols-2 back-40-20 gray-400-back">
+      <div class="col-4 pb-3">
+        問い合わせ日時
+      </div>
+      <div class="col-8">
+        <%= l @inquiry.created_at %> <!--#lヘルパー config/locales/ja.ymlにて設定-->
+      </div>
+      <div class="col-4 pb-3">
+        会員ID
+      </div>
+      <div class="col-8">
+        <% if @inquiry.user_id == nil %>
+          <p>未入力</p>
+        <% else %>
+          <%= @inquiry.user_id %>
+        <% end %>
+      </div>
+      <div class="col-4 pb-3">
+        名前
+      </div>
+      <div class="col-8">
+        <%= @inquiry.last_name %> <%= @inquiry.first_name %>
+      </div>
+      <div class="col-4 pb-3">
+        メールアドレス
+      </div>
+      <div class="col-8">
+        <%= @inquiry.email %>
+      </div>
+      <div class="col-4 pb-3">
+        ステータス
+      </div>
+      <div class="col-8">
+        <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
+          <%= f.radio_button :is_response, false %><%= f.label(:is_response, '未対応', value: false) %>
+          <%= f.radio_button :is_response, true, class: 'ml-2' %><%= f.label(:is_response, '対応済', value: true) %>
+          <%= f.submit '変更', class: 'ml-2' %>
+        <% end %>
+      </div>
+      <div class="col-4 pb-3">
+        件名
+      </div>
+      <div class="col-8">
+        <%= @inquiry.inquiry_name %>
+      </div>
+      <div class="col-4">
+        内容
+      </div>
+      <div class="col-8">
+        <%= @inquiry.inquiry_detail %>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+      <%= link_to 'Back', :back %>
+    </div>
+
+  </div>
+</div>

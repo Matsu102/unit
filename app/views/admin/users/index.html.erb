@@ -1,4 +1,19 @@
+<div class="row">
+<div class="col-3">
 <p>Users ユーザ一覧 </p>
+</div>
+<div class="col-9 d-flex justify-content-end pr-2">
+
+  <%= form_with url: admin_users_search_path, method: :get, local: true do |f| %>
+  <%= f.text_field :keyword_id, :placeholder => 'ID 例)123' %>
+  <%= f.text_field :keyword_last_name, :placeholder => '苗字' %>
+  <%= f.text_field :keyword_first_name, :placeholder => '名前' %>
+  <%= f.text_field :keyword_handle_name, :placeholder => 'ニックネーム' %>
+  <%= f.submit '検索' %>
+<% end %>
+
+</div>
+</div>
 
 <% if @search_words.blank? %>
 <% else %>
@@ -6,7 +21,7 @@
 <% end %>
 <% if @search_word_id.blank? %>
 <% else %>
-  <span>会員ID : <%= @search_word_id %>　</span>
+  <span>ID : <%= @search_word_id %>　</span>
 <% end %>
 
 <% if @search_word_last_name.blank? %>
@@ -24,21 +39,24 @@
   <span>ハンドルネーム : <%= @search_word_handle_name %></span>
 <% end %>
 
-<%= form_with url: admin_users_search_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword_id, :placeholder => '会員ID 例)123' %>
-  <%= f.text_field :keyword_last_name, :placeholder => '苗字' %>
-  <%= f.text_field :keyword_first_name, :placeholder => '名前' %>
-  <%= f.text_field :keyword_handle_name, :placeholder => 'ニックネーム' %>
-  <%= f.submit '検索' %>
-<% end %>
+<div class="col-11 d-flex flex-wrap justify-content-start mt-4">
+  <% @users.each do |user| %>
+    <%= link_to admin_user_path(user.id), class: 'text-decoration-none' do %>
+      <div class="user-list mb-2 ml-2">
 
-<% @users.each do |user| %>
-  <%= link_to admin_user_path(user.id) do %>
-    <div>
-      <%= image_tag user.get_thumbnail(50,50) %>
-      <p>会員ID <%= user.id %><br>
+    <div class="d-flex align-items-center">
+      <%= image_tag user.get_thumbnail(50,50), class: 'rounded-circle' %>
+      <p>ID <%= user.id %><br>
       <%= user.handle_name %><br>
       <%= user.last_name %> <%= user.first_name %></p>
     </div>
+
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+</div>
+<div class="d-flex justify-content-center pt-2">
+      <%= paginate @users %>
+    </div>
+</div>
