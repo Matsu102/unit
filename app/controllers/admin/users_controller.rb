@@ -28,8 +28,13 @@ before_action :authenticate_admin!
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to admin_user_path
+    if @user.update!(user_params) # !を付けるとエラーが出た際にエラーメッセージが表示される
+      flash[:notice] = '変更しました。'
+      redirect_to admin_users_path
+    else
+      flash[:alert] = '不正なエラー'
+      render :show
+    end
   end
 
   private

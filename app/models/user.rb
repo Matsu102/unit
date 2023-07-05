@@ -25,9 +25,9 @@ class User < ApplicationRecord
   validates :is_deleted,       inclusion: { in: [true, false], message: '退会ステータスが不正です。'}, on: :update # update時のみバリデーション
   validates :thumbnail,        presence: true, on: :update # update時のみバリデーション
   VALID_password = /(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!?-_.]){6,15}/
-  validates :password,         presence: { message: 'を入力してください。' }
-  validates :password,         format: { with: VALID_password, message: 'は6～15文字の半角英数字と記号(!?-_.)を組み合わせて入力してください。'}, if: -> { password.present? }
-  validates :password,         confirmation: true
+  validates :password,         presence: { message: 'を入力してください。' }, on: :create # create時のみバリデーション
+  validates :password,         format: { with: VALID_password, message: 'は6～15文字の半角英数字と記号(!?-_.)を組み合わせて入力してください。'}, if: -> { password.present? }, on: :create
+  validates :password,         confirmation: true, on: :create
   validate  :thumbnail_type, if: :was_attached?
 
 #--------------------------------------------------

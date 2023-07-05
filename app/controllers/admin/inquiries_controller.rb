@@ -7,8 +7,13 @@ before_action :authenticate_admin!
 
   def update
     @inquiry = Inquiry.find(params[:id])
-    @inquiry.update(inquiry_params)
-    redirect_to admin_root_path
+    if @inquiry.update(inquiry_params)
+      flash[:notice] = '変更しました。'
+      redirect_to admin_root_path
+    else
+      flash[:alert] = '不正なエラー'
+      render :show
+    end
   end
 
   private
