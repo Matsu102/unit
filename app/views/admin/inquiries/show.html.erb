@@ -1,55 +1,59 @@
-<div class="row justify-content-md-center">
-  <div class="col-9 mt-5">
+<div class="row justify-content-center">
+  <div class="col-lg-9 mt-5">
 
-    <div class="row row-cols-2 back-40-20 gray-400-back">
-      <div class="col-4 pb-3">
-        問い合わせ日時
+    <div class="row row-cols-2 gray-400-back px-3 py-5">
+      <div class="col-lg-2 pb-3">
+        <p>問い合わせ日時</p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-10">
         <%= l @inquiry.created_at %> <!--#lヘルパー config/locales/ja.ymlにて設定-->
       </div>
-      <div class="col-4 pb-3">
-        会員ID
+      <div class="col-lg-2 pb-3">
+        <p>ID</p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-10">
         <% if @inquiry.user_id == nil %>
           <p>未入力</p>
         <% else %>
           <%= @inquiry.user_id %>
         <% end %>
       </div>
-      <div class="col-4 pb-3">
-        名前
+      <div class="col-lg-2 pb-3">
+        <p>名前</p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-10">
         <%= @inquiry.last_name %> <%= @inquiry.first_name %>
       </div>
-      <div class="col-4 pb-3">
-        メールアドレス
+      <div class="col-lg-2 pb-3">
+        <p>メールアドレス</p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-10">
         <%= @inquiry.email %>
       </div>
-      <div class="col-4 pb-3">
-        ステータス
+      <div class="col-lg-2 pb-3">
+        <p>対応状況</p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-10">
         <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
-          <%= f.radio_button :is_response, false %><%= f.label(:is_response, '未対応', value: false) %>
-          <%= f.radio_button :is_response, true, class: 'ml-2' %><%= f.label(:is_response, '対応済', value: true) %>
-          <%= f.submit '変更', class: 'ml-2' %>
+          <div class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :is_response, false, class: 'custom-control-input' %><%= f.label(:is_response, '未対応', value: false, class: 'custom-control-label') %>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :is_response, true, class: 'custom-control-input' %><%= f.label(:is_response, '対応済', value: true, class: 'custom-control-label') %>
+          </div>
+            <%= f.submit '変更', class: 'btn btn-secondary ml-3' %>
         <% end %>
       </div>
-      <div class="col-4 pb-3">
-        件名
+      <div class="col-lg-2 pb-3">
+        <p>件名</p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-10">
         <%= @inquiry.inquiry_name %>
       </div>
-      <div class="col-4">
-        内容
+      <div class="col-lg-2">
+        <p>内容</p>
       </div>
-      <div class="col-8">
+      <div class="col-lg-10">
         <%= @inquiry.inquiry_detail %>
       </div>
     </div>

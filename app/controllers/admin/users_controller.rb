@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
 before_action :authenticate_admin!
 
   def index
-    @users = User.all.page(params[:page]).per(16)
+    @users = User.all.page(params[:page]).per(12)
   end
 
   def search
@@ -12,7 +12,7 @@ before_action :authenticate_admin!
        params[:keyword_handle_name] == ""
       redirect_to admin_users_path
     else
-      @users = User.where(["id LIKE(?) AND last_name LIKE(?) AND first_name LIKE(?) AND handle_name LIKE(?)", "%#{params[:keyword_id]}%", "%#{params[:keyword_last_name]}%", "%#{params[:keyword_first_name]}%", "%#{params[:keyword_handle_name]}%"]).page(params[:page]).per(16)
+      @users = User.where(["id LIKE(?) AND last_name LIKE(?) AND first_name LIKE(?) AND handle_name LIKE(?)", "%#{params[:keyword_id]}%", "%#{params[:keyword_last_name]}%", "%#{params[:keyword_first_name]}%", "%#{params[:keyword_handle_name]}%"]).page(params[:page]).per(12)
       @search_words = params[:keyword_id] + params[:keyword_last_name] + params[:keyword_first_name] + params[:keyword_handle_name]
       @search_word_id = params[:keyword_id]
       @search_word_last_name = params[:keyword_last_name]
@@ -28,7 +28,8 @@ before_action :authenticate_admin!
 
   def update
     @user = User.find(params[:id])
-    if @user.update!(user_params) # !を付けるとエラーが出た際にエラーメッセージが表示される
+    if params[:back]
+    elsif @user.update!(user_params) # !を付けるとエラーが出た際にエラーメッセージが表示される
       flash[:notice] = '変更しました。'
       redirect_to admin_users_path
     else

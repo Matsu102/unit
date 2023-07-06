@@ -10,6 +10,10 @@ body {
   background-color: #f8f9fa;
 }
 
+.white-text {
+  color: #fff;
+}
+
 // header ------------------------------
 
 .line-top{
@@ -45,17 +49,12 @@ a:hover {
 
 .user-list {
   background-color: #ced4da;
-  width: 150px;
-  height: 200px;
 }
 .user-list:hover {
   color: #ced4da;
   background-color: #6c757d;
 }
 
-.back-40-20 {
-  padding: 40px 20px;
-}
 // カラー ------------------------------
 
 // scss-docs-start gray-color-variables
