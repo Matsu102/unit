@@ -1,26 +1,58 @@
-<h2>Artists アーティスト一覧</h2>
+<div class="row">
+  <div class="col-lg-3">
+    <p>Artists アーティスト一覧</p>
+  </div>
+  <div class="col-lg-9">
+    <%= form_with url: users_artsit_search_path, method: :get, local: true do |f| %>
+      <div class="form-row d-flex justify-content-end pr-2">
+        <div class="col-lg-2">
+          <%= f.text_field :keyword, value: @keyword, class: 'form-control', :placeholder => 'Search Users' %>
+        </div>
+        <div class="col-lg-1 actions d-flex justify-content-end">
+          <%= f.submit '検索', class: 'btn btn-secondary col-lg-12' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <% if @search_word.blank? %>
 <% else %>
   <span>検索ワード　<%= @search_word %></span>
 <% end %>
 
-<%= form_with url: users_artsit_search_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword, value: @keyword, :placeholder => 'Search Users' %>
-  <%= f.submit '検索' %>
-<% end %>
+<div class="row d-flex justify-content-center">
+  <div class="row col-lg-11 d-flex flex-wrap justify-content-start mt-4">
+    <% @user.each do |user| %>
+      <div class="col-lg-2 align-items-center text-center">
+        <%= link_to artist_path(user.id), class: 'text-decoration-none' do %>
+          <div class="mb-3 col-lg-12">
 
-<% @user.each do |user| %>
-  <%= link_to artist_path(user.id) do %>
-    <div>
-      <%= image_tag user.get_thumbnail(50,50) %>
-      <p><%= user.handle_name %><br>
-      <% if user.introduction.nil? %>
-        No introduction.
-      <% else %>
-        <%= user.introduction.truncate(27) %>
-      <% end %>
-      </p>
-    </div>
-  <% end %>
-<% end %>
+            <div class="row">
+              <div class="row col-lg-12 link-card py-2">
+                <div class="col-lg-12">
+                  <%= image_tag user.get_thumbnail, class: 'rounded-circle d-block mx-auto mt-3', :size => '75x75' %>
+                </div>
+                <div class="col-lg-12 mt-3">
+                  <%= user.handle_name %>
+                  <div class="d-flex align-items-center" style="height: 90px">
+                    <% if user.introduction.nil? %>
+                      <p>No<br>introduction.</p>
+                    <% else %>
+                      <%= user.introduction.truncate(26) %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center pt-2">
+  <%= paginate @user %>
+</div>

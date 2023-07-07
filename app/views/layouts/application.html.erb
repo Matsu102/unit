@@ -43,7 +43,7 @@
           <%= link_to root_path do %>
             <%= image_tag'logo.png', class: 'navbar-brand' %>
           <% end %>
-            <ul class="navbar-nav ml-auto nav-line-height">
+            <ul class="navbar-nav ml-auto nav-line-height align-items-end">
               <li class="nav-item ml-5">
                 <% if current_user.user_type == 'artist' %>
                   <%= link_to artist_path(current_user.id), class: 'text-decoration-none' do %>
@@ -81,7 +81,7 @@
                 <% end %>
               </li>
               <li class="nav-item ml-5">
-                <%= image_tag current_user.get_thumbnail(50,50) %>
+                <%= image_tag current_user.get_thumbnail, class: 'rounded-circle te d-block mx-auto mt-3', :size => '50x50' %>
               </li>
             </ul>
 

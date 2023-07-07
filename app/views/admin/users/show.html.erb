@@ -4,13 +4,13 @@
     <div class="row gray-400-back px-3 py-5">
       <div class="row row-cols-2 col-6">
         <div class="col-3">
-          <p>ID</p>
+          <span>ID</span>
         </div>
         <div class="col-9">
           <%= @user.id %>
         </div>
         <div class="col-3">
-          <p>会員種別</p>
+          <span>会員種別</span>
         </div>
         <div class="col-9">
           <% if 'artist' == @user.user_type %>
@@ -21,7 +21,7 @@
         </div>
         <% if @user.user_type == 'artist' %>
           <div class="col-3">
-            <p>URL</p>
+            <span>URL</span>
           </div>
           <div class="col-9">
             <%= @user.url %>
@@ -30,12 +30,12 @@
         <% end %>
       </div>
       <div class="col-6">
-        <%= image_tag @user.get_thumbnail(75,75), class: 'rounded-circle d-block mx-auto' %>
+        <%= image_tag @user.get_thumbnail, class: 'rounded-circle d-block mx-auto', :size => '75x75' %>
       </div>
 
       <div class="row row-cols-2 col-6">
         <div class="col-3">
-          <p>ニックネーム</p>
+          <span>ニックネーム</span>
         </div>
         <div class="col-9">
           <%= @user.handle_name %>
@@ -43,7 +43,7 @@
       </div>
       <div class="row row-cols-3 col-6">
         <div class="col-4">
-          <p>名前</p>
+          <span>名前</span>
         </div>
         <div class="col-5">
           <%= @user.last_name %>
@@ -55,33 +55,33 @@
 
       <div class="row row-cols-2 col-6 d-flex align-items-center">
         <div class="col-3">
-          <p>自己紹介</p>
+          <span>自己紹介</span>
         </div>
         <div class="col-9">
-          <p><%= @user.introduction %></p>
+          <%= @user.introduction %>
         </div>
       </div>
       <div class="row row-cols-3 col-6">
         <div class="col-4">
-          <p>メールアドレス</p>
+          <span>メールアドレス</span>
         </div>
         <div class="col-8">
           <%= @user.email %>
         </div>
         <div class="col-4">
-          <p>電話番号</p>
+          <span>電話番号</span>
         </div>
         <div class="col-8">
           <%= @user.telephone_number %>
         </div>
         <div class="col-4">
-          <p>会員ステータス</p>
+          <span>会員ステータス</span>
         </div>
         <div class="col-8">
           <%= @user.is_deleted ? '退会' : '有効' %>
         </div>
         <div class="col-4">
-          <p>公開ステータス</p>
+          <span>公開ステータス</span>
         </div>
           <div class="col-8">
             <%= form_with model: @user, url: admin_user_path(@user.id) do |f| %>
@@ -91,7 +91,7 @@
               <div class="custom-control custom-radio custom-control-inline">
                 <%= f.radio_button :is_locked, true, class: 'custom-control-input ml-5' %><%= f.label(:is_locked, '非公開', value: true, class: 'custom-control-label') %>
               </div>
-              
+
               <%= f.submit '変更', class: 'btn btn-secondary ml-5' %>
             <% end %>
           </div>

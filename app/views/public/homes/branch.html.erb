@@ -1,15 +1,30 @@
-<h2>Sing up 新規登録</h2>
+<p>Sing up 新規登録</p>
 
-<%= link_to new_user_registration_path(user_type: :artist) do %>
-  <div>
-    <p>Artist アーティスト<br>写真家・写真家を目指している方</p>
-    <p>通常機能に加え<br>写真作品の投稿ができます</p>
-  </div>
-<% end %>
+<div class="row justify-content-lg-center ">
+  <div class="col-lg-3 align-items-center text-center mt-3">
 
-<%= link_to new_user_registration_path(user_type: :fan) do %>
-  <div>
-    <p>Fan ファン<br>写真作品の閲覧をご希望の方</p>
-    <p>My Album 機能やフォロー機能<br>コメント投稿などができる<br>通常機能を備えたアカウントです</p>
+
+    <%= link_to new_user_registration_path(user_type: :artist), class: 'text-decoration-none' do %>
+      <div class="row">
+        <div class="col-lg-12 link-card px-3 py-5">
+          <i class="fa-sharp fa-solid fa-star fa-3x mb-4"></i>
+          <p><span class="lead">Artist アーティスト</span><br>写真家・写真家を目指している方</p>
+          <p>通常機能に加えて<br>写真作品の投稿ができる<br>全ての機能を備えたアカウントです</p>
+        </div>
+      </div>
+    <% end %>
+    </div>
+
+    <div class="col-lg-3 align-items-center text-center  mt-3 ml-3">
+      <%= link_to new_user_registration_path(user_type: :fan), class: 'text-decoration-none' do %>
+        <div class="row">
+        <div class="col-lg-12 link-card px-3 py-5">
+          <i class="fa-sharp fa-solid fa-heart fa-3x mb-4"></i>
+          <p><span class="lead">Fan ファン</span><br>写真作品の閲覧をご希望の方</p>
+          <p>My Album 機能やフォロー機能<br>コメント投稿などができる<br>通常機能を備えたアカウントです</p>
+        </div>
+      </div>
+    <% end %>
+
   </div>
-<% end %>
+</div>

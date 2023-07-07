@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
 #--------------------------------------------------
 
-  # サムネイル
+  # サムネイルのバリデーション
   has_one_attached :thumbnail
   def thumbnail_type
     extension = ['image/jpeg', 'image/png', 'image/gif']
@@ -66,13 +66,13 @@ class User < ApplicationRecord
 
 #--------------------------------------------------
 
-  #サムネイルサイズ
-  def get_thumbnail(width, height)
+  #サムネイル
+  def get_thumbnail
     unless thumbnail.attached?
       file_path = Rails.root.join('app/assets/images/no_thumbnail.jpg') # サムネイル未登録時の画像
       thumbnail.attach(io: File.open(file_path), filename: 'no_thumbnail.jpg', content_type: 'image/jpeg') # jpegのみ許可
     end
-    thumbnail.variant(resize_to_limit: [width, height]).processed
+    thumbnail
   end
 
 #------------------------------

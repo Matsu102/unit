@@ -3,35 +3,35 @@
 
     <div class="row row-cols-2 gray-400-back px-3 py-5">
       <div class="col-lg-2 pb-3">
-        <p>問い合わせ日時</p>
+        <span>問い合わせ日時</span>
       </div>
       <div class="col-lg-10">
         <%= l @inquiry.created_at %> <!--#lヘルパー config/locales/ja.ymlにて設定-->
       </div>
       <div class="col-lg-2 pb-3">
-        <p>ID</p>
+        <span>ID</span>
       </div>
       <div class="col-lg-10">
         <% if @inquiry.user_id == nil %>
-          <p>未入力</p>
+          <span>未入力</span>
         <% else %>
           <%= @inquiry.user_id %>
         <% end %>
       </div>
       <div class="col-lg-2 pb-3">
-        <p>名前</p>
+        <span>名前</span>
       </div>
       <div class="col-lg-10">
         <%= @inquiry.last_name %> <%= @inquiry.first_name %>
       </div>
       <div class="col-lg-2 pb-3">
-        <p>メールアドレス</p>
+        <span>メールアドレス</span>
       </div>
       <div class="col-lg-10">
         <%= @inquiry.email %>
       </div>
       <div class="col-lg-2 pb-3">
-        <p>対応状況</p>
+        <span>対応状況</span>
       </div>
       <div class="col-lg-10">
         <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
@@ -45,13 +45,13 @@
         <% end %>
       </div>
       <div class="col-lg-2 pb-3">
-        <p>件名</p>
+        <span>件名</span>
       </div>
       <div class="col-lg-10">
         <%= @inquiry.inquiry_name %>
       </div>
       <div class="col-lg-2">
-        <p>内容</p>
+        <span>内容</span>
       </div>
       <div class="col-lg-10">
         <%= @inquiry.inquiry_detail %>

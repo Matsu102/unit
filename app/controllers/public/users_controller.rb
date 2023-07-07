@@ -3,14 +3,14 @@ before_action :authenticate_user!
 before_action :is_locked_protect, only: [:index, :edit]
 
   def index
-    @user = User.where(user_type: 'artist', is_deleted: false, is_locked: false) # insexにはアーティストのみ表示
+    @user = User.where(user_type: 'artist', is_deleted: false, is_locked: false).page(params[:page]).per(12) # insexにはアーティストのみ表示
   end
 
   def search
     if params[:keyword] == "" # 検索ワードが空欄の場合はartists_pathを再読み込み
       redirect_to artists_path
     else
-      @user = User.where(["handle_name like?", "%#{params[:keyword]}%"]).where(user_type: 'artist', is_deleted: false, is_locked: false)
+      @user = User.where(["handle_name like?", "%#{params[:keyword]}%"]).where(user_type: 'artist', is_deleted: false, is_locked: false).page(params[:page]).per(12)
       @search_word = params[:keyword]
       render :index
     end

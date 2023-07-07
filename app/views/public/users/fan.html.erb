@@ -3,7 +3,7 @@
   <p>アカウントは凍結されています</p>
   <p>心当たりが無い場合は<%= link_to 'お問い合わせフォーム', helps_inquiry_path %>よりご連絡ください</p>
   <% else %>
-  <%= image_tag @user.get_thumbnail(100,100) %>
+  <%= image_tag @user.get_thumbnail, :size => '100x100') %>
   <p><%= @user.handle_name %></p>
   <p><%= @user.my_followers.count %>フォロー</p>
   <p><%= @user.introduction %></p>

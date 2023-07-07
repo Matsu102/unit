@@ -15,7 +15,7 @@
         <%= render 'layouts/user_mark', user: like.user %>
         <span>アカウント凍結中</span>
       <% else %>
-        <%= image_tag like.user.get_thumbnail(50,50) %>
+        <%= image_tag like.user.get_thumbnail, :size => '50x50' %>
         <%= render 'layouts/user_mark', user: like.user %>
         <%= render 'layouts/user_page', user_type: like.user.user_type, handle_name: like.user.handle_name, user_id: like.user.id %>
       <% end %>
@@ -39,7 +39,7 @@
       <span>アカウント凍結中</span>
       <% elsif comment.is_deleted == true %>
       <% else %>
-        <%= image_tag comment.user.get_thumbnail(50,50) %>
+        <%= image_tag comment.user.get_thumbnail, :size => '50x50' %>
         <%= render 'layouts/user_mark', user: comment.user %>
         <%= render 'layouts/user_page', user_type: comment.user.user_type, handle_name: comment.user.handle_name, user_id: comment.user.id %>
 
@@ -72,7 +72,7 @@
         <% elsif reply.is_deleted == true %>
           <p>削除済みコメント</p>
         <% else %>
-          <%= image_tag reply.user.get_thumbnail(50,50) %>
+          <%= image_tag reply.user.get_thumbnail, :size => '50x50' %>
           <%= render 'layouts/user_mark', user: reply.user %>
           <%= render 'layouts/user_page', user_type: reply.user.user_type, handle_name: reply.user.handle_name, user_id: reply.user.id %>
           <%= reply.body %>

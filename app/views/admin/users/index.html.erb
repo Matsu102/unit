@@ -4,22 +4,22 @@
   </div>
   <div class="col-lg-9">
     <%= form_with url: admin_users_search_path, method: :get, local: true do |f| %>
-    <div class="form-row d-flex justify-content-end pr-2">
+      <div class="form-row d-flex justify-content-end pr-2">
         <div class="col-lg-2">
-      <%= f.text_field :keyword_id, class: 'form-control', :placeholder => 'ID 例)123' %>
-      </div>
-      <div class="col-lg-2">
-      <%= f.text_field :keyword_last_name, class: 'form-control', :placeholder => '苗字' %>
-      </div>
-      <div class="col-lg-2">
-      <%= f.text_field :keyword_first_name, class: 'form-control', :placeholder => '名前' %>
-      </div>
-      <div class="col-lg-2">
-      <%= f.text_field :keyword_handle_name, class: 'form-control', :placeholder => 'ニックネーム' %>
-      </div>
-      <div class="col-lg-1 actions d-flex justify-content-end">
-      <%= f.submit '検索', class: 'btn btn-secondary col-lg-12' %>
-      </div>
+          <%= f.text_field :keyword_id, class: 'form-control', :placeholder => 'ID 例)123' %>
+        </div>
+        <div class="col-lg-2">
+          <%= f.text_field :keyword_last_name, class: 'form-control', :placeholder => '苗字' %>
+        </div>
+        <div class="col-lg-2">
+          <%= f.text_field :keyword_first_name, class: 'form-control', :placeholder => '名前' %>
+        </div>
+        <div class="col-lg-2">
+          <%= f.text_field :keyword_handle_name, class: 'form-control', :placeholder => 'ニックネーム' %>
+        </div>
+        <div class="col-lg-1 actions d-flex justify-content-end">
+          <%= f.submit '検索', class: 'btn btn-secondary col-lg-12' %>
+        </div>
       </div>
     <% end %>
   </div>
@@ -57,9 +57,9 @@
           <div class="mb-3 col-lg-12">
 
             <div class="row">
-              <div class="row col-lg-12 user-list py-2">
+              <div class="row col-lg-12 link-card py-2">
                 <div class="col-lg-12">
-                  <%= image_tag user.get_thumbnail(75,75), class: 'rounded-circle d-block mx-auto mt-3' %>
+                  <%= image_tag user.get_thumbnail, class: 'rounded-circle d-block mx-auto mt-3', :size => '75x75' %>
                 </div>
                 <div class="col-lg-12 mt-3">
                   <p>ID <%= user.id %><br>
@@ -76,8 +76,6 @@
   </div>
 </div>
 
-  <div class="d-flex justify-content-center pt-2">
-    <%= paginate @users %>
-  </div>
-
+<div class="d-flex justify-content-center pt-2">
+  <%= paginate @users %>
 </div>
