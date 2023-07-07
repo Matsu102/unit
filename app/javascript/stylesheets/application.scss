@@ -55,6 +55,57 @@ a:hover {
   background-color: #6c757d;
 }
 
+// help アコーディオン ------------------------------
+
+.accordion-003 {
+    max-width: auto;
+    border-bottom: 1px solid #343a40;
+}
+
+.accordion-003 summary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0.5em 2em;
+    color: #343a40;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.accordion-003 summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-003 summary::after {
+    transform: translateY(-25%) rotate(45deg);
+    width: 7px;
+    height: 7px;
+    margin-left: 10px;
+    border-bottom: 3px solid #343a40b3;
+    border-right: 3px solid #343a40b3;
+    content: '';
+    transition: transform .3s;
+}
+
+.accordion-003[open] summary::after {
+    transform: rotate(225deg);
+}
+
+.accordion-003 p {
+    transform: translateY(-10px);
+    opacity: 0;
+    margin: 0;
+    padding: .3em 2em 1.5em;
+    color: #343a40;
+    transition: transform .5s, opacity .5s;
+}
+
+.accordion-003[open] p {
+    transform: none;
+    opacity: 1;
+}
+
 // カラー ------------------------------
 
 // scss-docs-start gray-color-variables
@@ -108,6 +159,10 @@ a:hover {
 
 .gray-800{
   color: #343a40;
+}
+
+.gray-800-back{
+  background-color: #343a40;
 }
 
 .gray-900{

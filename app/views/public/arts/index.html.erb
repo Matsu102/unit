@@ -1,17 +1,33 @@
-<h2>Arts 作品一覧</h2>
+<div class="row">
+  <div class="col-lg-3">
+    <p>Arts 作品一覧</p>
+  </div>
+  <div class="col-lg-9">
+    <%= form_with url: arts_search_path, method: :get, local: true do |f| %>
+      <div class="form-row d-flex justify-content-end pr-2">
+        <div class="col-lg-2">
+          <%= f.text_field :keyword, value: @keyword, class: 'form-control', :placeholder => 'Search Art' %>
+        </div>
+        <div class="col-lg-1 actions d-flex justify-content-end">
+          <%= f.submit '検索', class: 'btn btn-secondary col-lg-12' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <% if @search_word.blank? %>
 <% else %>
-  <span>検索ワード　<%= @search_word %></span>
+  <span>検索ワード　　<%= @search_word %></span>
 <% end %>
 
-<%= form_with url: arts_search_path, method: :get, local: true do |f| %>
-  <%= f.text_field :keyword, value: @keyword, :placeholder => 'Search Art' %>
-  <%= f.submit '検索' %>
-<% end %>
+<div class="row d-flex justify-content-center">
+  <div class="row col-lg-11 d-flex justify-content-start mt-4">
+      <% @arts.each do |art| %>
 
-<% @arts.each do |art| %>
-  <%= link_to art_path(art.id) do %>
-    <%= image_tag art.image %>
-  <% end %>
-<% end %>
+          <%= link_to art_path(art.id) do %>
+            <%= image_tag art.image, width: 'auto', height: '200px', class: 'flex-grow' %>
+          <% end %>
+      <% end %>
+  </div>
+</div>
