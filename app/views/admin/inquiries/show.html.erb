@@ -2,38 +2,38 @@
   <div class="col-lg-9 mt-5">
 
     <div class="row row-cols-2 gray-400-back px-3 py-5">
-      <div class="col-lg-2 pb-3">
+      <div class="col-lg-2">
         <span>問い合わせ日時</span>
       </div>
       <div class="col-lg-10">
         <%= l @inquiry.created_at %> <!--#lヘルパー config/locales/ja.ymlにて設定-->
       </div>
-      <div class="col-lg-2 pb-3">
+      <div class="col-lg-2 mt-3">
         <span>ID</span>
       </div>
-      <div class="col-lg-10">
+      <div class="col-lg-10 mt-3">
         <% if @inquiry.user_id == nil %>
           <span>未入力</span>
         <% else %>
           <%= @inquiry.user_id %>
         <% end %>
       </div>
-      <div class="col-lg-2 pb-3">
+      <div class="col-lg-2 mt-3">
         <span>名前</span>
       </div>
-      <div class="col-lg-10">
+      <div class="col-lg-10 mt-3">
         <%= @inquiry.last_name %> <%= @inquiry.first_name %>
       </div>
-      <div class="col-lg-2 pb-3">
+      <div class="col-lg-2 mt-3">
         <span>メールアドレス</span>
       </div>
-      <div class="col-lg-10">
+      <div class="col-lg-10 mt-3">
         <%= @inquiry.email %>
       </div>
-      <div class="col-lg-2 pb-3">
+      <div class="col-lg-2 mt-3">
         <span>対応状況</span>
       </div>
-      <div class="col-lg-10">
+      <div class="col-lg-10 mt-3">
         <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
           <div class="custom-control custom-radio custom-control-inline">
             <%= f.radio_button :is_response, false, class: 'custom-control-input' %><%= f.label(:is_response, '未対応', value: false, class: 'custom-control-label') %>

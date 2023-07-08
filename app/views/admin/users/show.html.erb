@@ -1,102 +1,95 @@
-<div class="row justify-content-center">
-  <div class="col-lg-9 mt-5">
+<div class="row justify-content-center p-0">
+  <div class="col-lg-5 mt-5">
 
-    <div class="row gray-400-back px-3 py-5">
-      <div class="row row-cols-2 col-6">
-        <div class="col-3">
-          <span>ID</span>
-        </div>
-        <div class="col-9">
-          <%= @user.id %>
-        </div>
-        <div class="col-3">
-          <span>会員種別</span>
-        </div>
-        <div class="col-9">
-          <% if 'artist' == @user.user_type %>
-            アーティスト
-          <% else %>
-            ファン
-          <% end %>
-        </div>
-        <% if @user.user_type == 'artist' %>
-          <div class="col-3">
-            <span>URL</span>
-          </div>
-          <div class="col-9">
-            <%= @user.url %>
-          </div>
-        <% else %>
-        <% end %>
-      </div>
-      <div class="col-6">
+    <div class="row row-cols-2 gray-400-back px-3 py-5">
+
+      <div class="col-12">
         <%= image_tag @user.get_thumbnail, class: 'rounded-circle d-block mx-auto', :size => '75x75' %>
       </div>
 
-      <div class="row row-cols-2 col-6">
-        <div class="col-3">
-          <span>ニックネーム</span>
-        </div>
-        <div class="col-9">
-          <%= @user.handle_name %>
-        </div>
+      <div class="col-4 mt-3">
+        <span>ID</span>
       </div>
-      <div class="row row-cols-3 col-6">
-        <div class="col-4">
-          <span>名前</span>
-        </div>
-        <div class="col-5">
-          <%= @user.last_name %>
-        </div>
-        <div class="col-3">
-          <%= @user.first_name %>
-        </div>
+      <div class="col-8 mt-3">
+        <%= @user.id %>
       </div>
-
-      <div class="row row-cols-2 col-6 d-flex align-items-center">
-        <div class="col-3">
-          <span>自己紹介</span>
-        </div>
-        <div class="col-9">
-          <%= @user.introduction %>
-        </div>
+      <div class="col-4 mt-3">
+        <span>会員ステータス</span>
       </div>
-      <div class="row row-cols-3 col-6">
-        <div class="col-4">
-          <span>メールアドレス</span>
-        </div>
-        <div class="col-8">
-          <%= @user.email %>
-        </div>
-        <div class="col-4">
-          <span>電話番号</span>
-        </div>
-        <div class="col-8">
-          <%= @user.telephone_number %>
-        </div>
-        <div class="col-4">
-          <span>会員ステータス</span>
-        </div>
-        <div class="col-8">
-          <%= @user.is_deleted ? '退会' : '有効' %>
-        </div>
-        <div class="col-4">
-          <span>公開ステータス</span>
-        </div>
-          <div class="col-8">
-            <%= form_with model: @user, url: admin_user_path(@user.id) do |f| %>
-              <div class="custom-control custom-radio custom-control-inline">
-                <%= f.radio_button :is_locked, false, class: 'custom-control-input' %><%= f.label(:is_locked, '公開', value: false, class: 'custom-control-label') %>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <%= f.radio_button :is_locked, true, class: 'custom-control-input ml-5' %><%= f.label(:is_locked, '非公開', value: true, class: 'custom-control-label') %>
-              </div>
-
-              <%= f.submit '変更', class: 'btn btn-secondary ml-5' %>
-            <% end %>
+      <div class="col-8 mt-3">
+        <%= @user.is_deleted ? '退会' : '有効' %>
+      </div>
+      <div class="col-4 mt-3">
+        <span>公開ステータス</span>
+      </div>
+      <div class="col-8 mt-3">
+        <%= form_with model: @user, url: admin_user_path(@user.id) do |f| %>
+          <div class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :is_locked, false, class: 'custom-control-input' %><%= f.label(:is_locked, '公開', value: false, class: 'custom-control-label') %>
           </div>
-        </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <%= f.radio_button :is_locked, true, class: 'custom-control-input ml-5' %><%= f.label(:is_locked, '非公開', value: true, class: 'custom-control-label') %>
+          </div>
+
+          <%= f.submit '変更', class: 'btn btn-secondary ml-5' %>
+        <% end %>
       </div>
+
+      <div class="col-4 mt-3">
+        <span>名前</span>
+      </div>
+      <div class="col-3 mt-3">
+        <%= @user.last_name %>
+      </div>
+      <div class="col-5 mt-3">
+        <%= @user.first_name %>
+      </div>
+      <div class="col-4 mt-3">
+        <span>メールアドレス</span>
+      </div>
+      <div class="col-8 mt-3">
+        <%= @user.email %>
+      </div>
+      <div class="col-4 mt-3">
+        <span>電話番号</span>
+      </div>
+      <div class="col-8 mt-3">
+        <%= @user.telephone_number %>
+      </div>
+
+      <div class="col-4 mt-3">
+        <span>会員種別</span>
+      </div>
+      <div class="col-8 mt-3">
+        <% if 'artist' == @user.user_type %>
+          アーティスト
+        <% else %>
+          ファン
+        <% end %>
+      </div>
+      <div class="col-4 mt-3">
+        <span>ニックネーム</span>
+      </div>
+      <div class="col-8 mt-3">
+        <%= @user.handle_name %>
+      </div>
+      <% if @user.user_type == 'artist' %>
+        <div class="col-4 mt-3">
+          <span>URL</span>
+        </div>
+        <div class="col-8 mt-3">
+          <%= @user.url %>
+        </div>
+      <% else %>
+      <% end %>
+      <div class="col-4 mt-3">
+        <span>自己紹介</span>
+      </div>
+      <div class="col-8 mt-3">
+        <%= @user.introduction %>
+      </div>
+
+    </div>
 
     <div class="d-flex justify-content-center mt-4">
         <%= link_to 'Back', :back %>

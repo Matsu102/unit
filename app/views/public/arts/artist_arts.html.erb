@@ -1,7 +1,17 @@
-<h2>Artist's Arts <%= link_to @user.handle_name, artist_path(@user.id) %>の作品一覧</h2>
+<p>Artist's Arts　<%= link_to @user.handle_name, artist_path(@user.id) %>の作品一覧</p>
 
-<% @arts.each do |art| %>
-  <%= link_to art_path(art.id) do %>
-    <%= image_tag art.image %>
-  <% end %>
-<% end %>
+<div class="row d-flex justify-content-center">
+  <div class="row col-lg-11 d-flex justify-content-center mt-4">
+    <% @arts.each do |art| %>
+      <div class= "mr-3 mb-4">
+        <%= link_to art_path(art.id) do %>
+          <%= image_tag art.image.variant(gravity: :center, resize:"240x200^", crop:"240x200+0+0").processed %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center pt-2">
+  <%= paginate @arts %>
+</div>

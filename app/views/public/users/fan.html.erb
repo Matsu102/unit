@@ -1,13 +1,32 @@
-<div>
-  <% if user_signed_in? && (@user.id == current_user.id) && (@user.is_locked == true) %>
-  <p>アカウントは凍結されています</p>
-  <p>心当たりが無い場合は<%= link_to 'お問い合わせフォーム', helps_inquiry_path %>よりご連絡ください</p>
-  <% else %>
-  <%= image_tag @user.get_thumbnail, :size => '100x100') %>
-  <p><%= @user.handle_name %></p>
-  <p><%= @user.my_followers.count %>フォロー</p>
-  <p><%= @user.introduction %></p>
-  <% if user_signed_in? && (@user.id == current_user.id) %>
-    <%= link_to '登録内容変更', users_edit_path %>
-  <% end %>
+<div class="row justify-content-lg-center">
+
+  <div class="col-lg-5 text-center mt-4">
+    <% if user_signed_in? && (@user.id == current_user.id) && (@user.is_locked == true) %>
+      <p>アカウントは凍結されています</p>
+      <p>心当たりが無い場合は<%= link_to 'お問い合わせフォーム', helps_inquiry_path %>よりご連絡ください</p>
+    <% else %>
+      <div class="col-12">
+        <%= image_tag @user.get_thumbnail, class: 'rounded-circle te d-block mx-auto mt-3', :size => '75x75' %>
+      </div>
+      <div class="col-12 mt-3">
+        <%= @user.handle_name %>
+      </div>
+      <div class="col-12 mt-2">
+        <%= @user.my_followers.count %><span> </span>フォロー
+      </div>
+      <div class="col-12 mt-3">
+        <% if @user.introduction.nil? %>
+          <p>No<br>introduction.</p>
+        <% else %>
+          <%= @user.introduction %>
+        <% end %>
+      </div>
+      <div class="col-12 mt-3">
+        <% if user_signed_in? && (@user.id == current_user.id) %>
+          <%= link_to '登録情報変更', users_edit_path, class: 'btn btn-secondary' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
 </div>

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-3">
-    <p>Artists アーティスト一覧</p>
+    <p>Artists　アーティスト一覧</p>
   </div>
   <div class="col-lg-9">
     <%= form_with url: users_artsit_search_path, method: :get, local: true do |f| %>
@@ -18,7 +18,7 @@
 
 <% if @search_word.blank? %>
 <% else %>
-  <span>検索ワード　　<%= @search_word %></span>
+  <span>検索ワード　　</span><%= @search_word %>
 <% end %>
 
 <div class="row d-flex justify-content-center">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-lg-12 mt-3">
                   <%= user.handle_name %>
-                  <div class="d-flex align-items-center" style="height: 90px">
+                  <div class="align-items-center mt-3" style="height: 90px;">
                     <% if user.introduction.nil? %>
                       <p>No<br>introduction.</p>
                     <% else %>

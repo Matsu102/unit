@@ -11,7 +11,7 @@ class Art < ApplicationRecord
 
 #--------------------------------------------------
 
-  # 作品
+  # 作品のバリデーション
   has_one_attached :image
   def image_type
     extension = ['image/jpeg']

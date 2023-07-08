@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-3">
-    <p>Users ユーザ一覧 </p>
+    <p>Users　ユーザ一覧</p>
   </div>
   <div class="col-lg-9">
     <%= form_with url: admin_users_search_path, method: :get, local: true do |f| %>
@@ -18,7 +18,7 @@
           <%= f.text_field :keyword_handle_name, class: 'form-control', :placeholder => 'ニックネーム' %>
         </div>
         <div class="col-lg-1 actions d-flex justify-content-end">
-          <%= f.submit '検索', class: 'btn btn-secondary col-lg-12' %>
+          <%= f.submit '検索', class: 'btn btn-secondary' %>
         </div>
       </div>
     <% end %>
@@ -31,22 +31,22 @@
 <% end %>
 <% if @search_word_id.blank? %>
 <% else %>
-  <span>ID :　<%= @search_word_id %>　　</span>
+  <span>ID :　</span><%= @search_word_id %>
 <% end %>
 
 <% if @search_word_last_name.blank? %>
 <% else %>
-  <span>苗字 :　<%= @search_word_last_name %>　　</span>
+  <span>苗字 :　</span><%= @search_word_last_name %>
 <% end %>
 
 <% if @search_word_first_name.blank? %>
 <% else %>
-  <span>名前 :　<%= @search_word_first_name %>　　</span>
+  <span>名前 :　</span><%= @search_word_first_name %>
 <% end %>
 
 <% if @search_word_handle_name.blank? %>
 <% else %>
-  <span>ハンドルネーム :　<%= @search_word_handle_name %></span>
+  <span>ハンドルネーム :　</span><%= @search_word_handle_name %>
 <% end %>
 
 <div class="row d-flex justify-content-center">

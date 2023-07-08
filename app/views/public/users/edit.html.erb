@@ -1,71 +1,95 @@
-<%= form_with model: @user, url: users_edit_path(@user.id) do |f| %>
-<%= render 'layouts/error_message', resource: f.object %>
-<table>
-  <tr>
-    <th>会員ID</th>
-    <td><%= @user.id %></td>
-    <td colspan="3" rowspan="4">
-      <div id="previewThumbnail"> <!--画像プレビュー-->
-        <%= image_tag @user.thumbnail.variant( resize: '100x100' ) %>
-      </div>
-      <%= f.label :thumbnail, '画像をアップロード' %>
-      <%= f.file_field :thumbnail, accept: 'image/jpeg, image/png, image/gif', id: 'thumbnailPreviewForm' %>　<!--画像プレビュー用id-->
-    </td>
-  </tr>
-  <tr>
-    <th>会員種別</th>
-    <td>
-      <% if 'artist' == @user.user_type %>
-        アーティスト
-      <% else %>
-        ファン
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <% if 'artist' == @user.user_type %>
-      <th><%= f.label :handle_name, 'ニックネーム' %></th>
-      <td><%= f.text_field :handle_name, :placeholder => 'ニックネーム' %></td>
-    <% else %>
-      <th rowspan="2"><%= f.label :handle_name, 'ニックネーム' %></th>
-      <td rowspan="2"><%= f.text_field :handle_name, :placeholder => 'ニックネーム' %></td>
-    <% end %>
-  </tr>
-  <% if 'artist' == @user.user_type %>
-    <tr>
-      <th><%= f.label :url, 'サイトURL' %></th>
-      <td><%= f.text_field :url, :placeholder => 'http://' %></td>
-    </tr>
-  <% else %>
-  <% end %>
-  <tr>
-    <th rowspan="3"><%= f.label :introduction, '自己紹介' %></th>
-    <td rowspan="3"><%= f.text_area :introduction, :placeholder => '200文字まで' %></td>
-    <th>お名前</th>
-    <td>
-      <%= f.label :last_name, '姓' %>
-      <%= f.text_field :last_name, :placeholder => '苗字' %>
-      </td>
-    <td>
-      <%= f.label :first_name, '名' %>
-      <%= f.text_field :first_name, :placeholder => '名前' %>
-    </td>
-  </tr>
-  <tr>
-    <th><%= f.label :email, 'メールアドレス' %></th>
-    <td colspan="2"><%= f.email_field :email, :placeholder => 'xxx@gmail.com' %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :telephone_number, '電話番号' %></th>
-    <td colspan="2"><%= f.text_field :telephone_number, :placeholder => 'XXX-XXXX-XXXX' %></td>
-  </tr>
-  <tr>
-    <td colspan="5">
-      <%= f.submit '変更' %>
-      <%= link_to '退会', users_confirm_path %>
-    </td>
-  </tr>
-</table>
-<% end %>
+<div class="row justify-content-center">
 
-<%= link_to 'Back', :back %>
+  <%= form_with model: @user, url: users_edit_path(@user.id) do |f| %>
+  <%= render 'layouts/error_message', resource: f.object %>
+    <div class="d-flex justify-content-center mt-5">
+      <div class="col-lg-5 gray-400-back px-3 py-5">
+        <div class="form-row d-flex justify-content-center align-items-center mx-5">
+
+          <div class="col-4">
+            <div class="rounded-circle d-block mx-auto" id="previewThumbnail" style="width:75px; height:75px"> <!--画像プレビュー-->
+              <%= image_tag @user.thumbnail, class: 'rounded-circle d-block mx-auto', :size => '75x75' %>
+            </div>
+          </div>
+          <div class="col-8">
+            <%= f.label :thumbnail, '画像をアップロード', class: 'btn btn-secondary' %>
+            <%= f.file_field :thumbnail, accept: 'image/jpeg, image/png, image/gif', id: 'thumbnailPreviewForm', class: 'image_form' %>　<!--画像プレビュー用id-->
+          </div>
+
+          <div class="col-4 mt-2">
+            <span>ID</span>
+          </div>
+          <div class="col-8 mt-2">
+            <%= @user.id %>
+          </div>
+          <div class="col-4 mt-2">
+            <span>会員種別</span>
+          </div>
+          <div class="col-8 mt-2">
+            <% if 'artist' == @user.user_type %>
+              アーティスト
+            <% else %>
+              ファン
+            <% end %>
+          </div>
+          <div class="col-4 mt-2">
+            <span>名前</span>
+          </div>
+          <div class="col-4 mt-2">
+            <%= f.text_field :last_name, class: 'form-control', :placeholder => '苗字' %>
+          </div>
+          <div class="col-4 mt-2">
+            <%= f.text_field :first_name, class: 'form-control', :placeholder => '名前' %>
+          </div>
+          <div class="col-4 mt-2">
+            <%= f.label :email, 'メールアドレス' %>
+          </div>
+          <div class="col-8 mt-2">
+            <%= f.email_field :email, class: 'form-control', :placeholder => 'xxx@gmail.com' %>
+          </div>
+          <div class="col-4 mt-2">
+            <%= f.label :telephone_number, '電話番号' %>
+          </div>
+          <div class="col-8 mt-2">
+            <%= f.text_field :telephone_number, class: 'form-control', :placeholder => 'XXX-XXXX-XXXX' %>
+          </div>
+
+          <div class="col-4 mt-2">
+            <%= f.label :handle_name, 'ニックネーム' %>
+          </div>
+          <div class="col-8 mt-2">
+            <%= f.text_field :handle_name, class: 'form-control', :placeholder => 'ニックネーム' %>
+          </div>
+          <% if @user.user_type == 'artist' %>
+            <div class="col-4 mt-2">
+              <%= f.label :url, 'サイトURL' %>
+            </div>
+            <div class="col-8 mt-2">
+              <%= f.text_field :url, class: 'form-control', :placeholder => 'http://' %>
+            </div>
+          <% else %>
+          <% end %>
+          <div class="col-4 mt-2">
+            <%= f.label :introduction, '自己紹介' %>
+          </div>
+          <div class="col-8 mt-2">
+            <%= f.text_area :introduction, class: 'form-control', :placeholder => '200文字まで' %>
+          </div>
+          <div class="row row cols-2 d-flex justify-content-center mt-5">
+            <div class="col-lg-6">
+              <%= f.submit '変更', class: 'btn btn-secondary' %>
+            </div>
+            <div class="col-lg-6">
+              <%= link_to '退会', users_confirm_path, class: 'btn btn-secondary text-decoration-none' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= link_to 'Back', :back %>
+  </div>
+
+</div>

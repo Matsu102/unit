@@ -1,47 +1,56 @@
-<div class="row">
-  <div class="col-sm-6">
-    <%= link_to art_view_path(@art.id) do %>
-      <%= image_tag @art.image.variant( resize: '600x400>' ) %>
-    <% end %>
-  </div>
-  <div class="col-sm-6">
-    <p>
-      <%= @art.title %><br>
-      <%= link_to @art.user.handle_name, artist_path(@art.user_id) %>
-    </p>
-    <p><%= @art.detail %></p>
-    <p><%= l @art.created_at %></p>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
-    <p>
-      <% @tags.each do |tag| %>
-        <%= link_to ('#' + tag.name), arts_hashtag_path(tag.name) %>
+<div class="row justify-content-center">
+
+  <div class="row row-cols-2 col-lg-9 d-flex justify-content-center">
+
+    <div class="col-lg-7 d-flex justify-content-center mt-5">
+      <%= link_to art_view_path(@art.id) do %>
+        <%= image_tag @art.image, class: 'img-fluid', style: 'max-height: 400px' %>
       <% end %>
-    </p>
-    <p>
-      <% if user_signed_in? %>
-        <% if @art.user_id == current_user.id %>
-          ♥ <%= @art.likes.count %>
-        <% else %>
-          <% if @art.liked_by?(current_user) %>
-            <%= link_to art_likes_path(@art), method: :delete do %>
-              ♥
-            <% end %>
-          <% else %>
-            <%= link_to art_likes_path(@art), method: :post do %>
-              ♡
-            <% end %>
-          <% end %>
-          <%= @art.likes.count %>
+    </div>
+
+    <div class="col-lg-5 mt-5">
+      <p>
+        <%= @art.title %><br>
+        <%= link_to @art.user.handle_name, artist_path(@art.user_id) %>
+      </p>
+      <p><%= @art.detail %></p>
+      <p><%= l @art.created_at %></p>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+      <p>
+        <% @tags.each do |tag| %>
+          <%= link_to ('#' + tag.name), arts_hashtag_path(tag.name) %>
         <% end %>
-      <% else %>
-        ♥ <%= @art.likes.count %>
-      <% end %>
-      <%= @comments.count %> コメント
-      <%= link_to '詳細表示 >', art_engagements_path(@art.id) %>
-      <% if user_signed_in? && @art.user_id == current_user.id %>
-        <%= link_to '編集する >', edit_art_path(@art.id) %>
-      <% end %>
-    </p>
+      </p>
+      <p>
+        <% if user_signed_in? %>
+          <% if @art.user_id == current_user.id %>
+            <i class="fas fa-thumbs-up gray-800"></i> <%= @art.likes.count %>
+          <% else %>
+            <% if @art.liked_by?(current_user) %>
+              <%= link_to art_likes_path(@art), method: :delete, class: 'text-decoration-none' do %>
+                <i class="fas fa-thumbs-up gray-800"></i>
+              <% end %>
+            <% else %>
+              <%= link_to art_likes_path(@art), method: :post, class: 'text-decoration-none' do %>
+                <i class="fas fa-thumbs-up gray-400"></i>
+              <% end %>
+            <% end %>
+            <span> </span><%= @art.likes.count %>
+          <% end %>
+        <% else %>
+          <i class="fas fa-thumbs-up gray-800"></i><%= @art.likes.count %>
+        <% end %>
+        <span>　</span><%= @comments.count %><span> コメント</span>
+        <span>　</span><%= link_to '詳細表示 >', art_engagements_path(@art.id) %>
+        <% if user_signed_in? && @art.user_id == current_user.id %>
+        <span>　</span><%= link_to '編集する >', edit_art_path(@art.id) %>
+        <% end %>
+      </p>
+    </div>
+
+
+    <div class="d-flex justify-content-center mt-4 ml-4">
+      <%= link_to 'Back', :back %>
+    </div>
+
   </div>
 </div>
-
-<%= link_to 'Back', :back %>

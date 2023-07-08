@@ -44,8 +44,10 @@ before_action :is_locked_protect, only: [:index, :edit]
     @user = User.find(current_user.id)
     if @user.update(user_params)
       if @user.user_type == 'artist'
+        flash[:notice] = '登録情報を更新しました。'
         redirect_to artist_path(current_user.id)
       else
+        flash[:notice] = '登録情報を更新しました。'
         redirect_to fan_path(current_user.id)
       end
     else
