@@ -1,38 +1,80 @@
-<div class="row">
-  <div class="col-sm-4">
+<div class="row justify-content-center">
+  <div class="col-lg-11 text-center mt-4">
+
     <% if user_signed_in? && (@user.id == current_user.id) && (@user.is_locked == true) %>
       <p>アカウントは凍結されています</p>
       <p>心当たりが無い場合は<%= link_to 'お問い合わせフォーム', helps_inquiry_path %>よりご連絡ください</p>
     <% else %>
-      <%= image_tag @user.get_thumbnail, :size => '100x100' %>
-      <p><%= @user.handle_name %></p>
-      <p><%= @user.my_followers.count %>フォロー　<%= @user.my_followeds.count %>フォロワー</p>
-      <p><%= @user.url %></p>
-      <p><%= @user.introduction %></p>
-      <% if user_signed_in? && @user.id == current_user.id %>
-        <%= link_to '登録情報変更', users_edit_path %>
-      <% else %>
-        <% if current_user.following?(@user) %>
-          <%= link_to 'フォロー解除', user_follow_path(@user.id), method: :delete %>
-        <% else %>
-          <%= link_to 'フォロー', user_follows_path(@user.id), method: :post %>
-        <% end %>
-      <% end %>
-    </div>
+      <div class="row row-cols-2 justify-content-center">
 
-    <div class="col-sm-8">
-      <h2>Arts 作品一覧</h2>
-      <% if user_signed_in? && @user.id == current_user.id %>
-        <%= link_to '+', new_art_path %>
-      <% end %>
-      <% @arts.first(8).each do |art| %>
-        <%= link_to art_path(art.id) do %>
-          <%= image_tag art.image %>
-        <% end %>
-      <% end %>
-      <% if @arts.count > 8 %>
-        <%= link_to 'もっと見る >', artist_arts_path(@user.id) %>
-      <% end %>
+        <div class="col-lg-4 mt-5">
+          <div class="col-12">
+            <%= image_tag @user.get_thumbnail, :size => '100x100' %>
+          </div>
+          <div class="col-12 mt-3">
+            <%= @user.handle_name %>
+          </div>
+          <div class="col-12 mt-2">
+            <%= @user.my_followers.count %>フォロー　<%= @user.my_followeds.count %>フォロワー
+          </div>
+          <div class="col-12 mt-2">
+            <%= @user.url %>
+          </div>
+          <div class="col-12 mt-3">
+            <%= @user.introduction %>
+          </div>
+          <div class="col-12 mt-3">
+          <% if user_signed_in? && @user.id == current_user.id %>
+            <div class="col-lg-12">
+              <%= link_to '登録情報変更', users_edit_path, class: 'btn btn-secondary text-decoration-none' %>
+            </div>
+          <% else %>
+            <% if current_user.following?(@user) %>
+              <div class="col-lg-12">
+                <%= link_to 'フォロー解除', user_follow_path(@user.id), method: :delete, class: 'btn btn-secondary text-decoration-none' %>
+              </div>
+            <% else %>
+              <div class="col-lg-12">
+                <%= link_to 'フォロー', user_follows_path(@user.id), method: :post, class: 'btn btn-secondary text-decoration-none' %>
+              </div>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
+
+        <div class="col-lg-7 ml-5">
+
+          <div class="row row-cols-2">
+            <div class="col-lg-3 d-flex align-items-center text-left pl-0">
+              <span>Arts 作品一覧</span>
+            </div>
+            <div class="col-lg-9 text-right pr-0">
+              <% if user_signed_in? && @user.id == current_user.id %>
+                <div class="rounded-circle btn btn-secondary text-decoration-none">
+                <i class="fas fa-plus"></i>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row d-flex justify-content-start mt-3">
+            <% @arts.first(6).each do |art| %>
+              <div class= "mr-3 mb-4">
+                <%= link_to art_path(art.id) do %>
+                  <%= image_tag art.image.variant(gravity: :center, resize:"240x200^", crop:"240x200+0+0").processed %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-lg-12 text-right">
+            <% if @arts.count > 6 %>
+              <%= link_to 'もっと見る >', artist_arts_path(@user.id) %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
     <% end %>
+
   </div>
 </div>
