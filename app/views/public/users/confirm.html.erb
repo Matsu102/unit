@@ -1,19 +1,31 @@
-<%= image_tag ('warning.png') %>
+<div class="row justify-content-center">
+  <div class="col-lg-8 text-center mt-3">
 
-<h3>退会する前にご確認ください</h3>
-<p>退会すると以下のデータが削除されます</p>
+    <div class="col-lg-12">
+      <%= image_tag ('warning.png') %>
+      <h3 class="pt-5">退会する前にご確認ください</h3>
+      <p class="pt-2">退会すると以下のデータが削除されます</p>
 
-<% if 'artist' == @user.user_type %>
-  <p>登録情報<br>投稿<br>フォロー状況<br>コメント</p>
-<% else %>
-  <p>登録情報<br>フォロー状況<br>コメント</p>
-<% end %>
-<p>退会後のデータの復元はできません<br>退会をご希望の方は「アカウントを削除」ボタンを押してください</p>
+      <% if 'artist' == @user.user_type %>
+        <p>登録情報<br>投稿<br>フォロー状況<br>コメント</p>
+      <% else %>
+        <p>登録情報<br>フォロー状況<br>コメント</p>
+      <% end %>
+      <p>退会後のデータの復元はできません<br>退会をご希望の方は「アカウントを削除」ボタンを押してください</p>
+    </div>
 
-<% if current_user.user_type == 'artist' %>
-  <%= link_to 'マイページに戻る', artist_path(current_user.id) %>
-<% else %>
-  <%= link_to 'マイページに戻る', fan_path(current_user.id) %>
-<% end %>
+    <div class="row row-cols-2 justify-content-center mt-3">
+      <div class="row col-lg-3 justify-content-end mt-3">
+        <% if current_user.user_type == 'artist' %>
+          <%= link_to 'マイページに戻る', artist_path(current_user.id), class: 'btn btn-secondary text-decoration-none' %>
+        <% else %>
+          <%= link_to 'マイページに戻る', fan_path(current_user.id), class: 'btn btn-secondary text-decoration-none' %>
+        <% end %>
+      </div>
+      <div class="row col-lg-3 justify-content-start mt-3 ml-3">
+        <%= link_to 'アカウントを削除', users_withdraw_path, method: :patch, data: {confirm: '退会しますか？'}, class: 'btn btn-secondary text-decoration-none' %>
+      </div>
+    </div>
 
-<%= link_to 'アカウントを削除', users_withdraw_path, method: :patch, data: {confirm: '退会しますか？'} %>
+  </div>
+</div>

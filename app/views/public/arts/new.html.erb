@@ -1,37 +1,54 @@
-<h2>New Art　新規投稿</h2>
+<p>New Art　新規投稿</p>
+<div class="row justify-content-center">
 
-<div class="row">
-  <div class="col-sm-6">
-    <div id="previewImage", class="image_size"> <!--画像プレビュー-->
-      <%= image_tag("preview.png") %>
+  <div class="row row-cols-2 col-lg-9 d-flex justify-content-center">
+
+    <div class="col-lg-6 d-flex justify-content-center mt-5">
+      <div id="previewImage", class="image_size"> <!--画像プレビュー-->
+        <%= image_tag("preview.png") %>
+      </div>
     </div>
-  </div>
-  <div class="col-sm-6">
-    <%= form_with model: @art, url: arts_path do |f| %>
-    <%= render 'layouts/error_message', resource: f.object %>
-      <table>
-        <tr>
-          <th><%= f.label :title, 'タイトル' %></th>
-          <td><%= f.text_field :title, :placeholder => '30文字以内' %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :detail, '説明' %></th>
-          <td><%= f.text_area :detail, :placeholder => '200文字以内' %></td>
-        </tr>
-        <tr>
-          <th><%= label_tag(:tagsbody, 'タグ') %></th>
-          <td><%= f.text_field :tagsbody, :placeholder => 'カンマ区切り 例)タグ,タグ,タグ' %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :image, '作品(JPEG)' %></th>
-          <td><%= f.file_field :image, style: 'max-width: 600px; max-heigh: 400px;', accept: 'image/jpeg', id: 'imagePreviewForm' %></td>　<!--画像プレビュー用id-->
-        </tr>
-        <tr>
-          <th></th>
-          <td><%= f.submit '投稿' %></td>
-        </tr>
-      </table>
 
-    <% end %>
+    <div class="col-lg-5 mt-5 ml-5 d-flex align-items-center">
+      <div>
+        <div class="col-lg-12">
+          <%= form_with model: @art, url: arts_path do |f| %>
+          <%= render 'layouts/error_message', resource: f.object %>
+            <div class="form-row d-flex justify-content-center">
+              <div class="col-lg-4">
+                <%= f.label :title, 'タイトル' %>
+              </div>
+              <div class="col-lg-8">
+                <%= f.text_field :title, class: 'form-control', :placeholder => '30文字以内' %>
+              </div>
+              <div class="col-lg-4 mt-2">
+                <%= f.label :detail, '説明' %>
+              </div>
+              <div class="col-lg-8 mt-2">
+                <%= f.text_area :detail, class: 'form-control', :placeholder => '200文字以内' %>
+              </div>
+              <div class="col-lg-4 mt-2">
+                <%= label_tag(:tagsbody, 'タグ') %>
+              </div>
+              <div class="col-lg-8 mt-2">
+                <%= f.text_field :tagsbody, class: 'form-control', :placeholder => 'カンマ区切り 例)タグ,タグ,タグ' %>
+              </div>
+              <div class="col-lg-4 mt-3">
+                <%= f.label :image, '作品(JPEG)' %>
+              </div>
+              <div class="col-lg-8 mt-3">
+                <%= f.label :image, '画像をアップロード', class: 'btn btn-secondary' %>
+                <%= f.file_field :image, accept: 'image/jpeg', class: 'image_form' %> <!--画像プレビュー用id-->
+              </div>
+
+              <div class="col-lg-12 text-center mt-4">
+                <%= f.submit '投稿', class: 'btn btn-secondary' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

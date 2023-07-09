@@ -128,13 +128,13 @@ before_action :is_locked_protect
     end
   end
 
-  def destroy
+  def remove
     @art = Art.find(params[:id])
     if @art.user_id != current_user.id
       flash[:alert] = '不正なエラー'
       redirect_to arts_path
     else
-      @art.destroy
+      @art.update(is_deleted: true)
       flash[:notice] = '投稿を削除しました。'
       redirect_to artist_path(current_user.id)
     end

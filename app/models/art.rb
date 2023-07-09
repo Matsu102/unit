@@ -2,7 +2,7 @@ class Art < ApplicationRecord
 
 #--------------------------------------------------
 
-  validates :image,  presence: { message: 'をアップロードしてください。' }
+  validates :image,  presence: { message: 'をアップロードしてください。' }, on: :create
   validate  :image_type, if: :was_attached?
   validates :title,  presence: { message: 'を30文字以内で入力してください。' }
   validates :title,  length: { in: 1..30, message: 'に入力できるのは30文字までです。' }, if: -> { title.present? }

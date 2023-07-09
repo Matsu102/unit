@@ -61,7 +61,7 @@ a:hover {
   display: none;
 }
 
-// help アコーディオン ------------------------------
+// アコーディオン ------------------------------
 
 .accordion-003 {
     max-width: auto;
@@ -70,12 +70,9 @@ a:hover {
 
 .accordion-003 summary {
     display: flex;
-    justify-content: center;
     align-items: center;
     position: relative;
-    padding: 0.5em 2em;
     color: #343a40;
-    font-weight: 600;
     cursor: pointer;
 }
 

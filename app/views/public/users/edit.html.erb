@@ -11,15 +11,15 @@
               <%= image_tag @user.thumbnail, class: 'rounded-circle d-block mx-auto', :size => '75x75' %>
             </div>
           </div>
-          <div class="col-8">
+          <div class="col-8 d-flex justify-content-center">
             <%= f.label :thumbnail, '画像をアップロード', class: 'btn btn-secondary' %>
-            <%= f.file_field :thumbnail, accept: 'image/jpeg, image/png, image/gif', id: 'thumbnailPreviewForm', class: 'image_form' %>　<!--画像プレビュー用id-->
+            <%= f.file_field :thumbnail, accept: 'image/jpeg, image/png, image/gif', class: 'image_form' %>　<!--画像プレビュー用id-->
           </div>
 
-          <div class="col-4 mt-2">
+          <div class="col-4 mt-4">
             <span>ID</span>
           </div>
-          <div class="col-8 mt-2">
+          <div class="col-8 mt-4">
             <%= @user.id %>
           </div>
           <div class="col-4 mt-2">
@@ -32,10 +32,10 @@
               ファン
             <% end %>
           </div>
-          <div class="col-4 mt-2">
+          <div class="col-4 mt-3">
             <span>名前</span>
           </div>
-          <div class="col-4 mt-2">
+          <div class="col-4 mt-3">
             <%= f.text_field :last_name, class: 'form-control', :placeholder => '苗字' %>
           </div>
           <div class="col-4 mt-2">
@@ -75,7 +75,7 @@
           <div class="col-8 mt-2">
             <%= f.text_area :introduction, class: 'form-control', :placeholder => '200文字まで' %>
           </div>
-          <div class="row row cols-2 d-flex justify-content-center mt-5">
+          <div class="row row-cols-2 d-flex justify-content-center mt-5">
             <div class="col-lg-6">
               <%= f.submit '変更', class: 'btn btn-secondary' %>
             </div>

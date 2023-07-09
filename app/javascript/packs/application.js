@@ -23,7 +23,7 @@ ActiveStorage.start()
 // <%= f.file_field :*, accept: "image/*", id: "imagePreviewForm" %>  file_fieldにidを指定する  "imagePreviewForm"
 // 使用箇所  /users/edit, /arts/new, /arts/:id/edit
 window.document.addEventListener('turbolinks:load', function() {
-    $('#imagePreviewForm').on("change", (obj) => {
+    $('#art_image').on("change", (obj) => {
     const files = obj.target.files
     if (files && files[0]) {
       const file = obj.target.files[0]
@@ -31,7 +31,7 @@ window.document.addEventListener('turbolinks:load', function() {
       fileReader.onload = ((e) => {
         const img = new Image()
         img.src = e.target.result
-        img.style.maxWidth = "600px"
+        img.setAttribute( "class", "img-fluid" )
         img.style.maxHeight = "400px"
         $('#previewImage').html(img)
       })
@@ -41,7 +41,7 @@ window.document.addEventListener('turbolinks:load', function() {
 })
 
 window.document.addEventListener('turbolinks:load', function() {
-    $('#thumbnailPreviewForm').on("change", (obj) => {
+    $('#user_thumbnail').on("change", (obj) => {
     const files = obj.target.files
     if (files && files[0]) {
       const file = obj.target.files[0]
@@ -49,8 +49,9 @@ window.document.addEventListener('turbolinks:load', function() {
       fileReader.onload = ((e) => {
         const img = new Image()
         img.src = e.target.result
-        img.setAttribute( "width", "100" )
-        img.setAttribute( "height", "100" )
+        img.setAttribute( "width", "75" )
+        img.setAttribute( "height", "75" )
+        img.setAttribute( "class", "rounded-circle d-block mx-auto" )
         $('#previewThumbnail').html(img)
       })
       fileReader.readAsDataURL(file)

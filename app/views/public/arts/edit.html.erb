@@ -1,37 +1,55 @@
-<h2>Edit Art　投稿編集</h2>
+<p>Edit Art　投稿編集</p>
+<div class="row justify-content-center">
 
-<div class="row">
-  <div class="col-sm-6">
-    <div id="previewImage", class="image_size"> <!--画像プレビュー-->
-      <%= image_tag @art.image.variant( resize: '600x400>' ) %>
+  <div class="row row-cols-2 col-lg-9 d-flex justify-content-center">
+
+    <div class="col-lg-6 d-flex justify-content-center mt-5">
+      <div id="previewImage", class="image_size"> <!--画像プレビュー-->
+        <%= image_tag @art.image, class: 'img-fluid', style: 'max-height: 400px' %>
+      </div>
     </div>
-  </div>
-  <div class="col-sm-6">
-    <%= form_with model: @art, url: art_path(@art.id) do |f| %>
-    <%= render 'layouts/error_message', resource: f.object %>
-      <table>
-        <tr>
-          <th><%= f.label :title, 'タイトル' %></th>
-          <td><%= f.text_field :title, :placeholder => '30文字以内' %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :detail, '説明' %></th>
-          <td><%= f.text_area :detail, :placeholder => '200文字以内' %></td>
-        </tr>
-        <tr>
-          <th><%= label_tag(:tagsbody, 'タグ') %></th>
-          <td><%= f.text_field :tagsbody, :placeholder => 'カンマ区切り 例)タグ,タグ,タグ' %></td>
-        </tr>
-        <tr>
-          <th><%= f.label :image, '作品(JPEG)' %></th>
-          <td><%= f.file_field :image, style: 'max-width: 600px; max-heigh: 400px;', accept: 'image/jpeg', id: 'imagePreviewForm' %></td>　<!--画像プレビュー用id-->
-        </tr>
-        <tr>
-          <th></th>
-          <td><%= f.submit '変更' %>　<%= link_to '削除', art_path(@art.id), method: :delete, data: {confirm: '削除後の復元はできません。削除しますか？'} %></td>
-        </tr>
-      </table>
 
-    <% end %>
+    <div class="col-lg-5 mt-5 ml-5 d-flex align-items-center">
+      <div>
+        <div class="col-lg-12">
+          <%= form_with model: @art, url: art_path(@art.id) do |f| %>
+          <%= render 'layouts/error_message', resource: f.object %>
+            <div class="form-row d-flex justify-content-center">
+              <div class="col-lg-4">
+                <%= f.label :title, 'タイトル' %>
+              </div>
+              <div class="col-lg-8">
+                <%= f.text_field :title, class: 'form-control', :placeholder => '30文字以内' %>
+              </div>
+              <div class="col-lg-4 mt-2">
+                <%= f.label :detail, '説明' %>
+              </div>
+              <div class="col-lg-8 mt-2">
+                <%= f.text_area :detail, class: 'form-control', :placeholder => '200文字以内' %>
+              </div>
+              <div class="col-lg-4 mt-2">
+                <%= label_tag(:tagsbody, 'タグ') %>
+              </div>
+              <div class="col-lg-8 mt-2">
+                <%= f.text_field :tagsbody, class: 'form-control', :placeholder => 'カンマ区切り 例)タグ,タグ,タグ' %>
+              </div>
+              <div class="col-lg-4 mt-3">
+                <%= f.label :image, '作品(JPEG)' %>
+              </div>
+              <div class="col-lg-8 mt-3">
+                <%= f.label :image, '画像をアップロード', class: 'btn btn-secondary' %>
+                <%= f.file_field :image, accept: 'image/jpeg', class: 'image_form' %> <!--画像プレビュー用id-->
+              </div>
+
+              <div class="col-lg-12 text-center mt-4">
+                <%= f.submit '変更', class: 'btn btn-secondary' %>
+                <%= link_to '削除', remove_art_path(@art.id), method: :patch, data: {confirm: '削除後の復元はできません。削除しますか？'}, class: 'btn btn-secondary text-decoration-none ml-3' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

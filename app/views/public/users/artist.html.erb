@@ -9,9 +9,12 @@
 
         <div class="col-lg-4 mt-5">
           <div class="col-12">
-            <%= image_tag @user.get_thumbnail, :size => '100x100' %>
+            <%= image_tag @user.get_thumbnail, class: 'rounded-circle te d-block mx-auto mt-3', :size => '100x100' %>
           </div>
           <div class="col-12 mt-3">
+            <%= render 'layouts/user_mark', user: @user %>
+          </div>
+          <div class="col-12 mt-2">
             <%= @user.handle_name %>
           </div>
           <div class="col-12 mt-2">
@@ -50,9 +53,11 @@
             </div>
             <div class="col-lg-9 text-right pr-0">
               <% if user_signed_in? && @user.id == current_user.id %>
-                <div class="rounded-circle btn btn-secondary text-decoration-none">
-                <i class="fas fa-plus"></i>
-                </div>
+                <%= link_to new_art_path do %>
+                  <div class="rounded-circle btn btn-secondary text-decoration-none">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           </div>
