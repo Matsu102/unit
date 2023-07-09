@@ -7,8 +7,8 @@
         <div class="form-row d-flex justify-content-center align-items-center mx-5">
 
           <div class="col-4">
-            <div class="rounded-circle d-block mx-auto" id="previewThumbnail" style="width:75px; height:75px"> <!--画像プレビュー-->
-              <%= image_tag @user.thumbnail, class: 'rounded-circle d-block mx-auto', :size => '75x75' %>
+            <div class="rounded-circle d-block mx-auto" id="previewThumbnail"> <!--画像プレビュー-->
+              <%= image_tag @user.thumbnail, class: 'rounded-circle d-block mx-auto thumbnail-m' %>
             </div>
           </div>
           <div class="col-8 d-flex justify-content-center">
@@ -73,7 +73,7 @@
             <%= f.label :introduction, '自己紹介' %>
           </div>
           <div class="col-8 mt-2">
-            <%= f.text_area :introduction, class: 'form-control', :placeholder => '200文字まで' %>
+            <%= f.text_area :introduction, class: 'form-control text_area-vertical', :placeholder => '200文字まで' %>
           </div>
           <div class="row row-cols-2 d-flex justify-content-center mt-5">
             <div class="col-lg-6">

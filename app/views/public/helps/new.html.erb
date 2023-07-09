@@ -32,39 +32,49 @@
               <%= f.text_field :first_name, class: 'form-control', :placeholder => '名前' %>
             <% end %>
           </div>
-          <div class="col-lg-4 mt-2">
-            <%= f.label :user_id, '会員ID ※会員のみ' %>
-          </div>
-          <div class="col-lg-8 mt-2">
-            <% if user_signed_in? && (@user.is_locked == true) %>
+          <% if user_signed_in? && (@user.is_locked == true) %>
+            <div class="col-lg-4 mt-3 mb-1">
+              <span>ID ※会員のみ</span>
+            </div>
+            <div class="col-lg-8 mt-3 mb-1">
               <%= @user.id %>
-              <%= f.hidden_field :user_id, :value => @user.id %>
-            <% else %>
+            </div>
+            <%= f.hidden_field :user_id, :value => @user.id %>
+          <% else %>
+            <div class="col-lg-4 mt-2">
+              <%= f.label :user_id, 'ID ※会員のみ' %>
+            </div>
+            <div class="col-lg-8 mt-2">
               <%= f.text_field :user_id, class: 'form-control', :placeholder => '数字を入力' %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
           <div class="col-lg-4 mt-2">
             <%= f.label :email, 'メールアドレス' %>
           </div>
           <div class="col-lg-8 mt-2">
             <%= f.email_field :email, class: 'form-control', :placeholder => 'xxx@gmail.com' %>
           </div>
-          <div class="col-lg-4 mt-2">
-            <%= f.label :inquiry_name, '件名' %>
-          </div>
-          <div class="col-lg-8 mt-2">
-            <% if user_signed_in? && (@user.is_locked == true) %>
-              アカウントの凍結についてのお問い合わせ
-              <%= f.hidden_field :inquiry_name, :value => 'アカウントの凍結についてのお問い合わせ' %>
-            <% else %>
+          <% if user_signed_in? && (@user.is_locked == true) %>
+            <div class="col-lg-4 mt-3 mb-1">
+              <span>件名</span>
+            </div>
+            <div class="col-lg-8 mt-3 mb-1">
+              <span>アカウントの凍結についてのお問い合わせ</span>
+            </div>
+            <%= f.hidden_field :inquiry_name, :value => 'アカウントの凍結についてのお問い合わせ' %>
+          <% else %>
+            <div class="col-lg-4 mt-2">
+              <%= f.label :inquiry_name, '件名' %>
+            </div>
+            <div class="col-lg-8 mt-2">
               <%= f.text_field :inquiry_name, class: 'form-control', :placeholder => '30文字以内で入力してください。' %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
           <div class="col-lg-4 mt-2">
             <%= f.label :inquiry_detail, '内容' %>
           </div>
           <div class="col-lg-8 mt-2">
-            <%= f.text_area :inquiry_detail, class: 'form-control', :placeholder => '500文字以内で入力してください。' %>
+            <%= f.text_area :inquiry_detail, class: 'form-control text_area-vertical', :placeholder => '500文字以内で入力してください。' %>
           </div>
           <div class="col-lg-12 d-flex justify-content-center mt-4">
             <%= f.submit '内容確認', class: 'btn btn-secondary' %>

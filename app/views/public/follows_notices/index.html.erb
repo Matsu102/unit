@@ -1,58 +1,120 @@
-<h2>Follows & Notices　フォローとお知らせ</h2>
+<p>Follows & Notices　フォローとお知らせ</p>
 
-<div class="row">
+<div class="row justify-content-center">
+  <div class="col-lg-11 d-flex justify-content-center mt-5">
 
-  <div class="col-sm-3">
-  <p><%= @my_followers.count %> フォロー</p>
-    <% @my_followers.each do |follow| %>
-      <% if follow.is_deleted == true %>
-        <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
-        <%= render 'layouts/user_mark', user: follow %>
-        <span>退会済みユーザー</span>
-      <% elsif follow.is_locked == true %>
-        <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
-        <%= render 'layouts/user_mark', user: follow %>
-        <span>アカウント凍結中</span>
-      <% else %>
-        <%= image_tag follow.get_thumbnail, :size => '50x50' %>
-        <%= render 'layouts/user_mark', user: follow %>
-        <%= render 'layouts/user_page', user_type: follow.user_type, handle_name: follow.handle_name, user_id: follow.id %>
+    <div class="col-lg-3">
+      <div class="white-text gray-800-back d-flex align-items-center pl-3 list-label">
+        <%= @my_followers.count %><span> フォロー</span>
+      </div>
+      <% @my_followers.each do |follow| %>
+        <div class="gray-400-back line-bottom d-flex align-items-center text-center py-1">
+          <% if follow.is_deleted == true %>
+            <div class="col-lg-4">
+              <%= image_tag 'is_deleted_thumbnail.jpg', class: 'rounded-circle thumbnail-s' %>
+            </div>
+            <div class="col-lg-1">
+              <%= render 'layouts/user_mark', user: follow %>
+            </div>
+            <div class="col-lg-7">
+              <span>退会済みユーザー</span>
+            </div>
+          <% elsif follow.is_locked == true %>
+            <div class="col-lg-4">
+              <%= image_tag 'is_locked_thumbnail', class: 'rounded-circle thumbnail-s' %>
+            </div>
+            <div class="col-lg-1">
+              <%= render 'layouts/user_mark', user: follow %>
+            </div>
+            <div class="col-lg-7">
+              <span>アカウント凍結中</span>
+            </div>
+          <% else %>
+            <div class="col-lg-4">
+              <%= image_tag follow.get_thumbnail, class: 'rounded-circle thumbnail-s' %>
+            </div>
+            <div class="col-lg-1">
+              <%= render 'layouts/user_mark', user: follow %>
+            </div>
+            <div class="col-lg-7">
+              <%= render 'layouts/user_page', user_type: follow.user_type, handle_name: follow.handle_name, user_id: follow.id %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
-  </div>
+    <div class="d-flex justify-content-center pt-2">
+      <%= paginate @my_followers, :param_name => 'my_followers_page' %>
+    </div>
+    </div>
 
-  <div class="col-sm-3">
-  <p><%= @my_followeds.count %> フォロワー</p>
-    <% @my_followeds.each do |follower| %>
-      <% if follower.is_deleted == true %>
-        <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
-        <%= render 'layouts/user_mark', user: follower %>
-        <span>退会済みユーザー</span>
-      <% elsif follower.is_locked == true %>
-        <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
-        <%= render 'layouts/user_mark', user: follower %>
-        <span>アカウント凍結中</span>
-      <% else %>
-        <%= image_tag follower.get_thumbnail, :size => '50x50' %>
-        <%= render 'layouts/user_mark', user: follower %>
-        <%= render 'layouts/user_page', user_type: follower.user_type, handle_name: follower.handle_name, user_id: follower.id %>
+    <div class="col-lg-3">
+      <div class="white-text gray-800-back d-flex align-items-center pl-3 list-label">
+        <%= @my_followeds.count %><span> フォロワー</span>
+      </div>
+      <% @my_followeds.each do |follower| %>
+        <div class="gray-400-back line-bottom d-flex align-items-center text-center py-1">
+          <% if follower.is_deleted == true %>
+            <div class="col-lg-4">
+              <%= image_tag 'is_deleted_thumbnail.jpg', class: 'rounded-circle thumbnail-s' %>
+            </div>
+            <div class="col-lg-1">
+              <%= render 'layouts/user_mark', user: follower %>
+            </div>
+            <div class="col-lg-7">
+              <span>退会済みユーザー</span>
+            </div>
+          <% elsif follower.is_locked == true %>
+            <div class="col-lg-4">
+              <%= image_tag 'is_locked_thumbnail', class: 'rounded-circle thumbnail-s' %>
+            </div>
+            <div class="col-lg-1">
+              <%= render 'layouts/user_mark', user: follower %>
+            </div>
+            <div class="col-lg-7">
+              <span>アカウント凍結中</span>
+            </div>
+          <% else %>
+            <div class="col-lg-4">
+              <%= image_tag follower.get_thumbnail, class: 'rounded-circle thumbnail-s' %>
+            </div>
+            <div class="col-lg-1">
+              <%= render 'layouts/user_mark', user: follower %>
+            </div>
+            <div class="col-lg-7">
+              <%= render 'layouts/user_page', user_type: follower.user_type, handle_name: follower.handle_name, user_id: follower.id %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
-  </div>
+    <div class="d-flex justify-content-center pt-2">
+      <%= paginate @my_followeds, :param_name => 'my_followeds_page' %>
+    </div>
+    </div>
 
-  <div class="col-sm-6">
-    <p>
-      お知らせ
-      <%= form_with model: @notice, url: follows_notices_update_all_path, method: :patch do |f| %>
-        <%= f.hidden_field :checked, value: true %>
-        <%= f.submit '一括既読' %>
-      <% end %>
-    </p>
-    <% if @notice.exists? %>
-      <%= render partial: 'layouts/notice', collection: @notice %>
-    <% else %>
-      <p>通知はありません</p>
-    <% end %>
-  </div>
+    <div class="col-lg-6">
+      <div class="col-lg-12 white-text gray-800-back d-flex justify-content-center align-items-center pr-0 list-label">
+        <div class="col-lg-4 pl-3">
+          <span>お知らせ</span>
+        </div>
+        <div class="col-lg-8 text-right mr-3">
+          <%= form_with model: @notices, url: follows_notices_update_all_path, method: :patch do |f| %>
+            <%= f.hidden_field :checked, value: true %>
+            <%= f.submit '一括既読', class: 'btn btn-secondary' %>
+          <% end %>
+        </div>
+      </div>
+        <% if @notices.exists? %>
+          <%= render partial: 'layouts/notice', collection: @notices %>
+        <% else %>
+          <div class="gray-400-back d-flex align-items-center justify-content-center line-bottom py-3">
+            <span>通知はありません</span>
+          </div>
+        <% end %>
+      </div>
+      <div class="d-flex justify-content-center pt-2">
+        <%= paginate @notices, :param_name => 'notices_page' %>
+      </div>
+    </div>
 
+  </div>
 </div>

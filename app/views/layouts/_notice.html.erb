@@ -1,40 +1,58 @@
-<div>
-  <% if notice.visitor.is_deleted == true %>
-    <%= image_tag 'is_deleted_thumbnail.jpg', :size => '50x50' %>
+<div class="gray-400-back d-flex align-items-center line-bottom py-1">
+<% if notice.visitor.is_deleted == true %>
+  <div class="col-2">
+    <%= image_tag 'is_deleted_thumbnail.jpg', class: 'rounded-circle thumbnail-s' %>
     <%= render 'layouts/user_mark', user: notice.visitor %>
+  </div>
+  <div class="col-3">
     <span>退会済みユーザー</span>
-  <% elsif notice.visitor.is_locked == true %>
-    <%= image_tag 'is_locked_thumbnail', :size => '50x50' %>
+  </div>
+<% elsif notice.visitor.is_locked == true %>
+  <div class="col-2">
+    <%= image_tag 'is_locked_thumbnail', class: 'rounded-circle thumbnail-s' %>
     <%= render 'layouts/user_mark', user: notice.visitor %>
+  </div>
+  <div class="col-3">
     <span>アカウント凍結中</span>
-  <% else %>
-    <%= image_tag notice.visitor.get_thumbnail, :size => '50x50' %>
+  </div>
+<% else %>
+  <div class="col-2">
+    <%= image_tag notice.visitor.get_thumbnail, class: 'rounded-circle thumbnail-s' %>
     <%= render 'layouts/user_mark', user: notice.visitor %>
+  </div>
+  <div class="col-2">
     <%= render 'layouts/user_page', user_type: notice.visitor.user_type, handle_name: notice.visitor.handle_name, user_id: notice.visitor_id %>
-    さん
-  <% end %>
+  </div>
+<% end %>
+<div class="col-4">
   <% case notice.action %>
   <% when "follow" %>
-    フォローしました
+    <span>フォローしました</span>
   <% when "like" %>
     <%= link_to "投稿", art_engagements_path(notice.art_id) %>
-    にいいねしました
+    <span>にいいねしました</span>
   <% when "comment" %>
     <% if notice.comment.to_id == nil %>
       <%= link_to "投稿", art_engagements_path(notice.art_id) %>
-      にコメントしました
+      <span>にコメントしました<br></span>
     <% else %>
       <%= link_to "コメント", art_engagements_path(notice.art_id) %>
-      に返信しました
+      <span>に返信しました</span>
     <% end %>
     <% if notice.visitor.is_locked == true %>
     <% else %>
       <%= notice.comment.body.truncate(18) %>
     <% end %>
   <% end %>
+</div>
+<div class="col-2">
   <%= l notice.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
+</div>
+<div class="col-1">
   <%= form_with model: notice, url: follows_notice_path(notice.id), method: :patch do |f| %>
   <%= f.hidden_field :checked, value: true %>
-    <%= f.submit '既読' %>
+    <%= f.submit '既読', class: 'btn btn-secondary' %>
   <% end %>
+</div>
+
 </div>

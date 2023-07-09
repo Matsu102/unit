@@ -66,7 +66,7 @@ class User < ApplicationRecord
 
 #--------------------------------------------------
 
-  #サムネイル
+  #ダミーサムネイル
   def get_thumbnail
     unless thumbnail.attached?
       file_path = Rails.root.join('app/assets/images/no_thumbnail.jpg') # サムネイル未登録時の画像

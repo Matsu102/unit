@@ -31,8 +31,7 @@ window.document.addEventListener('turbolinks:load', function() {
       fileReader.onload = ((e) => {
         const img = new Image()
         img.src = e.target.result
-        img.setAttribute( "class", "img-fluid" )
-        img.style.maxHeight = "400px"
+        img.setAttribute( "class", "img-fluid image-preview" )
         $('#previewImage').html(img)
       })
       fileReader.readAsDataURL(file)
@@ -49,9 +48,7 @@ window.document.addEventListener('turbolinks:load', function() {
       fileReader.onload = ((e) => {
         const img = new Image()
         img.src = e.target.result
-        img.setAttribute( "width", "75" )
-        img.setAttribute( "height", "75" )
-        img.setAttribute( "class", "rounded-circle d-block mx-auto" )
+        img.setAttribute( "class", "thumbnail-m rounded-circle d-block mx-auto" )
         $('#previewThumbnail').html(img)
       })
       fileReader.readAsDataURL(file)

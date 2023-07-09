@@ -45,7 +45,7 @@ a:hover {
   color: #6c757d;
 }
 
-// index ------------------------------
+// user_index ------------------------------
 
 .link-card {
   background-color: #ced4da;
@@ -55,17 +55,50 @@ a:hover {
   background-color: #6c757d;
 }
 
+.introduction-vertical {
+  height: 90px;
+}
+
 // ファイル選択ボタン ------------------------------
 
 .image_form{
   display: none;
 }
 
+// サイズ ------------------------------
+
+.thumbnail-s {
+  width: 50px;
+  height: 50px;
+}
+
+.thumbnail-m {
+  width: 75px;
+  height: 75px;
+}
+
+.thumbnail-l {
+  width: 100px;
+  height: 100px;
+}
+
+.list-label {
+  height: 60px;
+}
+
+.image-preview {
+  max-height: 400px
+}
+
+.text_area-vertical {
+  height: 150px;
+}
+
 // アコーディオン ------------------------------
 
 .accordion-003 {
     max-width: auto;
-    border-bottom: 1px solid #343a40;
+    border-bottom: 1px solid #6c757d;
 }
 
 .accordion-003 summary {
@@ -85,8 +118,8 @@ a:hover {
     width: 7px;
     height: 7px;
     margin-left: 10px;
-    border-bottom: 3px solid #343a40b3;
-    border-right: 3px solid #343a40b3;
+    border-bottom: 3px solid #6c757d;
+    border-right: 3px solid #6c757d;
     content: '';
     transition: transform .3s;
 }

@@ -22,7 +22,7 @@
 <% end %>
 
 <div class="row d-flex justify-content-center">
-  <div class="row col-lg-11 d-flex flex-wrap justify-content-start mt-4">
+  <div class="row col-lg-11 d-flex flex-wrap justify-content-center mt-4">
     <% @user.each do |user| %>
       <div class="col-lg-2 align-items-center text-center">
         <%= link_to artist_path(user.id), class: 'text-decoration-none' do %>
@@ -31,11 +31,11 @@
             <div class="row">
               <div class="row col-lg-12 link-card py-2">
                 <div class="col-lg-12">
-                  <%= image_tag user.get_thumbnail, class: 'rounded-circle d-block mx-auto mt-3', :size => '75x75' %>
+                  <%= image_tag user.get_thumbnail, class: 'rounded-circle d-block mx-auto mt-3 thumbnail-m' %>
                 </div>
                 <div class="col-lg-12 mt-3">
                   <%= user.handle_name %>
-                  <div class="align-items-center mt-3" style="height: 90px;">
+                  <div class="align-items-center mt-3 introduction-vertical">
                     <% if user.introduction.nil? %>
                       <p>No<br>introduction.</p>
                     <% else %>

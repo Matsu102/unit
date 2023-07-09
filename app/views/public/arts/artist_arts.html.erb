@@ -5,7 +5,7 @@
     <% @arts.each do |art| %>
       <div class= "mr-3 mb-4">
         <%= link_to art_path(art.id) do %>
-          <%= image_tag art.image.variant(gravity: :center, resize:"240x200^", crop:"240x200+0+0").processed %>
+          <%= image_tag art.image_card %>
         <% end %>
       </div>
     <% end %>

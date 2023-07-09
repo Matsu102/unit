@@ -30,10 +30,10 @@
       <div class="col-lg-10 mt-3">
         <%= @inquiry.email %>
       </div>
-      <div class="col-lg-2 mt-3">
+      <div class="col-lg-2 mt-4">
         <span>対応状況</span>
       </div>
-      <div class="col-lg-10 mt-3">
+      <div class="col-lg-10 mt-4">
         <%= form_with model: @inquiry, url: admin_inquiry_path(@inquiry.id) do |f| %>
           <div class="custom-control custom-radio custom-control-inline">
             <%= f.radio_button :is_response, false, class: 'custom-control-input' %><%= f.label(:is_response, '未対応', value: false, class: 'custom-control-label') %>
@@ -44,16 +44,16 @@
             <%= f.submit '変更', class: 'btn btn-secondary ml-3' %>
         <% end %>
       </div>
-      <div class="col-lg-2 pb-3">
+      <div class="col-lg-2 mt-3">
         <span>件名</span>
       </div>
-      <div class="col-lg-10">
+      <div class="col-lg-10 mt-3">
         <%= @inquiry.inquiry_name %>
       </div>
-      <div class="col-lg-2">
+      <div class="col-lg-2 mt-3">
         <span>内容</span>
       </div>
-      <div class="col-lg-10">
+      <div class="col-lg-10 mt-3">
         <%= @inquiry.inquiry_detail %>
       </div>
     </div>

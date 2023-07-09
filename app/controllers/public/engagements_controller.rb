@@ -3,8 +3,8 @@ before_action :authenticate_user!, except: [:show]
 before_action :is_locked_protect
 
   def show
-    @likes = Like.where(art_id: params[:art_id]).order(id: :desc)
-    @comments = Comment.where(art_id: params[:art_id], to_id: nil, is_deleted: false).order(id: :desc) # 親コメント
+    @likes = Like.where(art_id: params[:art_id]).order(id: :desc).page(params[:likes_page]).per(8)
+    @comments = Comment.where(art_id: params[:art_id], to_id: nil, is_deleted: false).order(id: :desc).page(params[:comments_page]).per(8) # 親コメント
     @art= Art.find(params[:art_id])
     @comment = Comment.new
   end

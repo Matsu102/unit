@@ -3,7 +3,7 @@
 
     <div class="col-lg-6 d-flex justify-content-center mt-5">
       <%= link_to art_view_path(@art.id) do %>
-        <%= image_tag @art.image, class: 'img-fluid', style: 'max-height: 400px' %>
+        <%= image_tag @art.image, class: 'img-fluid image-preview' %>
       <% end %>
     </div>
 
@@ -29,7 +29,7 @@
         <div class="col-lg-12 mt-2">
           <% if user_signed_in? %>
             <% if @art.user_id == current_user.id %>
-              <i class="fas fa-thumbs-up gray-800"></i> <%= @art.likes.count %>
+              <span><i class="fas fa-thumbs-up gray-800"></i> </span><%= @art.likes.count %>
             <% else %>
               <% if @art.liked_by?(current_user) %>
                 <%= link_to art_likes_path(@art), method: :delete, class: 'text-decoration-none' do %>
@@ -37,13 +37,13 @@
                 <% end %>
               <% else %>
                 <%= link_to art_likes_path(@art), method: :post, class: 'text-decoration-none' do %>
-                  <i class="fas fa-thumbs-up gray-400"></i>
+                   <span><i class="fas fa-thumbs-up gray-400"></i> </span>
                 <% end %>
               <% end %>
-              <span> </span><%= @art.likes.count %>
+             <%= @art.likes.count %>
             <% end %>
           <% else %>
-            <i class="fas fa-thumbs-up gray-800"></i><%= @art.likes.count %>
+            <span><i class="fas fa-thumbs-up gray-800"></i> </span><%= @art.likes.count %>
           <% end %>
           <span>　</span><%= @comments.count %><span> コメント</span>
           <span>　</span><%= link_to '詳細表示 >', art_engagements_path(@art.id) %>

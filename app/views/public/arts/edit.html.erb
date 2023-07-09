@@ -4,8 +4,8 @@
   <div class="row row-cols-2 col-lg-9 d-flex justify-content-center">
 
     <div class="col-lg-6 d-flex justify-content-center mt-5">
-      <div id="previewImage", class="image_size"> <!--画像プレビュー-->
-        <%= image_tag @art.image, class: 'img-fluid', style: 'max-height: 400px' %>
+      <div id="previewImage"> <!--画像プレビュー-->
+        <%= image_tag @art.image, class: 'img-fluid image-preview' %>
       </div>
     </div>
 
@@ -25,7 +25,7 @@
                 <%= f.label :detail, '説明' %>
               </div>
               <div class="col-lg-8 mt-2">
-                <%= f.text_area :detail, class: 'form-control', :placeholder => '200文字以内' %>
+                <%= f.text_area :detail, class: 'form-control text_area-vertical', :placeholder => '200文字以内' %>
               </div>
               <div class="col-lg-4 mt-2">
                 <%= label_tag(:tagsbody, 'タグ') %>

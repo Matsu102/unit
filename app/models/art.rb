@@ -42,6 +42,18 @@ class Art < ApplicationRecord
 
 #--------------------------------------------------
 
+  # imageのカードのサイズ
+  def image_card
+    image.variant(gravity: :center, resize:"240x200^", crop:"240x200+0+0").processed
+  end
+
+  # arts/view/:id のサイズ
+  def image_view
+    image.variant( resize: '1300>' )
+  end
+
+#--------------------------------------------------
+
   # Likesテーブルにuser.idが存在するか調べる true => いいね中 false => いいねなし
   def liked_by?(user)
     likes.exists?(user_id: user.id)

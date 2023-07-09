@@ -6,7 +6,7 @@
       <p>心当たりが無い場合は<%= link_to 'お問い合わせフォーム', helps_inquiry_path %>よりご連絡ください</p>
     <% else %>
       <div class="col-12">
-        <%= image_tag @user.get_thumbnail, class: 'rounded-circle d-block mx-auto mt-3', :size => '75x75' %>
+        <%= image_tag @user.get_thumbnail, class: 'rounded-circle d-block mx-auto mt-3 thumbnail-l' %>
       </div>
       <div class="col-12 mt-3">
         <%= render 'layouts/user_mark', user: @user %>
