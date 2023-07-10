@@ -1,12 +1,12 @@
 <p>Sign up　新規登録</p>
-<div class="row justify-content-lg-center">
+<div class="row justify-content-center">
 
   <div class="col-12">
     <div class="text-center">
       <% if 'artist' == @user_type %>
-        <p>New Artist 新しいアーティストの情報入力</p>
+        <p>New Artist　新しいアーティストの情報入力</p>
       <% elsif 'fan' == @user_type %>
-        <p>New Fan 新しいファンの情報入力</p>
+        <p>New Fan　新しいファンの情報入力</p>
       <% else %>
         <p>不正なエラー</p>
       <% end %>
@@ -17,7 +17,7 @@
     <%= form_with model: @user, url: create_user_registration_path, id: 'new_user', class: 'new_user' do |f| %>
     <%= render 'layouts/error_message', resource: f.object %>
       <div class="d-flex justify-content-center">
-        <div class="col-lg-5 gray-400-back px-3 py-5">
+        <div class="col-lg-6 gray-400-back px-3 py-5">
           <div class="form-row d-flex justify-content-center align-items-center mx-5">
             <div class="col-lg-4">
               <span>お名前</span>

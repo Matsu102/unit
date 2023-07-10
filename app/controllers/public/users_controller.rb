@@ -22,7 +22,7 @@ before_action :is_locked_protect, only: [:index, :edit]
     elsif (@user.user_type == 'fan') or (@user.is_deleted == true) or (@user.is_locked == true) # ファン、退会済み、凍結中ユーザのページは表示できないようにする
       redirect_to artists_path
     end
-    @arts = Art.where(user_id: @user.id).order(id: :desc)
+    @arts = Art.where(user_id: @user.id, is_deleted: false).order(id: :desc)
   end
 
   def fan

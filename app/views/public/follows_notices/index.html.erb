@@ -97,9 +97,11 @@
           <span>お知らせ</span>
         </div>
         <div class="col-lg-8 text-right mr-3">
-          <%= form_with model: @notices, url: follows_notices_update_all_path, method: :patch do |f| %>
-            <%= f.hidden_field :checked, value: true %>
-            <%= f.submit '一括既読', class: 'btn btn-secondary' %>
+          <% if @notices.exists? %>
+            <%= form_with model: @notices, url: follows_notices_update_all_path, method: :patch do |f| %>
+              <%= f.hidden_field :checked, value: true %>
+              <%= f.submit '一括既読', class: 'btn btn-secondary' %>
+            <% end %>
           <% end %>
         </div>
       </div>

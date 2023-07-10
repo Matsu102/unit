@@ -3,7 +3,7 @@ before_action :authenticate_user!, except: [:index, :show]
 before_action :is_locked_protect
 
   def index
-    @arts = Art.includes(:user).where(users: {is_deleted: false, is_locked: false}).order(id: :desc).page(params[:page]).per(10)
+    @arts = Art.includes(:user).where(users: {is_deleted: false, is_locked: false}).where(is_deleted: false).order(id: :desc).page(params[:page]).per(10)
   end
 
   def search
@@ -14,8 +14,8 @@ before_action :is_locked_protect
       @arts = []
       split_keyword.each do |keyword| # split_keywordに格納されたワードを一つずつ取り出して検索
         next if keyword == ""
-        @arts += Art.order(id: :desc).includes(:user).where(users: {is_deleted: false, is_locked: false}).where(["title like?", "%#{keyword}%",]) # Artのtitleカラムと照合
-        @arts += Art.joins(:tags).order(id: :desc).where(["name like?", "%#{keyword}%"]) # Artに紐づいているTagのnameカラムと照合
+        @arts += Art.order(id: :desc).includes(:user).where(users: {is_deleted: false, is_locked: false}).where(is_deleted: false).where(["title like?", "%#{keyword}%",]) # Artのtitleカラムと照合
+        @arts += Art.joins(:tags).order(id: :desc).where(is_deleted: false).where(["name like?", "%#{keyword}%"]) # Artに紐づいているTagのnameカラムと照合
       end
       @arts.uniq! #重複した作品を除外する
       @arts = Kaminari.paginate_array(@arts).page(params[:page]).per(10)
@@ -26,12 +26,12 @@ before_action :is_locked_protect
 
   def my_album
     users = current_user.my_followers # users > フォローしているユーザの情報をusersに格納
-    @arts = Art.includes(:user).where(users: {is_deleted: false, is_locked: false}).where(user_id: users.map(&:id)).order(id: :desc).page(params[:page]).per(10) # map > カラムを指定してデータを取り出す  serts.id でも取れそうな雰囲気だが、エラーが出る。 (User.all.idと書いているようなもの)
+    @arts = Art.includes(:user).where(users: {is_deleted: false, is_locked: false}).where(user_id: users.map(&:id)).where(is_deleted: false).order(id: :desc).page(params[:page]).per(10) # map > カラムを指定してデータを取り出す  serts.id でも取れそうな雰囲気だが、エラーが出る。 (User.all.idと書いているようなもの)
   end
 
   def artist_arts
     @user = User.find(params[:id])
-    @arts = Art.where(user_id: @user.id).order(id: :desc).page(params[:page]).per(10)
+    @arts = Art.where(user_id: @user.id).where(is_deleted: false).order(id: :desc).page(params[:page]).per(10)
     if (@user.is_deleted == true) or (@user.is_locked == true)
       flash[:alert] = '不正なエラー'
       redirect_to arts_path
@@ -73,6 +73,10 @@ before_action :is_locked_protect
       flash[:alert] = '不正なエラー'
       redirect_to arts_path
     end
+    if @art.is_deleted == true
+      flash[:alert] = '指定の投稿は削除済みです。'
+      redirect_to arts_path
+    end
     @tags = @art.tags
     @comments = Comment.where(art_id: @art.id, to_id: nil, is_deleted: false) # 親コメント
   end
@@ -89,6 +93,10 @@ before_action :is_locked_protect
       flash[:alert] = '不正なエラー'
       redirect_to arts_path
     end
+    if @art.is_deleted == true
+      flash[:alert] = '指定の投稿は削除済みです。'
+      redirect_to arts_path
+    end
   end
 
   def edit
@@ -101,6 +109,10 @@ before_action :is_locked_protect
     if (@art.user.is_deleted == true) or (@art.user.is_locked == true)
       flash[:alert] = '不正なエラー'
       redirect_to artist_path
+    end
+    if @art.is_deleted == true
+      flash[:alert] = '指定の投稿は削除済みです。'
+      redirect_to arts_path
     end
   end
 
@@ -133,10 +145,11 @@ before_action :is_locked_protect
     if @art.user_id != current_user.id
       flash[:alert] = '不正なエラー'
       redirect_to arts_path
-    else
-      @art.update(is_deleted: true)
+    elsif @art.update(is_deleted: true)
       flash[:notice] = '投稿を削除しました。'
       redirect_to artist_path(current_user.id)
+    else
+      render :edit
     end
   end
 
