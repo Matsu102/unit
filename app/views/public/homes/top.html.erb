@@ -1,23 +1,25 @@
 <div class="row d-flex justify-content-center">
   <div class="row col-lg-11 d-flex justify-content-center mt-4">
 
-    <% if @arts.length == 0 %>
-      <p class="my-5">投稿はありません。</p>
-    <% else %>
-      <% @arts.first(10).each do |art| %>
-        <div class= "mr-3 mb-4">
-          <%= link_to art_path(art.id) do %>
-            <%= image_tag art.image_card %>
-          <% end %>
+      <% if @arts.length == 0 %>
+        <p class="my-5">投稿はありません。</p>
+      <% else %>
+        <% @arts.first(10).each do |art| %>
+          <div class= "mr-3 mb-4">
+            <%= link_to art_path(art.id) do %>
+              <%= image_tag art.image_card %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+
+    <div class="col-lg-12">
+      <% if @arts.length > 10 %>
+        <div class="d-flex justify-content-center pt-2">
+          <%= link_to 'もっと見る', arts_path %>
         </div>
       <% end %>
-    <% end %>
-
-    <% if @arts.length > 0 %>
-      <div class="d-flex justify-content-center pt-2">
-        <%= link_to 'もっと見る', arts_path %>
-      </div>
-    <% end %>
+    </div>
 
   </div>
 </div>

@@ -97,11 +97,13 @@
                   <div class="col-lg-3">
                     <%= l comment.created_at %>  <!--#lヘルパー config/locales/ja.ymlにて設定-->
                   </div>
-                  <div class="col-lg-2 d-flex justify-content-between">
+                  <div class="col-lg-2 d-flex justify-content-between align-items-center">
                     <div>
                       <% if user_signed_in? && comment.user_id == current_user.id %>
                         <%= form_with model: comment, url: art_engagement_path(@art.id, comment.id), method: :patch do |f| %>
-                          <i class="fas fa-trash fa-lg"></i>
+                          <%= button_tag type: 'submit', class: 'btn btn-secondary' do %>
+                            <i class="fas fa-trash fa-lg"></i>
+                          <% end %>
                         <% end %>
                       <% end %>
                     </div>
@@ -164,7 +166,9 @@
                       <% if user_signed_in? && reply.user_id == current_user.id %>
                         <%= form_with model: reply, url: art_engagement_path(@art.id, reply.id), method: :patch do |f| %>
                           <%= f.hidden_field :to_id, value: comment.id %>
-                          <i class="fas fa-trash fa-lg"></i>
+                          <%= button_tag type: 'submit', class: 'btn btn-secondary' do %>
+                            <i class="fas fa-trash fa-lg"></i>
+                          <% end %>
                         <% end %>
                       <% end %>
                     </div>

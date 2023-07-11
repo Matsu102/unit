@@ -26,7 +26,7 @@
       </div>
       <div class="col-12 mt-3">
         <% if user_signed_in? && (@user.id == current_user.id) %>
-          <%= link_to '登録情報変更', users_edit_path, class: 'btn btn-secondary' %>
+          <%= link_to '登録情報変更', users_edit_path, class: 'btn btn-secondary text-decoration-none' %>
         <% end %>
       </div>
     <% end %>

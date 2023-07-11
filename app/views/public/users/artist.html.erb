@@ -28,7 +28,11 @@
             <% end %>
           </div>
           <div class="col-12 mt-3">
-            <%= @user.introduction %>
+            <% if @user.introduction.nil? %>
+              <p>No<br>introduction.</p>
+            <% else %>
+              <%= @user.introduction %>
+            <% end %>
           </div>
           <div class="col-12 mt-3">
           <% if user_signed_in? && @user.id == current_user.id %>
